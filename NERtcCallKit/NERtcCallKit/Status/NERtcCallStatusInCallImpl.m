@@ -34,6 +34,7 @@
           groupID:(NSString *)groupID
              type:(NERtcCallType)type
        completion:(void (^)(NSError * _Nullable))completion {
+    
     if (!completion) return;
     
     NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20004 userInfo:@{NSLocalizedDescriptionKey: @"已在通话中，不能再次呼叫"}];
@@ -75,6 +76,7 @@
     NIMSignalingLeaveChannelRequest *request = [[NIMSignalingLeaveChannelRequest alloc] init];
     request.channelId = self.context.channelInfo.channelId;
     [NIMSDK.sharedSDK.signalManager signalingLeaveChannel:request completion:^(NSError * _Nullable error) {
+        [self.context cleanUp];
         NERtcCallKit.sharedInstance.callStatus = NERtcCallStatusIdle;
         if (completion) {
             completion(nil);

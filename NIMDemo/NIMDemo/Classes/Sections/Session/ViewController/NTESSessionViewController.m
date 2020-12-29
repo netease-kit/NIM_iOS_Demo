@@ -457,6 +457,7 @@ UISearchBarDelegate>
             NSString *me = [NIMSDK sharedSDK].loginManager.currentAccount;
             NEGroupCallVC *groupVC = [[NEGroupCallVC alloc] initWithCaller:me otherMembers:memeber isCalled:NO];
             groupVC.teamId = weakSelf.session.sessionId;
+            groupVC.modalPresentationStyle = UIModalPresentationFullScreen;
             [weakSelf presentViewController:groupVC animated:NO completion:nil];
         };;
         [vc show];

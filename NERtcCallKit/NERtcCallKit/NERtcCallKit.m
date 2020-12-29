@@ -347,8 +347,10 @@
                     }];
                 }];
             }
-            self.callStatus = NERtcCallStatusInCall;
-            [self.delegateProxy onUserAccept:accept.fromAccountId];
+            if (self.context.channelInfo) { // 如果已经退出了，但多人通话中再次加入通话成员，则不处理
+                self.callStatus = NERtcCallStatusInCall;
+                [self.delegateProxy onUserAccept:accept.fromAccountId];
+            }
             break;
         }
         case NIMSignalingEventTypeContrl: {

@@ -145,6 +145,7 @@
     if (self.status == NERtcCallStatusCalling) {
         WEAK_SELF(weakSelf);
         [[NERtcCallKit sharedInstance] groupCall:self.otherMembers groupID:self.teamId type:NERtcCallTypeVideo completion:^(NSError * _Nullable error) {
+            NSLog(@"groupCall:error::%@",error);
             STRONG_SELF(strongSelf);
             NEGroupCallCollectionCell *cell = strongSelf.userforView[strongSelf.caller];
             [[NERtcCallKit sharedInstance] setupLocalView:cell.videoView];
@@ -194,8 +195,11 @@
     }
 }
 - (void)onUserBusy:(NSString *)userID {
-    [self.view.window makeToast:@"对方正在通话中"];
-    [self destroy];
+    if (userID.length) {
+        NEGroupCallCollectionCell *cell = [self.userforView objectForKey:userID];
+        cell.cameraTip.text = [NSString stringWithFormat:@"%@对方正忙",userID];
+        cell.cameraTip.hidden = NO;
+    }
 }
 - (void)onUserReject:(NSString *)userID {
     if (userID.length) {
