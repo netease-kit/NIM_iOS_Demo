@@ -221,6 +221,15 @@
     [self onUserLeave:userID];
 }
 
+- (void)onOtherClientAccept {
+    [self.view.window makeToast:@"已在其他设备接听"];
+    [self destroy]; // 已被其他端处理
+}
+
+- (void)onOtherClientReject {
+    [self destroy]; // 已被其他端处理
+}
+
 - (void)onCallEnd {
     [self destroy];
 }
