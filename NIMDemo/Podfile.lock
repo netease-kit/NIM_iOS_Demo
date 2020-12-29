@@ -1,0 +1,92 @@
+PODS:
+  - CocoaLumberjack (3.2.1):
+    - CocoaLumberjack/Default (= 3.2.1)
+    - CocoaLumberjack/Extensions (= 3.2.1)
+  - CocoaLumberjack/Default (3.2.1)
+  - CocoaLumberjack/Extensions (3.2.1):
+    - CocoaLumberjack/Default
+  - Crashlytics (3.14.0):
+    - Fabric (~> 1.10.2)
+  - Fabric (1.10.2)
+  - FLAnimatedImage (1.0.12)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - M80AttributedLabel (1.9.9)
+  - Masonry (1.1.0)
+  - NERtcSDK (3.7.1)
+  - Reachability (3.2)
+  - SDWebImage (5.0.6):
+    - SDWebImage/Core (= 5.0.6)
+  - SDWebImage/Core (5.0.6)
+  - SDWebImageFLPlugin (0.3.0):
+    - FLAnimatedImage (>= 1.0.11)
+    - SDWebImage/Core (~> 5.0)
+  - SSZipArchive (1.8.1)
+  - SVProgressHUD (2.1.2)
+  - Toast (3.1.0)
+  - TZImagePickerController (3.2.9)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+  - YYImage/WebP (1.0.4):
+    - YYImage/Core
+
+DEPENDENCIES:
+  - CocoaLumberjack (~> 3.2.1)
+  - Crashlytics
+  - Fabric
+  - FMDB (~> 2.7.2)
+  - M80AttributedLabel (~> 1.9.9)
+  - Masonry
+  - NERtcSDK (= 3.7.1)
+  - Reachability (~> 3.2)
+  - SDWebImage (~> 5.0.6)
+  - SDWebImageFLPlugin (~> 0.3.0)
+  - SSZipArchive (~> 1.8.1)
+  - SVProgressHUD (~> 2.1.2)
+  - Toast (~> 3.0)
+  - TZImagePickerController (~> 3.2.1)
+  - YYImage
+  - YYImage/WebP
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CocoaLumberjack
+    - Crashlytics
+    - Fabric
+    - FLAnimatedImage
+    - FMDB
+    - M80AttributedLabel
+    - Masonry
+    - NERtcSDK
+    - Reachability
+    - SDWebImage
+    - SDWebImageFLPlugin
+    - SSZipArchive
+    - SVProgressHUD
+    - Toast
+    - TZImagePickerController
+    - YYImage
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: 2800c03334042fe80589423c8d80e582dcaec482
+  Crashlytics: 9220f5bc89e7a618df411b4f639389dbfb0e03d2
+  Fabric: ea977e3cd9c20425516d3dafd3bf8c941c51223f
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  M80AttributedLabel: 77fedfe63804c989a6de0fa4d400ea8cad3ab441
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  NERtcSDK: d97846277c27ad9595a9580c9d7bd2760239cfbe
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
+  SDWebImageFLPlugin: cf3f4ae49f249dd785129346fd61bbc8433a88cf
+  SSZipArchive: 04547dfa448be5ed7ecbaf7eaf8a6e9eb9b42997
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
+  TZImagePickerController: 1f92968aa0e98a06b9e2eccca8560acc19254257
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+
+PODFILE CHECKSUM: 65901e237461cce010309e604cb71a0c77e0737e
+
+COCOAPODS: 1.7.1

@@ -1,0 +1,13 @@
+/* 
+  InfoPlist.strings
+  NIM
+
+  Created by He on 2020/2/11.
+  Copyright © 2020 Netease. All rights reserved.
+*/
+CFBundleName="Yunxin Demo";
+CFBundleDisplayName="Yunxin Demo";
+NSCameraUsageDescription="Yunxin wants to use your camera";
+NSLocationWhenInUseUsageDescription="Yunxin wants to use your location";
+NSMicrophoneUsageDescription="Yunxin wants to use your microphone";
+NSPhotoLibraryUsageDescription="Yunxin wants to use your photo library";

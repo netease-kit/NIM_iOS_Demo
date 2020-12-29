@@ -1,0 +1,36 @@
+platform :ios, '9.0'
+workspace 'NIM.xcworkspace'
+
+abstract_target 'NIMDemo' do
+    pod 'SDWebImage', '~> 5.0.6'
+    pod 'SDWebImageFLPlugin', '~> 0.3.0'
+    pod 'Toast', '~> 3.0'
+    pod 'M80AttributedLabel', '~> 1.9.9'
+    pod 'TZImagePickerController', '~> 3.2.1'
+    pod 'YYImage'
+    pod 'YYImage/WebP'
+    pod 'NERtcSDK', '3.7.1'
+
+    target 'NIM' do
+        project 'NIM.xcodeproj'
+        pod 'FMDB', '~> 2.7.2'
+        pod 'Reachability', '~> 3.2'
+        pod 'CocoaLumberjack', '~> 3.2.1'
+        pod 'SSZipArchive', '~> 1.8.1'
+        pod 'SVProgressHUD', '~> 2.1.2'
+        pod 'Fabric'
+        pod 'Crashlytics'
+        pod 'Masonry'
+        
+    end
+    
+    target 'NIMKit' do
+        project '../NIMKit/NIMKit.xcodeproj'
+    end
+    
+    target 'NERtcCallKit' do
+        project '../NERtcCallKit/NERtcCallKit.xcodeproj'
+    end
+    
+end
+

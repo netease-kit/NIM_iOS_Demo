@@ -1,0 +1,451 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		48D4D9EF25665E3800FED0EF /* NERtcCallKit.m */ = {isa = PBXBuildFile; fileRef = 48F6E6232563CF7E00624D6A /* NERtcCallKit.m */; };
+		48D4D9F025665E3800FED0EF /* NERtcCallKitDelegateProxy.m */ = {isa = PBXBuildFile; fileRef = 48F6E6242563CF7E00624D6A /* NERtcCallKitDelegateProxy.m */; };
+		48D4D9F125665E3800FED0EF /* NERtcCallOptions.m */ = {isa = PBXBuildFile; fileRef = 48F6E6222563CF7E00624D6A /* NERtcCallOptions.m */; };
+		48E73EE6256CB558002B841A /* NERtcCallStatusIdleImpl.m */ = {isa = PBXBuildFile; fileRef = 48E73EE5256CB558002B841A /* NERtcCallStatusIdleImpl.m */; };
+		48E73EEE256CE0F2002B841A /* NERtcCallKitContext.m */ = {isa = PBXBuildFile; fileRef = 48E73EED256CE0F2002B841A /* NERtcCallKitContext.m */; };
+		48E73EF1256CE1DF002B841A /* NERtcCallKitUtils.m */ = {isa = PBXBuildFile; fileRef = 48E73EF0256CE1DF002B841A /* NERtcCallKitUtils.m */; };
+		48E73EF5256CEC4C002B841A /* NERtcCallStatusCallingImpl.m */ = {isa = PBXBuildFile; fileRef = 48E73EF4256CEC4C002B841A /* NERtcCallStatusCallingImpl.m */; };
+		48E73EFB256D0A84002B841A /* NERtcCallStatusCalledImpl.m */ = {isa = PBXBuildFile; fileRef = 48E73EFA256D0A84002B841A /* NERtcCallStatusCalledImpl.m */; };
+		48E73EFE256D2BD8002B841A /* NERtcCallStatusInCallImpl.m */ = {isa = PBXBuildFile; fileRef = 48E73EFD256D2BD8002B841A /* NERtcCallStatusInCallImpl.m */; };
+		B94C6F7EE38A282D58B0BA42 /* libPods-NIMDemo-NERtcCallKit.a */ = {isa = PBXBuildFile; fileRef = 9B93EB09C72DEB65DA67AA4F /* libPods-NIMDemo-NERtcCallKit.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		48D4D9E425665E0D00FED0EF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2A7C05027BB592A027661DD8 /* Pods-NIMDemo-NERtcCallKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods-NIMDemo-NERtcCallKit.release.xcconfig; path = "Target Support Files/Pods-NIMDemo-NERtcCallKit/Pods-NIMDemo-NERtcCallKit.release.xcconfig"; sourceTree = "<group>"; };
+		48D4D9E625665E0D00FED0EF /* libNERtcCallKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNERtcCallKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		48E73EE3256CB4F5002B841A /* INERtcCallStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INERtcCallStatus.h; sourceTree = "<group>"; };
+		48E73EE4256CB558002B841A /* NERtcCallStatusIdleImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NERtcCallStatusIdleImpl.h; sourceTree = "<group>"; };
+		48E73EE5256CB558002B841A /* NERtcCallStatusIdleImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NERtcCallStatusIdleImpl.m; sourceTree = "<group>"; };
+		48E73EEC256CE0F2002B841A /* NERtcCallKitContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NERtcCallKitContext.h; sourceTree = "<group>"; };
+		48E73EED256CE0F2002B841A /* NERtcCallKitContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NERtcCallKitContext.m; sourceTree = "<group>"; };
+		48E73EEF256CE1DF002B841A /* NERtcCallKitUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NERtcCallKitUtils.h; sourceTree = "<group>"; };
+		48E73EF0256CE1DF002B841A /* NERtcCallKitUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NERtcCallKitUtils.m; sourceTree = "<group>"; };
+		48E73EF3256CEC4C002B841A /* NERtcCallStatusCallingImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NERtcCallStatusCallingImpl.h; sourceTree = "<group>"; };
+		48E73EF4256CEC4C002B841A /* NERtcCallStatusCallingImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NERtcCallStatusCallingImpl.m; sourceTree = "<group>"; };
+		48E73EF6256CF4F6002B841A /* NERtcCallKit_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NERtcCallKit_Private.h; sourceTree = "<group>"; };
+		48E73EF9256D0A84002B841A /* NERtcCallStatusCalledImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NERtcCallStatusCalledImpl.h; sourceTree = "<group>"; };
+		48E73EFA256D0A84002B841A /* NERtcCallStatusCalledImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NERtcCallStatusCalledImpl.m; sourceTree = "<group>"; };
+		48E73EFC256D2BD8002B841A /* NERtcCallStatusInCallImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NERtcCallStatusInCallImpl.h; sourceTree = "<group>"; };
+		48E73EFD256D2BD8002B841A /* NERtcCallStatusInCallImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NERtcCallStatusInCallImpl.m; sourceTree = "<group>"; };
+		48EB8B16256E0AA7000CE58F /* NERtcCallKitErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NERtcCallKitErrors.h; sourceTree = "<group>"; };
+		48F6E61E2563CF7E00624D6A /* NERtcCallKitDelegateProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NERtcCallKitDelegateProxy.h; sourceTree = "<group>"; };
+		48F6E61F2563CF7E00624D6A /* NERtcCallKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NERtcCallKit.h; sourceTree = "<group>"; };
+		48F6E6202563CF7E00624D6A /* NERtcCallKitConsts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NERtcCallKitConsts.h; sourceTree = "<group>"; };
+		48F6E6212563CF7E00624D6A /* NERtcCallOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NERtcCallOptions.h; sourceTree = "<group>"; };
+		48F6E6222563CF7E00624D6A /* NERtcCallOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NERtcCallOptions.m; sourceTree = "<group>"; };
+		48F6E6232563CF7E00624D6A /* NERtcCallKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NERtcCallKit.m; sourceTree = "<group>"; };
+		48F6E6242563CF7E00624D6A /* NERtcCallKitDelegateProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NERtcCallKitDelegateProxy.m; sourceTree = "<group>"; };
+		9B93EB09C72DEB65DA67AA4F /* libPods-NIMDemo-NERtcCallKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods-NIMDemo-NERtcCallKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEA4D69D9B665A550A768EC9 /* Pods-NIMDemo-NERtcCallKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods-NIMDemo-NERtcCallKit.debug.xcconfig; path = "Target Support Files/Pods-NIMDemo-NERtcCallKit/Pods-NIMDemo-NERtcCallKit.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		48D4D9E325665E0D00FED0EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B94C6F7EE38A282D58B0BA42 /* libPods-NIMDemo-NERtcCallKit.a */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1B855CF6A6861F05664B0B0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9B93EB09C72DEB65DA67AA4F /* libPods-NIMDemo-NERtcCallKit.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		48E73EE7256CB567002B841A /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				48E73EE3256CB4F5002B841A /* INERtcCallStatus.h */,
+				48E73EE4256CB558002B841A /* NERtcCallStatusIdleImpl.h */,
+				48E73EE5256CB558002B841A /* NERtcCallStatusIdleImpl.m */,
+				48E73EF3256CEC4C002B841A /* NERtcCallStatusCallingImpl.h */,
+				48E73EF4256CEC4C002B841A /* NERtcCallStatusCallingImpl.m */,
+				48E73EF9256D0A84002B841A /* NERtcCallStatusCalledImpl.h */,
+				48E73EFA256D0A84002B841A /* NERtcCallStatusCalledImpl.m */,
+				48E73EFC256D2BD8002B841A /* NERtcCallStatusInCallImpl.h */,
+				48E73EFD256D2BD8002B841A /* NERtcCallStatusInCallImpl.m */,
+			);
+			path = Status;
+			sourceTree = "<group>";
+		};
+		48E73EF2256CE1E4002B841A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				48E73EEF256CE1DF002B841A /* NERtcCallKitUtils.h */,
+				48E73EF0256CE1DF002B841A /* NERtcCallKitUtils.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		48EB8B15256E0A85000CE58F /* Consts */ = {
+			isa = PBXGroup;
+			children = (
+				48EB8B16256E0AA7000CE58F /* NERtcCallKitErrors.h */,
+			);
+			path = Consts;
+			sourceTree = "<group>";
+		};
+		48F6E6092563CEB600624D6A /*  */ = {
+			isa = PBXGroup;
+			children = (
+				48F6E6142563CEB600624D6A /* NERtcCallKit */,
+				48F6E6132563CEB600624D6A /* Products */,
+				6090B9D2A4B588A29C3A7E96 /* Pods */,
+				1B855CF6A6861F05664B0B0F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		48F6E6132563CEB600624D6A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				48D4D9E625665E0D00FED0EF /* libNERtcCallKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		48F6E6142563CEB600624D6A /* NERtcCallKit */ = {
+			isa = PBXGroup;
+			children = (
+				48F6E61F2563CF7E00624D6A /* NERtcCallKit.h */,
+				48F6E6232563CF7E00624D6A /* NERtcCallKit.m */,
+				48F6E61E2563CF7E00624D6A /* NERtcCallKitDelegateProxy.h */,
+				48F6E6242563CF7E00624D6A /* NERtcCallKitDelegateProxy.m */,
+				48F6E6212563CF7E00624D6A /* NERtcCallOptions.h */,
+				48F6E6222563CF7E00624D6A /* NERtcCallOptions.m */,
+				48E73EEC256CE0F2002B841A /* NERtcCallKitContext.h */,
+				48E73EED256CE0F2002B841A /* NERtcCallKitContext.m */,
+				48E73EF6256CF4F6002B841A /* NERtcCallKit_Private.h */,
+				48F6E6202563CF7E00624D6A /* NERtcCallKitConsts.h */,
+				48EB8B15256E0A85000CE58F /* Consts */,
+				48E73EF2256CE1E4002B841A /* Utils */,
+				48E73EE7256CB567002B841A /* Status */,
+			);
+			path = NERtcCallKit;
+			sourceTree = "<group>";
+		};
+		6090B9D2A4B588A29C3A7E96 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EEA4D69D9B665A550A768EC9 /* Pods-NIMDemo-NERtcCallKit.debug.xcconfig */,
+				2A7C05027BB592A027661DD8 /* Pods-NIMDemo-NERtcCallKit.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../NIMDemo/Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		48D4D9E525665E0D00FED0EF /* NERtcCallKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 48D4D9EC25665E0D00FED0EF /* Build configuration list for PBXNativeTarget "NERtcCallKit" */;
+			buildPhases = (
+				3AC01C9672E9BF70E118D13C /* [CP] Check Pods Manifest.lock */,
+				48D4D9E225665E0D00FED0EF /* Sources */,
+				48D4D9E325665E0D00FED0EF /* Frameworks */,
+				48D4D9E425665E0D00FED0EF /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NERtcCallKit;
+			productName = NERtcCallKit;
+			productReference = 48D4D9E625665E0D00FED0EF /* libNERtcCallKit.a */;
+			productType = com.apple.product-type.library.static;
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		48F6E60A2563CEB600624D6A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				DefaultBuildSystemTypeForWorkspace = Original;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = "Wenchao Ding";
+				TargetAttributes = {
+					48D4D9E525665E0D00FED0EF = {
+						CreatedOnToolsVersion = 11.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 48F6E60D2563CEB600624D6A /* Build configuration list for PBXNativeTarget "TARGET_NAME" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 48F6E6092563CEB600624D6A /*  */;
+			productRefGroup = 48F6E6132563CEB600624D6A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				48D4D9E525665E0D00FED0EF /* NERtcCallKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3AC01C9672E9BF70E118D13C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NIMDemo-NERtcCallKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run \'pod install\' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode \'outputs\' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		48D4D9E225665E0D00FED0EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48D4D9EF25665E3800FED0EF /* NERtcCallKit.m */,
+				48E73EFB256D0A84002B841A /* NERtcCallStatusCalledImpl.m */,
+				48E73EE6256CB558002B841A /* NERtcCallStatusIdleImpl.m */,
+				48E73EEE256CE0F2002B841A /* NERtcCallKitContext.m */,
+				48D4D9F025665E3800FED0EF /* NERtcCallKitDelegateProxy.m */,
+				48E73EF5256CEC4C002B841A /* NERtcCallStatusCallingImpl.m */,
+				48D4D9F125665E3800FED0EF /* NERtcCallOptions.m */,
+				48E73EF1256CE1DF002B841A /* NERtcCallKitUtils.m */,
+				48E73EFE256D2BD8002B841A /* NERtcCallStatusInCallImpl.m */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		48D4D9ED25665E0D00FED0EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEA4D69D9B665A550A768EC9 /* Pods-NIMDemo-NERtcCallKit.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 569GNZ5392;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../NIMDemo/NIMDemo/Vendors/**",
+					"$(SRCROOT)/../NIMDemo/Pods/NERtcSDK/**",
+				);
+				OTHER_LDFLAGS = (
+					-ObjC,
+					"-framework \"NIMSDK\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		48D4D9EE25665E0D00FED0EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A7C05027BB592A027661DD8 /* Pods-NIMDemo-NERtcCallKit.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 569GNZ5392;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../NIMDemo/NIMDemo/Vendors/**",
+					"$(SRCROOT)/../NIMDemo/Pods/NERtcSDK/**",
+				);
+				OTHER_LDFLAGS = (
+					-ObjC,
+					"-framework \"NIMSDK\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		48F6E6192563CEB600624D6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../NIMDemo/NIMDemo/Vendors/**",
+					"$(SRCROOT)/../NIMDemo/Pods/NERtcSDK/**",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-framework \"NIMSDK\"",
+				);
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		48F6E61A2563CEB600624D6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf-with-dsym;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../NIMDemo/NIMDemo/Vendors/**",
+					"$(SRCROOT)/../NIMDemo/Pods/NERtcSDK/**",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-framework \"NIMSDK\"",
+				);
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		48D4D9EC25665E0D00FED0EF /* Build configuration list for PBXNativeTarget "NERtcCallKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48D4D9ED25665E0D00FED0EF /* Debug */,
+				48D4D9EE25665E0D00FED0EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		48F6E60D2563CEB600624D6A /* Build configuration list for PBXNativeTarget "TARGET_NAME" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48F6E6192563CEB600624D6A /* Debug */,
+				48F6E61A2563CEB600624D6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 48F6E60A2563CEB600624D6A /* Project object */;
+}
