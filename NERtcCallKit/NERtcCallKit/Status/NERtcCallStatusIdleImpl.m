@@ -11,7 +11,7 @@
 #import <NERtcSDK/NERtcSDK.h>
 #import "NERtcCallKitContext.h"
 #import "NERtcCallKitUtils.h"
-#import "NERtcCallKit_Private.h"
+#import "NERtcCallKit+Private.h"
 #import "NERtcCallKitErrors.h"
 
 @implementation NERtcCallStatusIdleImpl
@@ -37,7 +37,6 @@
             }
             return;
         }
-        NSString *channelID = response.channelId;
         NIMSignalingJoinChannelRequest *join = [[NIMSignalingJoinChannelRequest alloc] init];
         join.channelId = response.channelId;
         
@@ -53,38 +52,28 @@
             }
             self.context.channelInfo = response;
             // 4. 邀请
-            NIMSignalingInviteRequest *invite = [[NIMSignalingInviteRequest alloc] init];
-            invite.accountId = userID;
-            invite.requestId = [NERtcCallKitUtils generateRequestID];
-            invite.channelId = channelID;
-            invite.offlineEnabled = YES;
-            
-            NIMSignalingPushInfo *info = [[NIMSignalingPushInfo alloc] init];
-            info.needPush = YES;
-            NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
-            info.pushTitle = appName;
-            NSString *typeString = type == NERtcCallTypeVideo ? @"视频" : @"语音";
-            info.pushContent = [NSString stringWithFormat:@"%@邀请你%@通话",self.context.userName,typeString];
-            NSMutableDictionary *muteDic = [NSMutableDictionary dictionary];
-            if (self.context.userID) {
-                muteDic[@"userID"] = self.context.userID;
-            }
-            info.pushPayload = [muteDic copy];
-            invite.push = info;
-            
-            NSData *JSONData = [NSJSONSerialization dataWithJSONObject:@{@"callType": @0} options:NSJSONWritingFragmentsAllowed error:&error];
-            NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
-            invite.customInfo = JSONString;
-            self.context.inviteList[invite.requestId] = invite;
-            [NIMSDK.sharedSDK.signalManager signalingInvite:invite completion:^(NSError * _Nullable error) {
-                if (!error || error.code == NIMRemoteErrorCodeSignalResPeerPushOffline || error.code == NIMRemoteErrorCodeSignalResPeerNIMOffline) {
-                    if (completion) {
-                        completion(nil);
-                    }
-                } else {
+            [NERtcCallKit.sharedInstance signalingInvite:userID
+                                                 callees:nil
+                                             isFromGroup:NO
+                                                 groupID:nil
+                                              completion:^(NSError * _Nullable error) {
+                if (error) {
                     [NERtcCallKit.sharedInstance closeSignalChannel:^{
                         if (completion) {
                             NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:kNERtcCallKitInviteError userInfo:@{NSLocalizedDescriptionKey: kNERtcCallKitInviteErrorDescription}];
+                            completion(error);
+                        }
+                    }];
+                    return;
+                }
+                if (completion) {
+                    completion(nil);
+                }
+            }];
+            [NERtcCallKit.sharedInstance fetchToken:^(NSString * _Nonnull token, NSError * _Nullable error) {
+                if (error) {
+                    [NERtcCallKit.sharedInstance closeSignalChannel:^{
+                        if (completion) {
                             completion(error);
                         }
                     }];
@@ -100,6 +89,7 @@
           groupID:(NSString *)groupID
              type:(NERtcCallType)type
        completion:(void (^)(NSError * _Nullable))completion {
+    
     self.context.isGroupCall = YES;
     self.context.groupID = groupID;
     NERtcCallKit.sharedInstance.callStatus = NERtcCallStatusCalling;
@@ -143,55 +133,8 @@
             }];
             
             // 4. 邀请
-            __block BOOL success = NO;
-            for (NSString *userID in userIDs) {
-                if (outError) {
-                    success = NO;
-                    break;
-                }
-                NIMSignalingInviteRequest *invite = [[NIMSignalingInviteRequest alloc] init];
-                invite.accountId = userID;
-                invite.requestId = [NERtcCallKitUtils generateRequestID];
-                invite.channelId = channelID;
-                invite.offlineEnabled = YES;
-                
-                NSMutableDictionary *dic = NSMutableDictionary.dictionary;
-                dic[@"callType"] = @1;
-                dic[@"callUserList"] = userIDs;
-                if (groupID) {
-                    dic[@"groupID"] = groupID;
-                }
-                NSData *JSONData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingFragmentsAllowed error:&error];
-                NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
-                invite.customInfo = JSONString;
-                
-                NIMSignalingPushInfo *info = [[NIMSignalingPushInfo alloc] init];
-                info.needPush = YES;
-                NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
-                info.pushTitle = appName;
-                NSString *typeString = type == NERtcCallTypeVideo ? @"视频" : @"语音";
-                info.pushContent = [NSString stringWithFormat:@"%@邀请你%@通话",self.context.userID, typeString];
-                NSMutableDictionary *muteDic = [NSMutableDictionary dictionary];
-                if (self.context.userID) {
-                    muteDic[@"userID"] = self.context.userID;
-                }
-                info.pushPayload = [muteDic copy];
-                invite.push = info;
-                
-                self.context.inviteList[invite.requestId] = invite;
-                dispatch_group_enter(group);
-                [NIMSDK.sharedSDK.signalManager signalingInvite:invite completion:^(NSError * _Nullable error) {
-                    if (error == nil || error.code == NIMRemoteErrorCodeSignalResPeerPushOffline || error.code == NIMRemoteErrorCodeSignalResPeerNIMOffline) {
-                        success = YES;
-                    } else {
-                        [NERtcCallKit.sharedInstance.delegateProxy onError:error];
-                    }
-                    dispatch_group_leave(group);
-                }];
-            }
-            
-            dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-                if (success) {
+            [NERtcCallKit.sharedInstance batchInvite:userIDs groupID:groupID completion:^(NSError * _Nullable error) {
+                if (!error) {
                     if (completion) {
                         completion(nil);
                     }
@@ -203,7 +146,17 @@
                         }
                     }];
                 }
-            });
+            }];
+            // token预加载
+            [NERtcCallKit.sharedInstance fetchToken:^(NSString * _Nonnull token, NSError * _Nullable error) {
+                if (error) {
+                    [NERtcCallKit.sharedInstance closeSignalChannel:^{
+                        if (completion) {
+                            completion(error);
+                        }
+                    }];
+                }
+            }];
         }];
     }];
     
@@ -254,6 +207,19 @@
     
     NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20025 userInfo:@{NSLocalizedDescriptionKey: @"只能在呼叫过程中切换"}];
     completion(error);
+}
+
+- (void)groupInvite:(NSArray<NSString *> *)userIDs
+            groupID:(NSString *)groupID
+         completion:(void (^)(NSError * _Nullable))completion {
+    if (!completion) return;
+    
+    NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20029 userInfo:@{NSLocalizedDescriptionKey: @"只能在通话中邀请"}];
+    completion(error);
+}
+
+- (void)onTimeout {
+    NSLog(@"Error: onTimeout shouldn't be triggerred in idle status");
 }
 
 @end

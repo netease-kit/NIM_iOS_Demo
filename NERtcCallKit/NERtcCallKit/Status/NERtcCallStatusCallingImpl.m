@@ -9,8 +9,9 @@
 #import "NERtcCallStatusCallingImpl.h"
 #import "NERtcCallKitContext.h"
 #import <NERtcSDK/NERtcSDK.h>
-#import "NERtcCallKit_Private.h"
+#import "NERtcCallKit+Private.h"
 #import "NERtcCallKitErrors.h"
+#import "NERtcCallKitUtils.h"
 
 @implementation NERtcCallStatusCallingImpl
 
@@ -58,14 +59,12 @@
 
 - (void)cancel:(void(^)(NSError * __nullable error))completion {
     [NERtcCallKit.sharedInstance cancelTimeout];
-    [NERtcCallKit.sharedInstance cancelInvites:^(NSError * _Nullable error) {
-        [NERtcEngine.sharedEngine leaveChannel];
-        [NERtcCallKit.sharedInstance send1to1CallRecord:NIMRtcCallStatusCanceled];
-        [NERtcCallKit.sharedInstance closeSignalChannel:^{
-            if (completion) {
-                completion(nil);
-            }
-        }];
+    [NERtcCallKit.sharedInstance cancelInvites:nil];
+    [NERtcCallKit.sharedInstance send1to1CallRecord:NIMRtcCallStatusCanceled];
+    [NERtcCallKit.sharedInstance closeSignalChannel:^{
+        if (completion) {
+            completion(nil);
+        }
     }];
 }
 
@@ -106,9 +105,7 @@
     control.channelId = self.context.channelInfo.channelId;
     control.accountId = self.context.remoteUserID;
     NSDictionary *params = @{@"cid": @2, @"type": @(type)};
-    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
-    NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
-    control.customInfo = JSONString;
+    control.customInfo = [NERtcCallKitUtils JSONStringWithObject:params];
     [NIMSDK.sharedSDK.signalManager signalingControl:control completion:^(NSError * _Nullable error) {
         if (error) {
             if (completion) {
@@ -123,6 +120,36 @@
         if (completion) {
             completion(nil);
         }
+    }];
+}
+
+- (void)groupInvite:(NSArray<NSString *> *)userIDs
+            groupID:(NSString *)groupID
+         completion:(void (^)(NSError * _Nullable))completion {
+    
+    if (!self.context.isGroupCall) {
+        NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20032 userInfo:@{NSLocalizedDescriptionKey: @"只能在多人呼叫模式下邀请"}];
+        return completion(error);
+    }
+    
+    // 已经在邀请中的或者已经在房间内的过滤
+    NSArray *invitedAccids = [self.context.inviteList.allValues valueForKeyPath:@"accountId"];
+    NSSet *invitedAccidSet = invitedAccids ? [NSSet setWithArray:invitedAccids] : nil;
+    userIDs = [userIDs filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        NSString *accid = evaluatedObject;
+        return [self.context memberOfAccid:accid] == nil && ![invitedAccidSet containsObject:accid];
+    }]];
+    
+    [NERtcCallKit.sharedInstance batchInvite:userIDs groupID:groupID completion:completion];
+    [NERtcCallKit.sharedInstance waitTimeout];
+}
+
+- (void)onTimeout {
+    [NERtcCallKit.sharedInstance cancelInvites:^(NSError * _Nullable error) {
+        [NERtcCallKit.sharedInstance send1to1CallRecord:NIMRtcCallStatusTimeout];
+        [NERtcCallKit.sharedInstance closeSignalChannel:^{
+            [NERtcCallKit.sharedInstance.delegateProxy onCallingTimeOut];
+        }];
     }];
 }
 

@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NIMSignalingMemberInfo *> *accidMembers;
 @property (nonatomic, strong) NSMutableDictionary<NSNumber *, NIMSignalingMemberInfo *> *uidMembers;
 
+@property (nonatomic, strong) NSCondition *tokenLock;
+
 @end
 
 @implementation NERtcCallKitContext
@@ -25,6 +27,8 @@
         self.accidMembers = NSMutableDictionary.dictionary;
         self.uidMembers = NSMutableDictionary.dictionary;
         self.inviteList = NSMutableDictionary.dictionary;
+        self.tokenLock = [[NSCondition alloc] init];
+        self.token = @"";
     }
     return self;
 }
@@ -52,6 +56,7 @@
     self.channelInfo = nil;
     self.groupID = nil;
     self.remoteUserID = nil;
+    self.token = @"";
 }
 
 - (uint64_t)localUid {
@@ -61,7 +66,6 @@
 - (NSString *)userID {
     return NIMSDK.sharedSDK.loginManager.currentAccount;
 }
-
 
 - (NSString *)userName {
     NIMUser *user = [[NIMSDK sharedSDK].userManager userInfo:self.userID];
@@ -81,6 +85,10 @@
 
 - (NIMSignalingMemberInfo *)memberOfAccid:(NSString *)accid {
     return self.accidMembers[accid?:@""];
+}
+
+- (NSArray<NIMSignalingMemberInfo *> *)allMembers {
+    return self.accidMembers.allValues;
 }
 
 - (void)addMember:(NIMSignalingMemberInfo *)member {

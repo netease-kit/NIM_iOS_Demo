@@ -15,6 +15,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// 生成信令requestID
 + (NSString *)generateRequestID;
 
+/// 显示名称
++ (NSString *)displayNameForUser:(NSString *)userID groupID:(NSString *)groupID;
+
+/// JSON序列化
++ (NSString *)JSONStringWithObject:(id)JSONObject;
+
+/// JSON反序列化
++ (id)JSONObjectWithString:(NSString *)JSONString;
+
 @end
 
 NS_ASSUME_NONNULL_END

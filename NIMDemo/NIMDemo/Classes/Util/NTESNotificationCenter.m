@@ -22,9 +22,9 @@
 #import "NTESTeamMeetingCalleeInfo.h"
 #import "NTESAVNotifier.h"
 #import "NTESRedPacketTipAttachment.h"
-#import "NERtcCallKit.h"
 #import "NECallViewController.h"
 #import "NEGroupCallVC.h"
+#import <NERtcCallKit/NERtcCallKit.h>
 
 NSString *NTESCustomNotificationCountChanged = @"NTESCustomNotificationCountChanged";
 
@@ -110,7 +110,7 @@ NSString *NTESCustomNotificationCountChanged = @"NTESCustomNotificationCountChan
     UINavigationController *nav = [NTESMainTabController instance].selectedViewController;
     BOOL needPlay = YES;
     for (UIViewController *vc in nav.viewControllers) {
-        if ([vc isKindOfClass:[NIMSessionViewController class]] ||  [vc isKindOfClass:[NTESLiveViewController class]] || [vc isKindOfClass:[NECallViewController class]])
+        if ([vc isKindOfClass:[NIMSessionViewController class]] ||  [vc isKindOfClass:[NTESLiveViewController class]] || [vc isKindOfClass:[NECallViewController class]]  || [vc isKindOfClass:[NEGroupCallVC class]] )
         {
             needPlay = NO;
             break;

@@ -50,20 +50,10 @@
     }];
 }
 
-//-(void)addGestureRecognizer{
-//    self.isSelected = NO;
-//    self.muteImageView.userInteractionEnabled = YES;
-//    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onPressUtilImage)];
-//    [self.muteImageView addGestureRecognizer: recognizer];
-//}
-
 //添加点击手势
 -(void)onPressUtilImage {
     self.isSelected = !self.isSelected;
     self.muteImageView.image = self.isSelected?[UIImage imageNamed:@"call_disable_listen"]:[UIImage imageNamed:@"call_listen"];
-//    if (self.voiceImageClickBlock) {
-//        self.voiceImageClickBlock(self.isSelected);
-//    }
 }
 - (UIView *)videoView {
     if (!_videoView) {

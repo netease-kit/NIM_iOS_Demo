@@ -13,7 +13,9 @@ typedef void(^NTESRtcTokenRequestHandler)(NSError * _Nullable error, NSString * 
 
 @interface NTESRtcTokenUtils : NSObject
 
-+ (void)requestTokenWithUid:(uint64_t)myUid
++ (instancetype)sharedInstance;
+
+- (void)requestTokenWithUid:(uint64_t)myUid
                      appKey:(NSString *)appKey
                  completion:(NTESRtcTokenRequestHandler)completion;
 

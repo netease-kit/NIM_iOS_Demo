@@ -7,15 +7,39 @@
 
 #import "NTESRtcTokenUtils.h"
 
+@interface NTESRtcTokenUtils ()
+
+@property (nonatomic, strong) NSString *apiUrl;
+
+@end
+
 @implementation NTESRtcTokenUtils
 
-+ (void)requestTokenWithUid:(uint64_t)myUid
++ (instancetype)sharedInstance {
+    static NTESRtcTokenUtils *instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = self.new;
+    });
+    return instance;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.apiUrl = @"https://nrtc.netease.im/demo/";
+    }
+    return self;
+}
+
+- (void)requestTokenWithUid:(uint64_t)myUid
                      appKey:(NSString *)appKey
                  completion:(NTESRtcTokenRequestHandler)completion
 {
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
-    NSString *apiUrl = @"https://nrtc.netease.im/demo/";
+    NSString *apiUrl = self.apiUrl;
+    
     NSURL *url = [NSURL URLWithString:[apiUrl stringByAppendingString:@"getChecksum.action"]];
 #if DEBUG
     NSLog(@"%@", url.absoluteString);

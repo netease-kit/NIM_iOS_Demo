@@ -9,9 +9,11 @@
 #import "NERtcCallStatusCalledImpl.h"
 #import <NERtcSDK/NERtcSDK.h>
 #import <NIMSDK/NIMSDK.h>
-#import "NERtcCallKit_Private.h"
+#import "NERtcCallKit+Private.h"
 #import "NERtcCallKitContext.h"
 #import "NERtcCallKitErrors.h"
+#import "NERtccallkitUtils.h"
+#import "NERtcCallKitCompatFactory.h"
 
 @implementation NERtcCallStatusCalledImpl
 
@@ -65,22 +67,27 @@
     accept.channelId = self.context.inviteInfo.channelInfo.channelId;
     accept.accountId = self.context.inviteInfo.fromAccountId;
     accept.requestId = self.context.inviteInfo.requestId;
+    accept.offlineEnabled = YES;
     accept.autoJoin = YES;
+    NSDictionary *dic = @{@"version": NERtcCallKit.versionCode};
+    accept.acceptCustomInfo = [NERtcCallKitUtils JSONStringWithObject:dic];
+    NSLog(@"CK: Accept invitation");
     [[[NIMSDK sharedSDK] signalManager] signalingAccept:accept completion:^(NSError * _Nullable error, NIMSignalingChannelDetailedInfo * _Nullable response) {
         if (error) {
             NERtcCallKit.sharedInstance.callStatus = NERtcCallStatusIdle;
+            NSLog(@"CK: 接收邀请error：%@",error);
             if (completion) {
                 completion(error);
             }
             return;
         }
-        NSLog(@"****接收邀请error：%@response：%@",error,response);
+        NSLog(@"CK: 接收邀请response：%@",response);
         self.context.channelInfo = response;
         NERtcCallKit.sharedInstance.callStatus = NERtcCallStatusInCall;
+        uint64_t myUid = self.context.localUid;
         if (self.context.isGroupCall) {
             // groupCall下，accept后直接进入rtc房间
             NSString *channelID = response.channelId;
-            uint64_t myUid = self.context.localUid;
             [NERtcCallKit.sharedInstance joinRtcChannel:channelID myUid:myUid completion:^(NSError * _Nullable outError) {
                 if (outError) {
                     // 如果RTC加入失败则退出
@@ -97,10 +104,15 @@
                 }
             }];
         } else {
-            // 1to1下，接受成功还需要等待信令cid=1握手
-            if (completion) {
-                completion(nil);
-            }
+            // 对方老版本，则等cid=1。对方新版本，则等待token并加入
+            [NERtcCallKit.sharedInstance fetchToken:nil];
+            NSDictionary *callerInfo = [NERtcCallKitUtils JSONObjectWithString:self.context.inviteInfo.customInfo];
+            NSString *channelName = callerInfo[@"channelName"] ?: self.context.channelInfo.channelName;
+            self.context.channelInfo.channelName = channelName;
+            id<INERtcCallKitCompat> compat = [NERtcCallKitCompatFactory.defaultFactory compatWithVersion:callerInfo[@"version"]];
+            [compat calleeJoinRtcOnAccept:channelName
+                                    myUid:self.context.localUid
+                               completion:completion];
         }
     }];
 }
@@ -111,6 +123,7 @@
     rejectRequest.channelId = self.context.inviteInfo.channelInfo.channelId;
     rejectRequest.accountId = self.context.inviteInfo.fromAccountId;
     rejectRequest.requestId = self.context.inviteInfo.requestId;
+    rejectRequest.offlineEnabled = YES;
     [[[NIMSDK sharedSDK] signalManager] signalingReject:rejectRequest completion:^(NSError * _Nullable error) {
         NERtcCallKit.sharedInstance.callStatus = NERtcCallStatusIdle;
         if (completion) {
@@ -125,6 +138,20 @@
     
     NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20027 userInfo:@{NSLocalizedDescriptionKey: @"只能在呼叫过程中切换"}];
     completion(error);
+}
+
+- (void)groupInvite:(NSArray<NSString *> *)userIDs
+            groupID:(NSString *)groupID
+         completion:(void (^)(NSError * _Nullable))completion {
+    if (!completion) return;
+    
+    NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20031 userInfo:@{NSLocalizedDescriptionKey: @"只能在通话中邀请"}];
+    completion(error);
+}
+
+- (void)onTimeout {
+    NERtcCallKit.sharedInstance.callStatus = NERtcCallStatusIdle;
+    [NERtcCallKit.sharedInstance.delegateProxy onCallingTimeOut];
 }
 
 @end

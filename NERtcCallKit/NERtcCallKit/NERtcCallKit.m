@@ -14,15 +14,21 @@
 #import "INERtcCallStatus.h"
 
 #import "NERtcCallStatusIdleImpl.h"
-#import "NERtcCallKit_Private.h"
+#import "NERtcCallKit+Private.h"
 #import "NERtcCallKitErrors.h"
+#import "NERtcCallKitUtils.h"
+#import "NERtcCallKitCompatFactory.h"
 
 #import "NERtcCallStatusIdleImpl.h"
 #import "NERtcCallStatusCallingImpl.h"
 #import "NERtcCallStatusCalledImpl.h"
 #import "NERtcCallStatusInCallImpl.h"
 
-@interface NERtcCallKit() <NIMSignalManagerDelegate,NERtcEngineDelegateEx,INERtcCallStatus,NERtcEngineMediaStatsObserver>
+#import "NERtcCallKit+Private.h"
+
+static NSString * kNERtcCallKitMarketVersion = @"1.1.0";
+
+@interface NERtcCallKit() <NIMSignalManagerDelegate,NIMLoginManagerDelegate,NERtcEngineDelegateEx,INERtcCallStatus,NERtcEngineMediaStatsObserver>
 
 @property (nonatomic, strong) NERtcCallKitDelegateProxy *delegateProxy;
 
@@ -33,9 +39,19 @@
 @property (nonatomic, strong) id<INERtcCallStatus> calledStatus;
 @property (nonatomic, strong) id<INERtcCallStatus> inCallStatus;
 
-@end
+/// 呼叫过程中邀请用户加入（仅限群呼）
+/// @param userIDs  呼叫的用户ID数组 (不包含自己)
+/// @param completion 回调
+- (void)groupInvite:(NSArray<NSString *> *)userIDs
+            groupID:(nullable NSString *)groupID
+         completion:(nullable void(^)(NSError * _Nullable error))completion;
 
+@end
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wincomplete-implementation"
+#pragma GCC diagnostic ignored "-Wprotocol"
 @implementation NERtcCallKit
+#pragma GCC diagnostic pop
 
 @synthesize context;
 @synthesize callStatus = _callStatus;
@@ -63,6 +79,7 @@
         self.inCallStatus = [[NERtcCallStatusInCallImpl alloc] init];
         self.inCallStatus.context = self.context;
         self.currentStatus = self.idleStatus;
+        self.timeOutSeconds = kNERtcCallKitMaxTimeOut;
     }
     return self;
 }
@@ -77,6 +94,7 @@
 
 - (void)dealloc {
     [NIMSDK.sharedSDK.signalManager removeDelegate:self];
+    [NIMSDK.sharedSDK.loginManager removeDelegate:self];
     [NERtcEngine.sharedEngine removeEngineMediaStatsObserver:self];
 }
 
@@ -88,8 +106,9 @@
     NIMSDKOption *option = [NIMSDKOption optionWithAppKey:appKey];
     option.apnsCername = options.APNSCerName;
     option.pkCername = options.APNSCerName;
-    [[NIMSDK sharedSDK] registerWithOption:option];
-    [[[NIMSDK sharedSDK] signalManager] addDelegate:self];
+    [NIMSDK.sharedSDK registerWithOption:option];
+    [NIMSDK.sharedSDK.signalManager addDelegate:self];
+    [NIMSDK.sharedSDK.loginManager addDelegate:self];
     // Rtc
     NERtcEngine *coreEngine = [NERtcEngine sharedEngine];
     NERtcEngineContext *context = [[NERtcEngineContext alloc] init];
@@ -97,14 +116,16 @@
     context.appKey = appKey;
     [coreEngine setupEngineWithContext:context];
     NERtcVideoEncodeConfiguration *config = [[NERtcVideoEncodeConfiguration alloc] init];
-    config.maxProfile = kNERtcVideoProfileHD720P;
+    config.width = 540;
+    config.height = 960;
+    config.frameRate = kNERtcVideoFrameRateFps15;
     [coreEngine setLocalVideoConfig:config];
+    [coreEngine setAudioProfile:kNERtcAudioProfileStandardExtend scenario:kNERtcAudioScenarioDefault];
     [coreEngine enableLocalAudio:YES];
     [coreEngine enableLocalVideo:YES];
     [coreEngine addEngineMediaStatsObserver:self];
-    
-    [coreEngine setParameters:@{kNERtcKeyVideoStartWithBackCamera: @NO}]; // 强制前置摄像头
-    
+    [coreEngine setParameters:@{kNERtcKeyVideoStartWithBackCamera: @NO, // 强制前置摄像头
+                                kNERtcKeyAutoSubscribeAudio: @NO}]; // 关闭自动订阅
     self.context.appKey = appKey;
 }
 
@@ -129,25 +150,35 @@
 }
 
 - (void)setupLocalView:(nullable UIView *)localView {
-    NERtcVideoCanvas *canvas = [[NERtcVideoCanvas alloc] init];
-    canvas.renderMode = kNERtcVideoRenderScaleCropFill;
-    canvas.container = localView;
-    [NERtcEngine.sharedEngine setupLocalVideoCanvas:canvas];
     __unused int ret;
     if (localView) {
+        NERtcVideoCanvas *canvas = [[NERtcVideoCanvas alloc] init];
+        canvas.renderMode = kNERtcVideoRenderScaleCropFill;
+        canvas.container = localView;
+        [NERtcEngine.sharedEngine setupLocalVideoCanvas:canvas];
         ret = [NERtcEngine.sharedEngine startPreview];
     } else {
+        [NERtcEngine.sharedEngine setupLocalVideoCanvas:nil];
         ret = [NERtcEngine.sharedEngine stopPreview];
     }
 }
 
 - (void)setupRemoteView:(UIView *)remoteView forUser:(nonnull NSString *)userID {
-    NERtcVideoCanvas *canvas = [[NERtcVideoCanvas alloc] init];
-    canvas.renderMode = kNERtcVideoRenderScaleCropFill;
-    canvas.container = remoteView;
-    
     NIMSignalingMemberInfo *member = [self.context memberOfAccid:userID];
-    [NERtcEngine.sharedEngine setupRemoteVideoCanvas:canvas forUserID:member.uid];
+    if (!member) {
+        return NSLog(@"Error: member of userID: %@ does NOT exist", userID);
+    }
+    if (remoteView) {
+        NERtcVideoCanvas *canvas = [[NERtcVideoCanvas alloc] init];
+        canvas.renderMode = kNERtcVideoRenderScaleCropFill;
+        canvas.container = remoteView;
+        
+        [NERtcEngine.sharedEngine setupRemoteVideoCanvas:canvas forUserID:member.uid];
+        [NERtcEngine.sharedEngine subscribeRemoteVideo:YES forUserID:member.uid streamType:kNERtcRemoteVideoStreamTypeHigh];
+    } else {
+        [NERtcEngine.sharedEngine setupRemoteVideoCanvas:nil forUserID:member.uid];
+        [NERtcEngine.sharedEngine subscribeRemoteVideo:NO forUserID:member.uid streamType:kNERtcRemoteVideoStreamTypeHigh];
+    }
 }
 
 - (void)enableLocalVideo:(BOOL)enable {
@@ -182,55 +213,15 @@
     }
 }
 
-- (void)switchCallType:(NERtcCallType)type completion:(void (^)(NSError * _Nullable))completion {
-    [self.currentStatus switchCallType:type completion:completion];
-}
+#pragma mark - Forwarding
 
-- (void)addDelegate:(id<NERtcCallKitDelegate>)delegate {
-    [self.delegateProxy addDelegate:delegate];
-}
-
-- (void)removeDelegate:(id<NERtcCallKitDelegate>)delegate {
-    [self.delegateProxy removeDelegate:delegate];
-}
-
-#pragma mark - INERtcCallStatus
-
-- (void)call:(NSString *)userID
-        type:(NERtcCallType)type
-  completion:(void (^)(NSError * _Nullable))completion {
-    [self.currentStatus call:userID type:type completion:completion];
-}
-
-- (void)groupCall:(NSArray<NSString *> *)userIDs
-          groupID:(nullable NSString *)groupID
-             type:(NERtcCallType)type
-       completion:(void (^)(NSError * _Nullable))completion {
-    [self.currentStatus groupCall:userIDs groupID:groupID type:type completion:completion];
-}
-
-- (void)cancel:(void(^)(NSError * __nullable error))completion {
-    [self.currentStatus cancel:completion];
-}
-
-- (void)accept:(nullable void(^)(NSError * _Nullable error))completion {
-    [self.currentStatus accept:completion];
-}
-
-- (void)reject:(void(^)(NSError * __nullable error))completion {
-    [self.currentStatus reject:completion];
-}
-
-- (void)hangup:(void (^)(NSError * _Nullable))completion {
-    [self.currentStatus hangup:completion];
-}
-
-- (void)leave:(void (^)(NSError * _Nullable))completion {
-    [self.currentStatus leave:completion];
-}
-
-- (NERtcCallStatus)callStatus {
-    return self.currentStatus.callStatus;
+- (id)forwardingTargetForSelector:(SEL)aSelector {
+    if ([self.currentStatus respondsToSelector:aSelector]) {
+        return self.currentStatus;
+    } else if ([self.delegateProxy respondsToSelector:aSelector]) {
+        return self.delegateProxy;
+    }
+    return [super forwardingTargetForSelector:aSelector];
 }
 
 - (void)setCallStatus:(NERtcCallStatus)callStatus {
@@ -257,34 +248,26 @@
 /// 在线通知
 - (void)nimSignalingOnlineNotifyEventType:(NIMSignalingEventType)eventType
                                  response:(NIMSignalingNotifyInfo *)notifyResponse {
+    NSLog(@"CK: receive signaling event: %ld", eventType);
     switch (eventType) {
         case NIMSignalingEventTypeClose: {
-            NSLog(@"eventType:NIMSignalingEventTypeClose");
-            self.callStatus = NERtcCallStatusIdle;
-            [NERtcEngine.sharedEngine leaveChannel];
-            [self cancelTimeout];
-            [self.context cleanUp];
-            [self.delegateProxy onCallEnd];
+            [self onCallEnd];
             break;
         }
         case NIMSignalingEventTypeJoin: {
-            NSLog(@"eventType:NIMSignalingEventTypeJoin");
             NIMSignalingJoinNotifyInfo *joinInfo = (NIMSignalingJoinNotifyInfo *)notifyResponse;
             [self.context addMember:joinInfo.member];
             break;
         }
         case NIMSignalingEventTypeLeave: {
-            NSLog(@"eventType:NIMSignalingEventTypeLeave");
             break;
         }
         case NIMSignalingEventTypeInvite: {
-            NSLog(@"eventType:NIMSignalingEventTypeInvite");
             NIMSignalingInviteNotifyInfo *info = (NIMSignalingInviteNotifyInfo *)notifyResponse;
             [self _handleInviteInfo:info];
             break;
         }
         case NIMSignalingEventTypeCancelInvite: {
-            NSLog(@"eventType:NIMSignalingEventTypeCancelInvite");
             self.callStatus = NERtcCallStatusIdle;
             NIMSignalingCancelInviteNotifyInfo *info = (NIMSignalingCancelInviteNotifyInfo *)notifyResponse;
             [self.delegateProxy onUserCancel:info.fromAccountId];
@@ -292,7 +275,6 @@
             break;
         }
         case NIMSignalingEventTypeReject: {
-            NSLog(@"eventType:NIMSignalingEventTypeReject");
             [self cancelTimeout];
             if (!self.context.isGroupCall) {
                 self.callStatus = NERtcCallStatusIdle;
@@ -309,41 +291,28 @@
             break;
         }
         case NIMSignalingEventTypeAccept: {
-            NSLog(@"eventType:NIMSignalingEventTypeAccept");
             [self cancelTimeout];
             NIMSignalingAcceptNotifyInfo *accept = (NIMSignalingAcceptNotifyInfo *)notifyResponse;
             self.context.inviteList[accept.requestId ?: @""] = nil;
             if (!self.context.isGroupCall) {
-                NSString *channelID = self.context.channelInfo.channelId;
                 uint64_t myUid = self.context.localUid;
-                [self joinRtcChannel:channelID myUid:myUid completion:^(NSError * _Nullable error) {
-                    if (error) {
-                        NSLog(@"JOIN RTC Channel Error %@", error);
-                        [self closeSignalChannel:^{
-                            if (error.code != kNERtcCallKitChannelIsClosedError) {
-                                [self.delegateProxy onError:error];
-                                [self.delegateProxy onCallEnd];
-                            }
-                        }];
-                        return;
-                    }
-                    NIMSignalingControlRequest *control = [[NIMSignalingControlRequest alloc] init];
-                    control.channelId = channelID;
-                    control.accountId = accept.fromAccountId;
-                    
-                    NSDictionary *dic = @{@"cid": @1};
-                    NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
-                    NSString *customInfo = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    control.customInfo = customInfo;
-                    
-                    [NIMSDK.sharedSDK.signalManager signalingControl:control completion:^(NSError * _Nullable error) {
-                        if (error && error.code != NIMRemoteErrorCodeSignalResRoomNotExists) {
+                NSDictionary *acceptInfo = [NERtcCallKitUtils JSONObjectWithString:accept.customInfo];
+                id<INERtcCallKitCompat> compat = [NERtcCallKitCompatFactory.defaultFactory compatWithVersion:acceptInfo[@"version"]];
+                NSString *channelId = self.context.channelInfo.channelId;
+                NSString *channelName = [compat realChannelName:self.context.channelInfo];
+                [self waitTokenTimeout:30 completion:^(NSString * _Nonnull token) {
+                    [self joinRtcChannel:channelName myUid:myUid token:self.context.token completion:^(NSError * _Nullable error) {
+                        if (error) {
+                            NSLog(@"JOIN RTC Channel Error %@", error);
                             [self closeSignalChannel:^{
-                                [self.delegateProxy onError:error];
-                                [self.delegateProxy onCallEnd];
+                                if (error.code != kNERtcCallKitChannelIsClosedError) {
+                                    [self.delegateProxy onError:error];
+                                    [self.delegateProxy onCallEnd];
+                                }
                             }];
                             return;
                         }
+                        [compat callerSendCid1To:accept.fromAccountId channel:channelId];
                     }];
                 }];
             }
@@ -355,24 +324,24 @@
         }
         case NIMSignalingEventTypeContrl: {
             NIMSignalingControlNotifyInfo *controlInfo = (NIMSignalingControlNotifyInfo *)notifyResponse;
-            NSData *data = [controlInfo.customInfo dataUsingEncoding:NSUTF8StringEncoding];
-            if (!data) {
-                NSLog(@"Error: received an invalid control event with info: %@", controlInfo.customInfo);
-                return;
-            }
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSDictionary *dic = [NERtcCallKitUtils JSONObjectWithString:controlInfo.customInfo];
             NSInteger cid = [dic[@"cid"] integerValue];
-            if (cid == 1) { // Join
-                NSString *channelID = self.context.inviteInfo.channelInfo.channelId;
+            if (cid == 1) { // 对端发来cid=1，说明是老版本，等待token并加入
+                NSString *channelName = self.context.channelInfo.channelId;
                 uint64_t myUid = self.context.localUid;
-                [self joinRtcChannel:channelID myUid:myUid completion:^(NSError * _Nullable error) {
-                    if (error) {
-                        [self closeSignalChannel:^{
-                            [self.delegateProxy onError:error];
-                            [self.delegateProxy onCallEnd];
-                        }];
-                        return;
-                    }
+                [self waitTokenTimeout:30 completion:^(NSString * _Nonnull token) {
+                    [self joinRtcChannel:channelName
+                                   myUid:myUid
+                                   token:self.context.token
+                              completion:^(NSError * _Nullable error) {
+                        if (error) {
+                            [self closeSignalChannel:^{
+                                [self.delegateProxy onError:error];
+                                [self.delegateProxy onCallEnd];
+                            }];
+                            return;
+                        }
+                    }];
                 }];
             } else if (cid == 2) { // Switch call type
                 NSNumber *typeNum = dic[@"type"];
@@ -405,6 +374,8 @@
         } else if (info.eventType == NIMSignalingEventTypeCancelInvite) {
             NIMSignalingCancelInviteNotifyInfo *cancelInfo = (NIMSignalingCancelInviteNotifyInfo *)info;
             [cancelSet addObject:cancelInfo.requestId?:@""];
+        } else if (!info.channelInfo.invalid && [info.channelInfo.channelId isEqualToString:self.context.channelInfo.channelId]) {
+            [self nimSignalingOnlineNotifyEventType:info.eventType response:info];
         }
     }
     BOOL isValid = inviteInfo && inviteInfo.channelInfo && !inviteInfo.channelInfo.invalid  && ![cancelSet containsObject:inviteInfo.requestId];
@@ -419,15 +390,32 @@
     switch (eventType) {
         case NIMSignalingEventTypeAccept:
             self.callStatus = NERtcCallStatusIdle;
+            [self.context cleanUp];
             [self.delegateProxy onOtherClientAccept];
             break;
         case NIMSignalingEventTypeReject:
             self.callStatus = NERtcCallStatusIdle;
+            [self.context cleanUp];
             [self.delegateProxy onOtherClientReject];
             break;
         default:
             break;
     }
+}
+
+- (void)nimSignalingChannelsSyncNotify:(NSArray<NIMSignalingChannelDetailedInfo *> *)notifyResponse {
+    if (NIMSDK.sharedSDK.loginManager.currentLoginClients.count > 0) {
+        [notifyResponse enumerateObjectsUsingBlock:^(NIMSignalingChannelDetailedInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            // 如果被踢掉，重新登录后可能还在信令房间，此时会收到channel sync回调，主动离开房间
+            NIMSignalingLeaveChannelRequest *request = [[NIMSignalingLeaveChannelRequest alloc] init];
+            request.channelId = obj.channelId;
+            [NIMSDK.sharedSDK.signalManager signalingLeaveChannel:request completion:nil];
+        }];
+    }
+}
+
+- (void)onKickout:(NIMLoginKickoutResult *)result {
+    [self onCallEnd];
 }
 
 #pragma mark - NERtcEngineDelegateEx
@@ -436,6 +424,7 @@
     NIMSignalingMemberInfo *member = [self.context memberOfUid:userID];
     [self.delegateProxy onUserEnter:member.accountId];
 }
+
 // 对方打开摄像头
 - (void)onNERtcEngineUserVideoDidStartWithUserID:(uint64_t)userID videoProfile:(NERtcVideoProfileType)profile {
     [NERtcEngine.sharedEngine subscribeRemoteVideo:YES forUserID:userID streamType:kNERtcRemoteVideoStreamTypeHigh];
@@ -451,12 +440,14 @@
 
 // 对方打开音频
 - (void)onNERtcEngineUserAudioDidStart:(uint64_t)userID {
+    [NERtcEngine.sharedEngine subscribeRemoteAudio:YES forUserID:userID];
     NIMSignalingMemberInfo *member = [self.context memberOfUid:userID];
     [self.delegateProxy onAudioAvailable:YES userID:member.accountId];
 }
 
 // 对方关闭音频
 - (void)onNERtcEngineUserAudioDidStop:(uint64_t)userID {
+    [NERtcEngine.sharedEngine subscribeRemoteAudio:NO forUserID:userID];
     NIMSignalingMemberInfo *member = [self.context memberOfUid:userID];
     [self.delegateProxy onAudioAvailable:NO userID:member.accountId];
 }
@@ -480,8 +471,21 @@
     if (!self.context.channelInfo) {
         return;
     }
+    [self.context cleanUp];
+    self.callStatus = NERtcCallStatusIdle;
     NSError *error = reason == kNERtcNoError ? nil : [NSError errorWithDomain:kNERtcCallKitErrorDomain code:reason userInfo:@{NSLocalizedDescriptionKey: NERtcErrorDescription(reason)}];
     [self.delegateProxy onDisconnect:error];
+}
+
+- (void)onEngineFirstVideoFrameDecoded:(uint64_t)userID width:(uint32_t)width height:(uint32_t)height {
+    NIMSignalingMemberInfo *member = [self.context memberOfUid:userID];
+    NSLog(@"CK: First video data decoded from user: %@", member.accountId);
+    [self.delegateProxy onFirstVideoFrameDecoded:member.accountId width:width height:height];
+}
+
+- (void)onNERtcEngineFirstVideoDataDidReceiveWithUserID:(uint64_t)userID {
+    NIMSignalingMemberInfo *member = [self.context memberOfUid:userID];
+    NSLog(@"CK: First video data received from user: %@", member.accountId);
 }
 
 // 网络状态
@@ -492,31 +496,6 @@
         dic[userID?:@""] = stat;
     }
     [self.delegateProxy onUserNetworkQuality:[NSDictionary dictionaryWithDictionary:dic]];
-}
-
-#pragma mark - timer
-
-- (void)waitTimeout {
-    [self cancelTimeout];
-    [self performSelector:@selector(timeout) withObject:nil afterDelay:self.timeOutSeconds];
-}
-
-- (void)timeout {
-    if (self.callStatus == NERtcCallStatusCalling) {
-        [self cancelInvites:^(NSError * _Nullable error) {
-            [self send1to1CallRecord:NIMRtcCallStatusTimeout];
-            [self closeSignalChannel:^{
-                [self.delegateProxy onCallingTimeOut];
-            }];
-        }];
-    } else if (self.callStatus == NERtcCallStatusCalled) {
-        self.callStatus = NERtcCallStatusIdle;
-        [self.delegateProxy onCallingTimeOut];
-    }
-}
-
-- (void)cancelTimeout {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 #pragma mark - private method
@@ -536,11 +515,9 @@
         [self _rejectInvite:info];
         return;
     }
-    NSError *error;
-    NSData *customJSONData = [info.customInfo dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *customInfo = [NSJSONSerialization JSONObjectWithData:customJSONData ?: NSData.data options:NSJSONReadingAllowFragments error:&error];
-    if (error) {
-        [self.delegateProxy onError:error];
+    NSDictionary *customInfo = [NERtcCallKitUtils JSONObjectWithString:info.customInfo];
+    if (!customInfo) {
+        NSLog(@"customInfo of %@ should not be nil!", info.requestId);
         return;
     }
     BOOL isFromGroup = [customInfo[@"callType"] isEqual:@1];
@@ -563,136 +540,21 @@
     [self waitTimeout];
 }
 
+- (void)onCallEnd {
+    self.callStatus = NERtcCallStatusIdle;
+    [NERtcEngine.sharedEngine leaveChannel];
+    [self cancelTimeout];
+    [self.context cleanUp];
+    [self.delegateProxy onCallEnd];
+}
+
 #pragma mark - set
 - (void)setTimeOutSeconds:(NSTimeInterval)timeOutSeconds {
     _timeOutSeconds = MIN(timeOutSeconds, kNERtcCallKitMaxTimeOut);
 }
 
-- (void)send1to1CallRecord:(NIMRtcCallStatus)callStatus
-{
-    if (self.context.isGroupCall) {
-        return;
-    }
-    NSString *remoteUserID = self.context.inviteList.allValues.firstObject.accountId;
-    NIMMessage *message = [[NIMMessage alloc] init];
-    NIMSession *session = [NIMSession session:remoteUserID type:NIMSessionTypeP2P];
-    NIMRtcCallRecordObject *record = [[NIMRtcCallRecordObject alloc] init];
-    record.callStatus = callStatus;
-    record.callType = self.context.channelInfo.channelType == NIMSignalingChannelTypeAudio ? NIMRtcCallTypeAudio : NIMRtcCallTypeVideo;
-    record.channelID = self.context.channelInfo.channelId;
-    message.messageObject = record;
-    NSError *error;
-    [NIMSDK.sharedSDK.chatManager sendMessage:message toSession:session error:&error];
-    if (error) {
-        [self.delegateProxy onError:error];
-    }
-}
-
-- (void)closeSignalChannel:(void (^)(void))completion
-{
-    if (!self.context.channelInfo) {
-        if (self.callStatus != NERtcCallStatusIdle) { // 理论上不会走到这里
-            self.callStatus = NERtcCallStatusIdle;
-            NSLog(@"Error: channel has been cleared while calling status is %@", @(self.callStatus));
-        }
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-    NIMSignalingCloseChannelRequest *close = [[NIMSignalingCloseChannelRequest alloc] init];
-    close.channelId = self.context.channelInfo.channelId;
-    [NIMSDK.sharedSDK.signalManager signalingCloseChannel:close completion:^(NSError * _Nullable error) {
-        [NERtcEngine.sharedEngine leaveChannel];
-        self.callStatus = NERtcCallStatusIdle;
-        [self.context cleanUp];
-        if (error) {
-            [self.delegateProxy onError:error];
-        }
-        if (completion) {
-            completion();
-        }
-    }];
-}
-
-- (void)cancelInvites:(void(^)(NSError * __nullable error))completion
-{
-    dispatch_group_t group = dispatch_group_create();
-    NSArray<NIMSignalingInviteRequest *> *inviteRequests = self.context.inviteList.allValues;
-    for (NIMSignalingInviteRequest *invite in inviteRequests) {
-        NIMSignalingCancelInviteRequest *cancel = [[NIMSignalingCancelInviteRequest alloc] init];
-        cancel.requestId = invite.requestId;
-        cancel.accountId = invite.accountId;
-        cancel.channelId = invite.channelId;
-        cancel.offlineEnabled = invite.offlineEnabled;
-        dispatch_group_enter(group);
-        [NIMSDK.sharedSDK.signalManager signalingCancelInvite:cancel completion:^(NSError * _Nullable error) {
-            if (error && error.code != NIMRemoteErrorCodeSignalResPeerPushOffline && error.code != NIMRemoteErrorCodeSignalResPeerNIMOffline) {
-                [self.delegateProxy onError:error];
-            }
-            dispatch_group_leave(group);
-        }];
-    }
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        if (completion) {
-            completion(nil);
-        }
-    });
-}
-
-- (void)joinRtcChannel:(NSString *)channelID
-                 myUid:(uint64_t)myUid
-            completion:(void(^)(NSError * _Nullable error))completion {
-    
-    NSLog(@"----> joinChannel: %@, uid : %lld", channelID, self.context.localUid);
-    
-    if (!self.tokenHandler) {
-        int ret = [NERtcEngine.sharedEngine joinChannelWithToken:@""
-                                                     channelName:channelID
-                                                           myUid:myUid
-                                                      completion:^(NSError * _Nullable error, uint64_t channelId, uint64_t elapesd) {
-            if (completion) {
-                completion(error);
-            }
-        }];
-        if (ret == kNERtcErrInvalidState) {
-            NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:kNERtcErrInvalidState userInfo:@{NSLocalizedDescriptionKey: NERtcErrorDescription(kNERtcErrInvalidState)}];
-            completion(error);
-        }
-        return;
-    }
-    self.tokenHandler(self.context.localUid, ^(NSString *token, NSError *error) {
-        if (error) {
-            NSLog(@"Request token for channel failed. ChannelID: %@, myUid: %@", channelID, @(myUid));
-            if (completion) {
-                completion(error);
-            }
-            return;
-        }
-        NSLog(@"Request token success for channel: %@, myUid: %@, token: %@", channelID, @(myUid), token);
-        if (!self.context.channelInfo) {
-            if (completion) {
-                NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:kNERtcCallKitChannelIsClosedError userInfo:@{NSLocalizedDescriptionKey: kNERtcCallKitChannelIsClosedErrorDescription}];
-                completion(error);
-            }
-            return;
-        }
-        BOOL videoEnable = self.context.channelInfo.channelType == NIMSignalingChannelTypeVideo;
-        [NERtcEngine.sharedEngine enableLocalVideo:videoEnable];
-        int ret = [NERtcEngine.sharedEngine joinChannelWithToken:token
-                                                     channelName:channelID
-                                                           myUid:myUid
-                                                      completion:^(NSError * _Nullable error, uint64_t channelId, uint64_t elapesd) {
-            NSLog(@"Join channel complete channel: %@, myUid: %@", channelID, @(myUid));
-            if (completion) {
-                completion(error);
-            }
-        }];
-        if (ret == kNERtcErrInvalidState) {
-            NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:kNERtcErrInvalidState userInfo:@{NSLocalizedDescriptionKey: NERtcErrorDescription(kNERtcErrInvalidState)}];
-            completion(error);
-        }
-    });
++ (NSString *)versionCode {
+    return kNERtcCallKitMarketVersion;
 }
 
 @end

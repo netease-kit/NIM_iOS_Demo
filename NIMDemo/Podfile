@@ -6,10 +6,11 @@ abstract_target 'NIMDemo' do
     pod 'SDWebImageFLPlugin', '~> 0.3.0'
     pod 'Toast', '~> 3.0'
     pod 'M80AttributedLabel', '~> 1.9.9'
-    pod 'TZImagePickerController', '~> 3.2.1'
+    pod 'TZImagePickerController', '~> 3.5.2'
     pod 'YYImage'
     pod 'YYImage/WebP'
-    pod 'NERtcSDK', '3.7.1'
+    pod 'NERtcSDK', '4.0.3'
+    pod 'NIMSDK_LITE', '8.3.1'
 
     target 'NIM' do
         project 'NIM.xcodeproj'

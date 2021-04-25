@@ -36,10 +36,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSString *userID;
 @property (nonatomic, readonly) NSString *userName;
 
+/// 等待token回调
+@property (nonatomic, strong, readonly) NSCondition *tokenLock;
+@property (nonatomic, copy) NSString *token;
+
 - (void)cleanUp;
 
 - (NIMSignalingMemberInfo *)memberOfUid:(uint64_t)uid;
 - (NIMSignalingMemberInfo *)memberOfAccid:(NSString *)accid;
+- (NSArray<NIMSignalingMemberInfo *> *)allMembers;
 
 - (void)addMember:(NIMSignalingMemberInfo *)member;
 - (void)removeMember:(NIMSignalingMemberInfo *)member;

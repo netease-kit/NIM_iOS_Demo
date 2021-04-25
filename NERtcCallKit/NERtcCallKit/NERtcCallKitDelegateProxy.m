@@ -16,6 +16,10 @@
     return self;
 }
 
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    return aSelector == @selector(addDelegate:) || aSelector == @selector(removeDelegate:);
+}
+
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)sel
 {
     NSArray *allDelegates = self.weakDelegates.allObjects;

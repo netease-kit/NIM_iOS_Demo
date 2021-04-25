@@ -1,6 +1,6 @@
 //
 //  NERtcCallKit.h
-//  NLiteAVDemo
+//  NERtcCallKit
 //
 //  Created by Wenchao Ding on 2020/10/28.
 //  Copyright © 2020 Netease. All rights reserved.
@@ -12,6 +12,14 @@
 #import <NERtcSDK/NERtcSDK.h>
 #import "NERtcCallOptions.h"
 #import "NERtcCallKitConsts.h"
+
+//! Project version number for NERtcCallKit.
+FOUNDATION_EXPORT double NERtcCallKitVersionNumber;
+
+//! Project version string for NERtcCallKit.
+FOUNDATION_EXPORT const unsigned char NERtcCallKitVersionString[];
+
+// In this header, you should import all the public headers of your framework using statements like #import <NERtcCallKit/PublicHeader.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -81,10 +89,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param userID 用户ID
 - (void)onCameraAvailable:(BOOL)available userID:(NSString *)userID;
 
-/// 启用/紧用麦克风
+/// 启用/禁用麦克风
 /// @param available 是否可用
 /// @param userID 用户userID
 - (void)onAudioAvailable:(BOOL)available userID:(NSString *)userID;
+
+/// 首帧解码成功的回调
+/// @param userID 用户id
+/// @param width 宽度
+/// @param height 高度
+- (void)onFirstVideoFrameDecoded:(NSString *)userID width:(uint32_t)width height:(uint32_t)height;
 
 /// 网络状态监测回调
 /// @param stats key为用户ID, value为对应网络状态
@@ -137,7 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param completion 回调
 - (void)call:(NSString *)userID
         type:(NERtcCallType)type
-  completion:(void(^)(NSError * _Nullable error))completion;
+  completion:(nullable void(^)(NSError * _Nullable error))completion;
 
 /// 多人呼叫
 /// @param userIDs  呼叫的用户ID数组 (不包含自己)
@@ -146,7 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)groupCall:(NSArray<NSString *> *)userIDs
           groupID:(nullable NSString *)groupID
              type:(NERtcCallType)type
-       completion:(void(^)(NSError * _Nullable error))completion;
+       completion:(nullable void(^)(NSError * _Nullable error))completion;
 
 /// 取消呼叫
 /// @param completion 回调
@@ -177,7 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param remoteView 渲染其他画面的View
 /// @param userID 其他用户ID
 /// @discussion remoteView上不建议有任何subview
-- (void)setupRemoteView:(UIView *)remoteView forUser:(NSString *)userID;
+- (void)setupRemoteView:(nullable UIView *)remoteView forUser:(NSString *)userID;
 
 /// 是否开启摄像头
 /// @param enable 是否开启
@@ -215,6 +229,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 移除代理
 /// @param delegate 代理对象
 - (void)removeDelegate:(id<NERtcCallKitDelegate>)delegate;
+
+/// 版本号
++ (NSString *)versionCode;
 
 @end
 

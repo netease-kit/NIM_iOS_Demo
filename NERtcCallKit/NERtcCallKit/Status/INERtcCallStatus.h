@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param completion 回调
 - (void)call:(NSString *)userID
         type:(NERtcCallType)type
-  completion:(void(^)(NSError * _Nullable error))completion;
+  completion:(nullable void(^)(NSError * _Nullable error))completion;
 
 /// 多人呼叫
 /// @param userIDs  呼叫的用户ID数组 (不包含自己)
@@ -36,7 +36,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)groupCall:(NSArray<NSString *> *)userIDs
           groupID:(nullable NSString *)groupID
              type:(NERtcCallType)type
-       completion:(void(^)(NSError * _Nullable error))completion;
+       completion:(nullable void(^)(NSError * _Nullable error))completion;
+
+/// 呼叫过程中邀请用户加入
+/// @param userIDs  呼叫的用户ID数组 (不包含自己)
+/// @param completion 回调
+- (void)groupInvite:(NSArray<NSString *> *)userIDs
+            groupID:(nullable NSString *)groupID
+         completion:(nullable void(^)(NSError * _Nullable error))completion;
 
 /// 取消呼叫
 /// @param completion 回调
@@ -45,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 接受呼叫
 /// @param completion 回调
 //- (void)accept:(nullable void(^)(NSError * _Nullable error))completion;
-- (void)accept:(void(^)(NSError * _Nullable error))completion;
+- (void)accept:(nullable void(^)(NSError * _Nullable error))completion;
 
 /// 拒绝呼叫
 /// @param completion 回调
@@ -63,6 +70,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param type 通话类型: 音频/视频
 /// @param completion 切换完成的回调
 - (void)switchCallType:(NERtcCallType)type completion:(nullable void(^)(NSError * _Nullable error))completion;
+
+/// 超时回调
+- (void)onTimeout;
 
 @end
 

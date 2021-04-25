@@ -1,23 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Workspace version="1.0">
- 
-   
- 
-   
- <FileRef location="group:NIM.xcodeproj">
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:NIM.xcodeproj">
    </FileRef>
- 
-   
- <FileRef location="group:../NIMKit/NIMKit.xcodeproj">
+   <FileRef
+      location = "group:../NIMKit/NIMKit.xcodeproj">
    </FileRef>
- 
-   
- <FileRef location="group:../NERtcCallKit/NERtcCallKit.xcodeproj">
+   <FileRef
+      location = "group:../NERtcCallKit/NERtcCallKit.xcodeproj">
    </FileRef>
- 
-   
- <FileRef location="group:Pods/Pods.xcodeproj">
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
- 
-
 </Workspace>

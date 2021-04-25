@@ -39,6 +39,8 @@
 
 @property (nonatomic,assign) NSInteger statsCount; // 计算网络统计次数，前3次产生误差，忽略
 @property (nonatomic,strong) UILabel *statsLabel; // 显示网络异常状态
+@property (nonatomic,strong) UILabel *connectingLabel; // 显示正在接通
+@property (nonatomic,assign) BOOL isCalled;
 
 @end
 
@@ -47,6 +49,7 @@
     self = [super init];
     if (self) {
         self.modalPresentationStyle = UIModalPresentationFullScreen;
+        self.isCalled = isCalled;
         if (isCalled) {
             self.status = NERtcCallStatusCalled;
         }else {
@@ -76,6 +79,7 @@
     [NERtcCallKit sharedInstance].timeOutSeconds = 30;
     if (self.status == NERtcCallStatusCalling) {
         WEAK_SELF(weakSelf);
+        NSLog(@"CallVC: Start call: %@", self.otherUserID);
         [[NERtcCallKit sharedInstance] call:self.otherUserID type:self.type completion:^(NSError * _Nullable error) {
             STRONG_SELF(strongSelf);
             [self setupLocalView];
@@ -142,6 +146,13 @@
         make.centerX.mas_equalTo(self.view.mas_centerX);
         make.bottom.mas_equalTo(self.view.mas_bottom).offset(-80);
         make.size.mas_equalTo(CGSizeMake(75, 103));
+    }];
+    // 正在接通
+    [self.view addSubview:self.connectingLabel];
+    [self.connectingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(self.view.mas_leading);
+        make.trailing.mas_equalTo(self.view.mas_trailing);
+        make.bottom.mas_equalTo(self.cancelBtn.mas_top).mas_offset(-20);
     }];
     /// 接听和拒接按钮
     [self.view addSubview:self.rejectBtn];
@@ -250,40 +261,36 @@
         if (error) {
             [strongSelf.view makeToast:error.localizedDescription];
             // 邀请已接受 取消失败 不销毁VC
-        } else {
-            [strongSelf destroy];
         }
     }];
+    [self destroy];
 }
 
 - (void)rejectEvent:(NECustomButton *)button {
-    self.acceptBtn.userInteractionEnabled = NO;
+    self.acceptBtn.enabled = NO;
     WEAK_SELF(weakSelf);
     [[NERtcCallKit sharedInstance] reject:^(NSError * _Nullable error) {
         STRONG_SELF(strongSelf);
-        strongSelf.acceptBtn.userInteractionEnabled = YES;
+        strongSelf.acceptBtn.enabled = YES;
         [strongSelf destroy];
     }];
 }
 
 - (void)acceptEvent:(NECustomButton *)button {
-    self.rejectBtn.userInteractionEnabled = NO;
-    self.acceptBtn.userInteractionEnabled = NO;
+    self.rejectBtn.enabled = NO;
+    self.acceptBtn.enabled = NO;
+    self.connectingLabel.hidden = NO;
     WEAK_SELF(weakSelf);
     [[NERtcCallKit sharedInstance] accept:^(NSError * _Nullable error) {
         STRONG_SELF(strongSelf);
-        strongSelf.rejectBtn.userInteractionEnabled = YES;
-        strongSelf.acceptBtn.userInteractionEnabled = YES;
-        
         if (error) {
+            strongSelf.connectingLabel.hidden = YES;
+            strongSelf.rejectBtn.enabled = YES;
+            strongSelf.acceptBtn.enabled = YES;
             NSString *errorToast = [NSString stringWithFormat:@"接听失败%@",error.localizedDescription];
             [strongSelf.view.window makeToast:errorToast];
             [strongSelf destroy];
-        }else {
-            [self setupLocalView];
-            [strongSelf updateUIStatus:NERtcCallStatusInCall];
-            // 大小view尺寸变换
-            [self becomeBigVideoView:self.smallVideoView];
+        } else {
             [strongSelf.player stop];
         }
     }];
@@ -335,14 +342,27 @@
 - (void)onUserEnter:(NSString *)userID {
     self.otherUserID = userID;
     self.statsCount = 0;
-    // 设置远端view
-    [self setupRemoteView];
+    if (self.type == NERtcCallTypeAudio) {
+        self.connectingLabel.hidden = YES;
+        [self updateUIStatus:NERtcCallStatusInCall];
+    }
 }
-- (void)onUserAccept:(NSString *)userID {
-    [self.player stop];
+
+- (void)onFirstVideoFrameDecoded:(NSString *)userID width:(uint32_t)width height:(uint32_t)height {
+    self.connectingLabel.hidden = YES;
+    if (self.isCalled) {
+        [self setupLocalView];
+    }
+    [self setupRemoteView];
     [self updateUIStatus:NERtcCallStatusInCall];
-    // 大小view尺寸变换
     [self becomeBigVideoView:self.smallVideoView];
+}
+
+- (void)onUserAccept:(NSString *)userID {
+    NSLog(@"CallVC: User %@ accept", userID);
+    [self.player stop];
+    self.connectingLabel.hidden = NO;
+    self.cancelBtn.enabled = NO;
 }
 - (void)onUserCancel:(NSString *)userID {
     [[NERtcCallKit sharedInstance] hangup:nil];
@@ -369,8 +389,15 @@
     [self destroy];
 }
 
-- (void)onUserDisconnect:(NSString *)userID {
+- (void)onUserLeave:(NSString *)userID {
     [self.view.window makeToast:@"对方已离开"];
+    [NERtcCallKit.sharedInstance hangup:^(NSError * _Nullable error) {
+        [self destroy];
+    }];
+}
+
+- (void)onUserDisconnect:(NSString *)userID {
+    [self.view.window makeToast:@"对方已断开"];
     [NERtcCallKit.sharedInstance hangup:^(NSError * _Nullable error) {
         [self destroy];
     }];
@@ -463,6 +490,7 @@
     [self.player play];
 }
 - (void)cameraAvailble:(BOOL)available userId:(NSString *)userId {
+    NSLog(@"CallVC: User %@ camera did %@", userId, available ? @"Start" : @"Stop");
     NSString *tips = [self.myselfID isEqualToString:userId]?@"关闭了摄像头":@"对方关闭了摄像头";
     BOOL tipForceHidden = self.type == NERtcCallTypeAudio;
     if ([self.bigVideoView.userID isEqualToString:userId]) {
@@ -635,6 +663,19 @@
     }
     return _operationView;
 }
+
+- (UILabel *)connectingLabel {
+    if (!_connectingLabel) {
+        _connectingLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _connectingLabel.font = [UIFont systemFontOfSize:15];
+        _connectingLabel.textColor = [UIColor whiteColor];
+        _connectingLabel.textAlignment = NSTextAlignmentCenter;
+        _connectingLabel.hidden = YES;
+        _connectingLabel.text = @"正在接通...";
+    }
+    return _connectingLabel;
+}
+
 - (AVAudioPlayer *)player {
     if (!_player) {
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"video_chat_tip_receiver" withExtension:@"aac"];

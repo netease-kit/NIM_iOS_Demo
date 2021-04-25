@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NERtcCallKit.h"
+#import <NERtcCallKit/NERtcCallKit.h>
 #import "NEVideoView.h"
 
 NS_ASSUME_NONNULL_BEGIN
