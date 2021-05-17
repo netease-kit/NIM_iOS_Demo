@@ -1,5 +1,2 @@
-# NIM_iOS_Demo
-
-### Run
-Run `pod install` under `NIMDemo` folder, then open `NIM.xcworkspace`.
+仓库已迁移至[NERtcCallKit](https://github.com/netease-kit/NECallKit/tree/master/iOS)
 
