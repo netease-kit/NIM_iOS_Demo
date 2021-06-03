@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "版本号"; ObjectID = "DMg-rq-rMH"; */
+"DMg-rq-rMH.text" = "版本号";
+
+/* Class = "UILabel"; text = "Copyright ©1997-2019 网易公司版权所有"; ObjectID = "VHq-VD-MPb"; */
+"VHq-VD-MPb.text" = "Copyright ©1997-2020 All rights reserved by Netease";
+
+/* Class = "UILabel"; text = "服务端时间："; ObjectID = "fWh-ZR-U3u"; */
+"fWh-ZR-U3u.text" = "Server Time：";

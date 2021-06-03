@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "录制中"; ObjectID = "5l2-2v-EIl"; */
+"5l2-2v-EIl.text" = "录制中";
+
+/* Class = "UIButton"; normalTitle = "挂断"; ObjectID = "9Ri-mZ-5dg"; */
+"9Ri-mZ-5dg.normalTitle" = "挂断";
+
+/* Class = "UIButton"; normalTitle = "视频模式"; ObjectID = "PYC-Ms-T9v"; */
+"PYC-Ms-T9v.normalTitle" = "视频模式";
+
+/* Class = "UILabel"; text = "你的手机内存已不足10M"; ObjectID = "Zez-ut-tf1"; */
+"Zez-ut-tf1.text" = "你的手机内存已不足10M";
+
+/* Class = "UILabel"; text = "录制中"; ObjectID = "cW8-QD-Su9"; */
+"cW8-QD-Su9.text" = "录制中";
+
+/* Class = "UIButton"; normalTitle = "接听"; ObjectID = "lVJ-ri-rtd"; */
+"lVJ-ri-rtd.normalTitle" = "接听";
+
+/* Class = "UIButton"; normalTitle = "拒接"; ObjectID = "nnL-Ka-x7t"; */
+"nnL-Ka-x7t.normalTitle" = "拒接";
+
+/* Class = "UILabel"; text = "连接中，请稍候..."; ObjectID = "yES-av-BJj"; */
+"yES-av-BJj.text" = "连接中，请稍候...";

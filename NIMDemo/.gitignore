@@ -1,0 +1,9 @@
+./build
+./build-arm
+./build-i386
+./build-x86_64
+./Product
+.DS_Store
+*.xcuserdatad
+*.xcworkspace
+/.idea

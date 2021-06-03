@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "接电话啊"; ObjectID = "0Ou-Qx-QhU"; */
+"0Ou-Qx-QhU.text" = "接电话啊";
+
+/* Class = "UIButton"; normalTitle = "接听"; ObjectID = "9EQ-Zd-GvN"; */
+"9EQ-Zd-GvN.normalTitle" = "接听";
+
+/* Class = "UIButton"; normalTitle = "拒接"; ObjectID = "Yov-Uk-zlz"; */
+"Yov-Uk-zlz.normalTitle" = "拒接";

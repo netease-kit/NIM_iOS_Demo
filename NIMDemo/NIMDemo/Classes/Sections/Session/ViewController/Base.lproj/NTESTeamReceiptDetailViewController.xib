@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NTESTeamReceiptDetailViewController">
+            <connections>
+                <outlet property="readUsers" destination="AnJ-Rc-tbD" id="u5Y-8F-x1t"/>
+                <outlet property="segmentControl" destination="YMv-ne-ylh" id="8fL-f9-NXW"/>
+                <outlet property="unreadUsers" destination="ikd-uh-CBm" id="bGd-qr-Ify"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AnJ-Rc-tbD">
+                    <rect key="frame" x="0.0" y="29" width="375" height="638"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wB5-O2-14t">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="CVb-lm-v3U"/>
+                        <outlet property="delegate" destination="-1" id="rWY-VM-9h7"/>
+                    </connections>
+                </collectionView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikd-uh-CBm">
+                    <rect key="frame" x="0.0" y="29" width="375" height="638"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="B4W-B5-mau">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="mms-U1-zpw"/>
+                        <outlet property="delegate" destination="-1" id="n1q-X0-Ean"/>
+                    </connections>
+                </collectionView>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YMv-ne-ylh">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="29"/>
+                    <segments>
+                        <segment title="未读"/>
+                        <segment title="已读"/>
+                    </segments>
+                    <connections>
+                        <action selector="onSegmentChanged:" destination="-1" eventType="valueChanged" id="PbY-XE-lJ1"/>
+                    </connections>
+                </segmentedControl>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ikd-uh-CBm" secondAttribute="trailing" id="51w-ZU-VMO"/>
+                <constraint firstItem="ikd-uh-CBm" firstAttribute="top" secondItem="YMv-ne-ylh" secondAttribute="bottom" constant="1" id="5CN-n3-ahW"/>
+                <constraint firstAttribute="trailing" secondItem="YMv-ne-ylh" secondAttribute="trailing" id="EiA-aX-iGk"/>
+                <constraint firstItem="AnJ-Rc-tbD" firstAttribute="top" secondItem="YMv-ne-ylh" secondAttribute="bottom" constant="1" id="MNI-Qg-0uB"/>
+                <constraint firstItem="YMv-ne-ylh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="N9A-8X-zXY"/>
+                <constraint firstItem="AnJ-Rc-tbD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PtM-JV-hgS"/>
+                <constraint firstItem="YMv-ne-ylh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="SD7-QM-fmf"/>
+                <constraint firstAttribute="bottom" secondItem="ikd-uh-CBm" secondAttribute="bottom" id="TXO-BC-hZE"/>
+                <constraint firstAttribute="bottom" secondItem="AnJ-Rc-tbD" secondAttribute="bottom" id="cTU-dD-gxQ"/>
+                <constraint firstAttribute="trailing" secondItem="AnJ-Rc-tbD" secondAttribute="trailing" id="sPF-w4-Gep"/>
+                <constraint firstItem="ikd-uh-CBm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="y1l-fZ-1an"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <point key="canvasLocation" x="-419.5" y="109.5"/>
+        </view>
+    </objects>
+</document>

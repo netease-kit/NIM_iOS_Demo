@@ -1,0 +1,33 @@
+platform :ios, '9.0'
+workspace 'NIM.xcworkspace'
+
+abstract_target 'NIMDemo' do
+    pod 'SDWebImage', '~> 5.0.6'
+    pod 'SDWebImageFLPlugin', '~> 0.3.0'
+    pod 'Toast', '~> 3.0'
+    pod 'M80AttributedLabel', '~> 1.9.9'
+    pod 'TZImagePickerController', '~> 3.5.2'
+    pod 'YYImage'
+    pod 'YYImage/WebP'
+    pod 'NIMSDK', '8.4.4'
+    
+    # add pods for desired Firebase products
+    # https://firebase.google.com/docs/ios/setup#available-pods
+    pod 'Firebase/Crashlytics', '~> 7.10.0'
+
+    target 'NIM' do
+        project 'NIM.xcodeproj'
+        pod 'FMDB', '~> 2.7.2'
+        pod 'Reachability', '~> 3.2'
+        pod 'CocoaLumberjack', '~> 3.2.1'
+        pod 'SSZipArchive', '~> 1.8.1'
+        pod 'SVProgressHUD', '~> 2.1.2'
+        pod 'Fabric'
+        pod 'Crashlytics'
+    end
+    
+    target 'NIMKit' do
+        project '../NIMKit/NIMKit.xcodeproj'
+        pod 'NIMSDK', '8.4.4'
+    end
+end

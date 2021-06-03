@@ -1,0 +1,6 @@
+
+/* Class = "UIButton"; normalTitle = "发送"; ObjectID = "WVt-qO-bh7"; */
+"WVt-qO-bh7.normalTitle" = "发送";
+
+/* Class = "UILabel"; text = "已读回执能力支持文本、图片、音频、视频、文件、自定义等消息类型。此处仅以文本消息作为演示，开发者可以根据具体业务场景进行功能设计"; ObjectID = "awu-6e-AEE"; */
+"awu-6e-AEE.text" = "已读回执能力支持文本、图片、音频、视频、文件、自定义等消息类型。此处仅以文本消息作为演示，开发者可以根据具体业务场景进行功能设计";
