@@ -39,152 +39,13 @@
 		413057CD23BE0E7800DF7940 /* NTESContactSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 413057CB23BE0E7800DF7940 /* NTESContactSearchViewController.m */; };
 		415707EE24F7CD240058B5B0 /* NTESNoticationUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 415707EC24F7CD240058B5B0 /* NTESNoticationUtil.h */; };
 		415707EF24F7CD240058B5B0 /* NTESNoticationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 415707ED24F7CD240058B5B0 /* NTESNoticationUtil.m */; };
-		41727026252060BC005E8ACC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41726F92252060BC005E8ACC /* Localizable.strings */; };
-		41727027252060BC005E8ACC /* NTESContactViewControllerTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726F95252060BC005E8ACC /* NTESContactViewControllerTester.m */; };
-		41727028252060BC005E8ACC /* NTESSessionViewControllerTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726F96252060BC005E8ACC /* NTESSessionViewControllerTester.m */; };
-		41727029252060BC005E8ACC /* NTESSessionListViewControllerTester.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726F97252060BC005E8ACC /* NTESSessionListViewControllerTester.h */; };
-		4172702A252060BC005E8ACC /* NIMVideoObject+NIMVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726F98252060BC005E8ACC /* NIMVideoObject+NIMVideoTest.m */; };
-		4172702B252060BC005E8ACC /* NIMTesterHooker.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726F99252060BC005E8ACC /* NIMTesterHooker.h */; };
-		4172702C252060BC005E8ACC /* NTESTestLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726F9A252060BC005E8ACC /* NTESTestLiveViewController.m */; };
-		4172702D252060BC005E8ACC /* NTESSessionMsgConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726F9B252060BC005E8ACC /* NTESSessionMsgConfig.m */; };
-		4172702E252060BC005E8ACC /* NTESLogTestViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41726F9C252060BC005E8ACC /* NTESLogTestViewController.mm */; };
-		4172702F252060BC005E8ACC /* NTESTestSendMsgConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726F9D252060BC005E8ACC /* NTESTestSendMsgConfigVC.m */; };
-		41727030252060BC005E8ACC /* NTESChatroomListViewControllerTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726F9E252060BC005E8ACC /* NTESChatroomListViewControllerTester.m */; };
-		41727031252060BC005E8ACC /* NTESDbExceptionTesterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 41726F9F252060BC005E8ACC /* NTESDbExceptionTesterViewController.mm */; };
-		41727032252060BC005E8ACC /* NTESTestChatroomListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FA0252060BC005E8ACC /* NTESTestChatroomListVC.m */; };
-		41727033252060BC005E8ACC /* NTESSessionListVCTester.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FA1252060BC005E8ACC /* NTESSessionListVCTester.h */; };
-		41727034252060BC005E8ACC /* NTESUploadBeforeSendMsgVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FA2252060BC005E8ACC /* NTESUploadBeforeSendMsgVC.h */; };
-		41727035252060BC005E8ACC /* NTESSessionRemoteHistoryViewControllerTester.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FA3252060BC005E8ACC /* NTESSessionRemoteHistoryViewControllerTester.h */; };
-		41727036252060BC005E8ACC /* NTESTestSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FA4252060BC005E8ACC /* NTESTestSessionViewController.m */; };
-		41727037252060BC005E8ACC /* NIMTesterHooker.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FA5252060BC005E8ACC /* NIMTesterHooker.m */; };
-		41727038252060BC005E8ACC /* NTESTestLiveViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FA6252060BC005E8ACC /* NTESTestLiveViewController.h */; };
-		41727039252060BC005E8ACC /* NTESLogTestViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FA7252060BC005E8ACC /* NTESLogTestViewController.h */; };
-		4172703A252060BC005E8ACC /* NIMVideoObject+NIMVideoTest.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FA8252060BC005E8ACC /* NIMVideoObject+NIMVideoTest.h */; };
-		4172703B252060BC005E8ACC /* NTESContactViewControllerTester.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FA9252060BC005E8ACC /* NTESContactViewControllerTester.h */; };
-		4172703C252060BC005E8ACC /* NTESSessionViewControllerTester.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FAA252060BC005E8ACC /* NTESSessionViewControllerTester.h */; };
-		4172703D252060BC005E8ACC /* NTESSessionListViewControllerTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FAB252060BC005E8ACC /* NTESSessionListViewControllerTester.m */; };
-		4172703E252060BC005E8ACC /* NTESDbExceptionTesterViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FAC252060BC005E8ACC /* NTESDbExceptionTesterViewController.h */; };
-		4172703F252060BC005E8ACC /* NTESTestSendMsgConfigVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FAD252060BC005E8ACC /* NTESTestSendMsgConfigVC.h */; };
-		41727040252060BC005E8ACC /* NTESSessionMsgConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FAE252060BC005E8ACC /* NTESSessionMsgConfig.h */; };
-		41727041252060BC005E8ACC /* NTESUploadBeforeSendMsgVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FAF252060BC005E8ACC /* NTESUploadBeforeSendMsgVC.m */; };
-		41727042252060BC005E8ACC /* NTESSessionListVCTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FB0252060BC005E8ACC /* NTESSessionListVCTester.m */; };
-		41727043252060BC005E8ACC /* NTESTestChatroomListVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FB1252060BC005E8ACC /* NTESTestChatroomListVC.h */; };
-		41727044252060BC005E8ACC /* NTESChatroomListViewControllerTester.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FB2252060BC005E8ACC /* NTESChatroomListViewControllerTester.h */; };
-		41727045252060BC005E8ACC /* NTESTestSessionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FB3252060BC005E8ACC /* NTESTestSessionViewController.h */; };
-		41727046252060BC005E8ACC /* NTESSessionRemoteHistoryViewControllerTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FB4252060BC005E8ACC /* NTESSessionRemoteHistoryViewControllerTester.m */; };
-		41727047252060BC005E8ACC /* NIMTesterMultiSelectVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FB6252060BC005E8ACC /* NIMTesterMultiSelectVC.h */; };
-		41727048252060BC005E8ACC /* NTESTesterJsonEditer.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FB7252060BC005E8ACC /* NTESTesterJsonEditer.m */; };
-		41727049252060BC005E8ACC /* NIMFFloaintButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FB8252060BC005E8ACC /* NIMFFloaintButton.m */; };
-		4172704A252060BC005E8ACC /* Aspects.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FB9252060BC005E8ACC /* Aspects.h */; };
-		4172704B252060BC005E8ACC /* XLForm.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41726FBB252060BC005E8ACC /* XLForm.bundle */; };
-		4172704C252060BC005E8ACC /* XLForm.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FBD252060BC005E8ACC /* XLForm.h */; };
-		4172704D252060BC005E8ACC /* XLFormTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FBF252060BC005E8ACC /* XLFormTextViewCell.m */; };
-		4172704E252060BD005E8ACC /* XLFormInlineSelectorCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FC0252060BC005E8ACC /* XLFormInlineSelectorCell.h */; };
-		4172704F252060BD005E8ACC /* XLFormStepCounterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FC1252060BC005E8ACC /* XLFormStepCounterCell.m */; };
-		41727050252060BD005E8ACC /* XLFormSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FC2252060BC005E8ACC /* XLFormSegmentedCell.m */; };
-		41727051252060BD005E8ACC /* XLFormCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FC3252060BC005E8ACC /* XLFormCheckCell.m */; };
-		41727052252060BD005E8ACC /* XLFormButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FC4252060BC005E8ACC /* XLFormButtonCell.m */; };
-		41727053252060BD005E8ACC /* XLFormDescriptorCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FC5252060BC005E8ACC /* XLFormDescriptorCell.h */; };
-		41727054252060BD005E8ACC /* XLFormPickerCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FC6252060BC005E8ACC /* XLFormPickerCell.h */; };
-		41727055252060BD005E8ACC /* XLFormInlineRowDescriptorCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FC7252060BC005E8ACC /* XLFormInlineRowDescriptorCell.h */; };
-		41727056252060BD005E8ACC /* XLFormLeftRightSelectorCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FC8252060BC005E8ACC /* XLFormLeftRightSelectorCell.h */; };
-		41727057252060BD005E8ACC /* XLFormBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FC9252060BC005E8ACC /* XLFormBaseCell.m */; };
-		41727058252060BD005E8ACC /* XLFormImageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FCA252060BC005E8ACC /* XLFormImageCell.h */; };
-		41727059252060BD005E8ACC /* XLFormSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FCB252060BC005E8ACC /* XLFormSwitchCell.m */; };
-		4172705A252060BD005E8ACC /* XLFormDatePickerCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FCC252060BC005E8ACC /* XLFormDatePickerCell.h */; };
-		4172705B252060BD005E8ACC /* XLFormTextFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FCD252060BC005E8ACC /* XLFormTextFieldCell.h */; };
-		4172705C252060BD005E8ACC /* XLFormSelectorCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FCE252060BC005E8ACC /* XLFormSelectorCell.h */; };
-		4172705D252060BD005E8ACC /* XLFormDateCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FCF252060BC005E8ACC /* XLFormDateCell.h */; };
-		4172705E252060BD005E8ACC /* XLFormSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FD0252060BC005E8ACC /* XLFormSliderCell.m */; };
-		4172705F252060BD005E8ACC /* XLFormStepCounterCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FD1252060BC005E8ACC /* XLFormStepCounterCell.h */; };
-		41727060252060BD005E8ACC /* XLFormInlineSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FD2252060BC005E8ACC /* XLFormInlineSelectorCell.m */; };
-		41727061252060BD005E8ACC /* XLFormTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FD3252060BC005E8ACC /* XLFormTextViewCell.h */; };
-		41727062252060BD005E8ACC /* XLFormButtonCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FD4252060BC005E8ACC /* XLFormButtonCell.h */; };
-		41727063252060BD005E8ACC /* XLFormCheckCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FD5252060BC005E8ACC /* XLFormCheckCell.h */; };
-		41727064252060BD005E8ACC /* XLFormSegmentedCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FD6252060BC005E8ACC /* XLFormSegmentedCell.h */; };
-		41727065252060BD005E8ACC /* XLFormImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FD7252060BC005E8ACC /* XLFormImageCell.m */; };
-		41727066252060BD005E8ACC /* XLFormSwitchCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FD8252060BC005E8ACC /* XLFormSwitchCell.h */; };
-		41727067252060BD005E8ACC /* XLFormLeftRightSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FD9252060BC005E8ACC /* XLFormLeftRightSelectorCell.m */; };
-		41727068252060BD005E8ACC /* XLFormBaseCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FDA252060BC005E8ACC /* XLFormBaseCell.h */; };
-		41727069252060BD005E8ACC /* XLFormPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FDB252060BC005E8ACC /* XLFormPickerCell.m */; };
-		4172706A252060BD005E8ACC /* XLFormSliderCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FDC252060BC005E8ACC /* XLFormSliderCell.h */; };
-		4172706B252060BD005E8ACC /* XLFormDateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FDD252060BC005E8ACC /* XLFormDateCell.m */; };
-		4172706C252060BD005E8ACC /* XLFormSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FDE252060BC005E8ACC /* XLFormSelectorCell.m */; };
-		4172706D252060BD005E8ACC /* XLFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FDF252060BC005E8ACC /* XLFormTextFieldCell.m */; };
-		4172706E252060BD005E8ACC /* XLFormDatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FE0252060BC005E8ACC /* XLFormDatePickerCell.m */; };
-		4172706F252060BD005E8ACC /* XLFormDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FE2252060BC005E8ACC /* XLFormDescriptor.h */; };
-		41727070252060BD005E8ACC /* XLFormRowDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FE3252060BC005E8ACC /* XLFormRowDescriptor.h */; };
-		41727071252060BD005E8ACC /* XLFormDescriptorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FE4252060BC005E8ACC /* XLFormDescriptorDelegate.h */; };
-		41727072252060BD005E8ACC /* XLFormSectionDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FE5252060BC005E8ACC /* XLFormSectionDescriptor.m */; };
-		41727073252060BD005E8ACC /* XLFormRowDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FE6252060BC005E8ACC /* XLFormRowDescriptor.m */; };
-		41727074252060BD005E8ACC /* XLFormDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FE7252060BC005E8ACC /* XLFormDescriptor.m */; };
-		41727075252060BD005E8ACC /* XLFormSectionDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FE8252060BC005E8ACC /* XLFormSectionDescriptor.h */; };
-		41727076252060BD005E8ACC /* XLFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FEA252060BC005E8ACC /* XLFormViewController.m */; };
-		41727077252060BD005E8ACC /* XLFormOptionsObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FEB252060BC005E8ACC /* XLFormOptionsObject.h */; };
-		41727078252060BD005E8ACC /* XLFormOptionsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FEC252060BC005E8ACC /* XLFormOptionsViewController.h */; };
-		41727079252060BD005E8ACC /* XLFormRowDescriptorViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FED252060BC005E8ACC /* XLFormRowDescriptorViewController.h */; };
-		4172707A252060BD005E8ACC /* XLFormViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FEE252060BC005E8ACC /* XLFormViewController.h */; };
-		4172707B252060BD005E8ACC /* XLFormOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FEF252060BC005E8ACC /* XLFormOptionsViewController.m */; };
-		4172707C252060BD005E8ACC /* XLFormOptionsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FF0252060BC005E8ACC /* XLFormOptionsObject.m */; };
-		4172707D252060BD005E8ACC /* XLForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FF1252060BC005E8ACC /* XLForm.m */; };
-		4172707E252060BD005E8ACC /* NSObject+XLFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FF3252060BC005E8ACC /* NSObject+XLFormAdditions.m */; };
-		4172707F252060BD005E8ACC /* NSPredicate+XLFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FF4252060BC005E8ACC /* NSPredicate+XLFormAdditions.m */; };
-		41727080252060BD005E8ACC /* NSExpression+XLFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FF5252060BC005E8ACC /* NSExpression+XLFormAdditions.m */; };
-		41727081252060BD005E8ACC /* UIView+XLFormAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FF6252060BC005E8ACC /* UIView+XLFormAdditions.h */; };
-		41727082252060BD005E8ACC /* NSArray+XLFormAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FF7252060BC005E8ACC /* NSArray+XLFormAdditions.h */; };
-		41727083252060BD005E8ACC /* NSString+XLFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FF8252060BC005E8ACC /* NSString+XLFormAdditions.m */; };
-		41727084252060BD005E8ACC /* NSObject+XLFormAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FF9252060BC005E8ACC /* NSObject+XLFormAdditions.h */; };
-		41727085252060BD005E8ACC /* NSExpression+XLFormAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FFA252060BC005E8ACC /* NSExpression+XLFormAdditions.h */; };
-		41727086252060BD005E8ACC /* NSPredicate+XLFormAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 41726FFB252060BC005E8ACC /* NSPredicate+XLFormAdditions.h */; };
-		41727087252060BD005E8ACC /* XLFormRightImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FFD252060BC005E8ACC /* XLFormRightImageButton.m */; };
-		41727088252060BD005E8ACC /* XLFormTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FFE252060BC005E8ACC /* XLFormTextView.m */; };
-		41727089252060BD005E8ACC /* XLFormRowNavigationAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41726FFF252060BC005E8ACC /* XLFormRowNavigationAccessoryView.m */; };
-		4172708A252060BD005E8ACC /* XLFormRightDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727000252060BC005E8ACC /* XLFormRightDetailCell.m */; };
-		4172708B252060BD005E8ACC /* XLFormTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 41727001252060BC005E8ACC /* XLFormTextView.h */; };
-		4172708C252060BD005E8ACC /* XLFormRightImageButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 41727002252060BC005E8ACC /* XLFormRightImageButton.h */; };
-		4172708D252060BD005E8ACC /* XLFormRightDetailCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41727003252060BC005E8ACC /* XLFormRightDetailCell.h */; };
-		4172708E252060BD005E8ACC /* XLFormRowNavigationAccessoryView.h in Headers */ = {isa = PBXBuildFile; fileRef = 41727004252060BC005E8ACC /* XLFormRowNavigationAccessoryView.h */; };
-		4172708F252060BD005E8ACC /* NSString+XLFormAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 41727005252060BC005E8ACC /* NSString+XLFormAdditions.h */; };
-		41727090252060BD005E8ACC /* NSArray+XLFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727006252060BC005E8ACC /* NSArray+XLFormAdditions.m */; };
-		41727091252060BD005E8ACC /* UIView+XLFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727007252060BC005E8ACC /* UIView+XLFormAdditions.m */; };
-		41727092252060BD005E8ACC /* XLFormRegexValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727009252060BC005E8ACC /* XLFormRegexValidator.m */; };
-		41727093252060BD005E8ACC /* XLFormValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 4172700A252060BC005E8ACC /* XLFormValidator.h */; };
-		41727094252060BD005E8ACC /* XLFormValidationStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 4172700B252060BC005E8ACC /* XLFormValidationStatus.m */; };
-		41727095252060BD005E8ACC /* XLFormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4172700C252060BC005E8ACC /* XLFormValidator.m */; };
-		41727096252060BD005E8ACC /* XLFormRegexValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 4172700D252060BC005E8ACC /* XLFormRegexValidator.h */; };
-		41727097252060BD005E8ACC /* XLFormValidationStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 4172700E252060BC005E8ACC /* XLFormValidationStatus.h */; };
-		41727098252060BD005E8ACC /* XLFormValidatorProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4172700F252060BC005E8ACC /* XLFormValidatorProtocol.h */; };
-		41727099252060BD005E8ACC /* NIMTesterMultiSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727010252060BC005E8ACC /* NIMTesterMultiSelectVC.m */; };
-		4172709A252060BD005E8ACC /* NTESTesterJsonEditer.h in Headers */ = {isa = PBXBuildFile; fileRef = 41727011252060BC005E8ACC /* NTESTesterJsonEditer.h */; };
-		4172709B252060BD005E8ACC /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727012252060BC005E8ACC /* Aspects.m */; };
-		4172709C252060BD005E8ACC /* NIMFFloaintButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 41727013252060BC005E8ACC /* NIMFFloaintButton.h */; };
-		4172709D252060BD005E8ACC /* NTESChatroomTesterObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727015252060BC005E8ACC /* NTESChatroomTesterObject.m */; };
-		4172709E252060BD005E8ACC /* NIMTesterDeleteTimedMessagesVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 41727016252060BC005E8ACC /* NIMTesterDeleteTimedMessagesVC.h */; };
-		4172709F252060BD005E8ACC /* NTESSessionSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727017252060BC005E8ACC /* NTESSessionSearchVC.m */; };
-		417270A0252060BD005E8ACC /* NTESSaveLocalMessageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727018252060BC005E8ACC /* NTESSaveLocalMessageVC.m */; };
-		417270A2252060BD005E8ACC /* NTESPassThroughVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4172701A252060BC005E8ACC /* NTESPassThroughVC.h */; };
-		417270A3252060BD005E8ACC /* NTESChatroomListTesterVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4172701B252060BC005E8ACC /* NTESChatroomListTesterVC.h */; };
-		417270A4252060BD005E8ACC /* NIMTesterDeleteTimedMessagesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4172701C252060BC005E8ACC /* NIMTesterDeleteTimedMessagesVC.m */; };
-		417270A5252060BD005E8ACC /* NTESChatroomTesterObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4172701D252060BC005E8ACC /* NTESChatroomTesterObject.h */; };
-		417270A7252060BD005E8ACC /* NTESSaveLocalMessageVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4172701F252060BC005E8ACC /* NTESSaveLocalMessageVC.h */; };
-		417270A8252060BD005E8ACC /* NTESSessionSearchVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 41727020252060BC005E8ACC /* NTESSessionSearchVC.h */; };
-		417270A9252060BD005E8ACC /* NTESChatroomListTesterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727021252060BC005E8ACC /* NTESChatroomListTesterVC.m */; };
-		417270AA252060BD005E8ACC /* NTESPassThroughVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727022252060BC005E8ACC /* NTESPassThroughVC.m */; };
-		417270AB252060BD005E8ACC /* NTESTesterBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 41727024252060BC005E8ACC /* NTESTesterBaseVC.m */; };
-		417270AC252060BD005E8ACC /* NTESTesterBaseVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 41727025252060BC005E8ACC /* NTESTesterBaseVC.h */; };
-		417270B8252060CD005E8ACC /* NIMHackerLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 417270AF252060CD005E8ACC /* NIMHackerLoader.m */; };
-		417270B9252060CD005E8ACC /* NIMPrivateHacker.h in Headers */ = {isa = PBXBuildFile; fileRef = 417270B0252060CD005E8ACC /* NIMPrivateHacker.h */; };
-		417270BA252060CD005E8ACC /* NIMPrivateHackerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 417270B1252060CD005E8ACC /* NIMPrivateHackerConfig.m */; };
-		417270BB252060CD005E8ACC /* NIMPrivateHackerConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 417270B2252060CD005E8ACC /* NIMPrivateHackerConfig.h */; };
-		417270BC252060CD005E8ACC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 417270B3252060CD005E8ACC /* README.md */; };
-		417270BD252060CD005E8ACC /* NIMPrivateHacker.m in Sources */ = {isa = PBXBuildFile; fileRef = 417270B4252060CD005E8ACC /* NIMPrivateHacker.m */; };
-		417270BE252060CD005E8ACC /* NIMHackerLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 417270B5252060CD005E8ACC /* NIMHackerLoader.h */; };
 		41E71057237D39860079EA97 /* NIMKitEmoticon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41E71056237D39860079EA97 /* NIMKitEmoticon.bundle */; };
+		482CF0672670AE7300C35328 /* NERtcCallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4849BDAB262551440026AF64 /* NERtcCallKit.framework */; };
+		482CF0682670AE7300C35328 /* NERtcCallKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4849BDAB262551440026AF64 /* NERtcCallKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		48351E6426130A1B00235120 /* NECustomNavigationBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 48351E6226130A1B00235120 /* NECustomNavigationBar.h */; };
 		48351E6526130A1B00235120 /* NECustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 48351E6326130A1B00235120 /* NECustomNavigationBar.m */; };
 		484782B82452D6E3001B37AF /* NTESMessagePinListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 484782B62452D6E3001B37AF /* NTESMessagePinListViewController.h */; };
 		484782B92452D6E3001B37AF /* NTESMessagePinListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 484782B72452D6E3001B37AF /* NTESMessagePinListViewController.m */; };
-		4849BDAC262551440026AF64 /* NERtcCallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4849BDAB262551440026AF64 /* NERtcCallKit.framework */; };
 		489F53DB2580EEF000A4867A /* NTESRtcTokenUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 489F53D92580EEF000A4867A /* NTESRtcTokenUtils.h */; };
 		489F53DC2580EEF000A4867A /* NTESRtcTokenUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 489F53DA2580EEF000A4867A /* NTESRtcTokenUtils.m */; };
 		48E39B192446B8E800F2BA20 /* NTESCollectMessageListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 48E39B172446B8E800F2BA20 /* NTESCollectMessageListViewController.h */; };
@@ -505,6 +366,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				482CF0682670AE7300C35328 /* NERtcCallKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,146 +427,6 @@
 		413057CB23BE0E7800DF7940 /* NTESContactSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESContactSearchViewController.m; sourceTree = "<group>"; };
 		415707EC24F7CD240058B5B0 /* NTESNoticationUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESNoticationUtil.h; sourceTree = "<group>"; };
 		415707ED24F7CD240058B5B0 /* NTESNoticationUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESNoticationUtil.m; sourceTree = "<group>"; };
-		41726F93252060BC005E8ACC /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		41726F95252060BC005E8ACC /* NTESContactViewControllerTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESContactViewControllerTester.m; sourceTree = "<group>"; };
-		41726F96252060BC005E8ACC /* NTESSessionViewControllerTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSessionViewControllerTester.m; sourceTree = "<group>"; };
-		41726F97252060BC005E8ACC /* NTESSessionListViewControllerTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSessionListViewControllerTester.h; sourceTree = "<group>"; };
-		41726F98252060BC005E8ACC /* NIMVideoObject+NIMVideoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NIMVideoObject+NIMVideoTest.m"; sourceTree = "<group>"; };
-		41726F99252060BC005E8ACC /* NIMTesterHooker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMTesterHooker.h; sourceTree = "<group>"; };
-		41726F9A252060BC005E8ACC /* NTESTestLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESTestLiveViewController.m; sourceTree = "<group>"; };
-		41726F9B252060BC005E8ACC /* NTESSessionMsgConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSessionMsgConfig.m; sourceTree = "<group>"; };
-		41726F9C252060BC005E8ACC /* NTESLogTestViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NTESLogTestViewController.mm; sourceTree = "<group>"; };
-		41726F9D252060BC005E8ACC /* NTESTestSendMsgConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESTestSendMsgConfigVC.m; sourceTree = "<group>"; };
-		41726F9E252060BC005E8ACC /* NTESChatroomListViewControllerTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESChatroomListViewControllerTester.m; sourceTree = "<group>"; };
-		41726F9F252060BC005E8ACC /* NTESDbExceptionTesterViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NTESDbExceptionTesterViewController.mm; sourceTree = "<group>"; };
-		41726FA0252060BC005E8ACC /* NTESTestChatroomListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESTestChatroomListVC.m; sourceTree = "<group>"; };
-		41726FA1252060BC005E8ACC /* NTESSessionListVCTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSessionListVCTester.h; sourceTree = "<group>"; };
-		41726FA2252060BC005E8ACC /* NTESUploadBeforeSendMsgVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESUploadBeforeSendMsgVC.h; sourceTree = "<group>"; };
-		41726FA3252060BC005E8ACC /* NTESSessionRemoteHistoryViewControllerTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSessionRemoteHistoryViewControllerTester.h; sourceTree = "<group>"; };
-		41726FA4252060BC005E8ACC /* NTESTestSessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESTestSessionViewController.m; sourceTree = "<group>"; };
-		41726FA5252060BC005E8ACC /* NIMTesterHooker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMTesterHooker.m; sourceTree = "<group>"; };
-		41726FA6252060BC005E8ACC /* NTESTestLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESTestLiveViewController.h; sourceTree = "<group>"; };
-		41726FA7252060BC005E8ACC /* NTESLogTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESLogTestViewController.h; sourceTree = "<group>"; };
-		41726FA8252060BC005E8ACC /* NIMVideoObject+NIMVideoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NIMVideoObject+NIMVideoTest.h"; sourceTree = "<group>"; };
-		41726FA9252060BC005E8ACC /* NTESContactViewControllerTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESContactViewControllerTester.h; sourceTree = "<group>"; };
-		41726FAA252060BC005E8ACC /* NTESSessionViewControllerTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSessionViewControllerTester.h; sourceTree = "<group>"; };
-		41726FAB252060BC005E8ACC /* NTESSessionListViewControllerTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSessionListViewControllerTester.m; sourceTree = "<group>"; };
-		41726FAC252060BC005E8ACC /* NTESDbExceptionTesterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESDbExceptionTesterViewController.h; sourceTree = "<group>"; };
-		41726FAD252060BC005E8ACC /* NTESTestSendMsgConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESTestSendMsgConfigVC.h; sourceTree = "<group>"; };
-		41726FAE252060BC005E8ACC /* NTESSessionMsgConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSessionMsgConfig.h; sourceTree = "<group>"; };
-		41726FAF252060BC005E8ACC /* NTESUploadBeforeSendMsgVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESUploadBeforeSendMsgVC.m; sourceTree = "<group>"; };
-		41726FB0252060BC005E8ACC /* NTESSessionListVCTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSessionListVCTester.m; sourceTree = "<group>"; };
-		41726FB1252060BC005E8ACC /* NTESTestChatroomListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESTestChatroomListVC.h; sourceTree = "<group>"; };
-		41726FB2252060BC005E8ACC /* NTESChatroomListViewControllerTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESChatroomListViewControllerTester.h; sourceTree = "<group>"; };
-		41726FB3252060BC005E8ACC /* NTESTestSessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESTestSessionViewController.h; sourceTree = "<group>"; };
-		41726FB4252060BC005E8ACC /* NTESSessionRemoteHistoryViewControllerTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSessionRemoteHistoryViewControllerTester.m; sourceTree = "<group>"; };
-		41726FB6252060BC005E8ACC /* NIMTesterMultiSelectVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMTesterMultiSelectVC.h; sourceTree = "<group>"; };
-		41726FB7252060BC005E8ACC /* NTESTesterJsonEditer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESTesterJsonEditer.m; sourceTree = "<group>"; };
-		41726FB8252060BC005E8ACC /* NIMFFloaintButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMFFloaintButton.m; sourceTree = "<group>"; };
-		41726FB9252060BC005E8ACC /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
-		41726FBB252060BC005E8ACC /* XLForm.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = XLForm.bundle; sourceTree = "<group>"; };
-		41726FBD252060BC005E8ACC /* XLForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLForm.h; sourceTree = "<group>"; };
-		41726FBF252060BC005E8ACC /* XLFormTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormTextViewCell.m; sourceTree = "<group>"; };
-		41726FC0252060BC005E8ACC /* XLFormInlineSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormInlineSelectorCell.h; sourceTree = "<group>"; };
-		41726FC1252060BC005E8ACC /* XLFormStepCounterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormStepCounterCell.m; sourceTree = "<group>"; };
-		41726FC2252060BC005E8ACC /* XLFormSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormSegmentedCell.m; sourceTree = "<group>"; };
-		41726FC3252060BC005E8ACC /* XLFormCheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormCheckCell.m; sourceTree = "<group>"; };
-		41726FC4252060BC005E8ACC /* XLFormButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormButtonCell.m; sourceTree = "<group>"; };
-		41726FC5252060BC005E8ACC /* XLFormDescriptorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormDescriptorCell.h; sourceTree = "<group>"; };
-		41726FC6252060BC005E8ACC /* XLFormPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormPickerCell.h; sourceTree = "<group>"; };
-		41726FC7252060BC005E8ACC /* XLFormInlineRowDescriptorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormInlineRowDescriptorCell.h; sourceTree = "<group>"; };
-		41726FC8252060BC005E8ACC /* XLFormLeftRightSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormLeftRightSelectorCell.h; sourceTree = "<group>"; };
-		41726FC9252060BC005E8ACC /* XLFormBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormBaseCell.m; sourceTree = "<group>"; };
-		41726FCA252060BC005E8ACC /* XLFormImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormImageCell.h; sourceTree = "<group>"; };
-		41726FCB252060BC005E8ACC /* XLFormSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormSwitchCell.m; sourceTree = "<group>"; };
-		41726FCC252060BC005E8ACC /* XLFormDatePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormDatePickerCell.h; sourceTree = "<group>"; };
-		41726FCD252060BC005E8ACC /* XLFormTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormTextFieldCell.h; sourceTree = "<group>"; };
-		41726FCE252060BC005E8ACC /* XLFormSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormSelectorCell.h; sourceTree = "<group>"; };
-		41726FCF252060BC005E8ACC /* XLFormDateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormDateCell.h; sourceTree = "<group>"; };
-		41726FD0252060BC005E8ACC /* XLFormSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormSliderCell.m; sourceTree = "<group>"; };
-		41726FD1252060BC005E8ACC /* XLFormStepCounterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormStepCounterCell.h; sourceTree = "<group>"; };
-		41726FD2252060BC005E8ACC /* XLFormInlineSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormInlineSelectorCell.m; sourceTree = "<group>"; };
-		41726FD3252060BC005E8ACC /* XLFormTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormTextViewCell.h; sourceTree = "<group>"; };
-		41726FD4252060BC005E8ACC /* XLFormButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormButtonCell.h; sourceTree = "<group>"; };
-		41726FD5252060BC005E8ACC /* XLFormCheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormCheckCell.h; sourceTree = "<group>"; };
-		41726FD6252060BC005E8ACC /* XLFormSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormSegmentedCell.h; sourceTree = "<group>"; };
-		41726FD7252060BC005E8ACC /* XLFormImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormImageCell.m; sourceTree = "<group>"; };
-		41726FD8252060BC005E8ACC /* XLFormSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormSwitchCell.h; sourceTree = "<group>"; };
-		41726FD9252060BC005E8ACC /* XLFormLeftRightSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormLeftRightSelectorCell.m; sourceTree = "<group>"; };
-		41726FDA252060BC005E8ACC /* XLFormBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormBaseCell.h; sourceTree = "<group>"; };
-		41726FDB252060BC005E8ACC /* XLFormPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormPickerCell.m; sourceTree = "<group>"; };
-		41726FDC252060BC005E8ACC /* XLFormSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormSliderCell.h; sourceTree = "<group>"; };
-		41726FDD252060BC005E8ACC /* XLFormDateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormDateCell.m; sourceTree = "<group>"; };
-		41726FDE252060BC005E8ACC /* XLFormSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormSelectorCell.m; sourceTree = "<group>"; };
-		41726FDF252060BC005E8ACC /* XLFormTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormTextFieldCell.m; sourceTree = "<group>"; };
-		41726FE0252060BC005E8ACC /* XLFormDatePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormDatePickerCell.m; sourceTree = "<group>"; };
-		41726FE2252060BC005E8ACC /* XLFormDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormDescriptor.h; sourceTree = "<group>"; };
-		41726FE3252060BC005E8ACC /* XLFormRowDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormRowDescriptor.h; sourceTree = "<group>"; };
-		41726FE4252060BC005E8ACC /* XLFormDescriptorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormDescriptorDelegate.h; sourceTree = "<group>"; };
-		41726FE5252060BC005E8ACC /* XLFormSectionDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormSectionDescriptor.m; sourceTree = "<group>"; };
-		41726FE6252060BC005E8ACC /* XLFormRowDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormRowDescriptor.m; sourceTree = "<group>"; };
-		41726FE7252060BC005E8ACC /* XLFormDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormDescriptor.m; sourceTree = "<group>"; };
-		41726FE8252060BC005E8ACC /* XLFormSectionDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormSectionDescriptor.h; sourceTree = "<group>"; };
-		41726FEA252060BC005E8ACC /* XLFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormViewController.m; sourceTree = "<group>"; };
-		41726FEB252060BC005E8ACC /* XLFormOptionsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormOptionsObject.h; sourceTree = "<group>"; };
-		41726FEC252060BC005E8ACC /* XLFormOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormOptionsViewController.h; sourceTree = "<group>"; };
-		41726FED252060BC005E8ACC /* XLFormRowDescriptorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormRowDescriptorViewController.h; sourceTree = "<group>"; };
-		41726FEE252060BC005E8ACC /* XLFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormViewController.h; sourceTree = "<group>"; };
-		41726FEF252060BC005E8ACC /* XLFormOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormOptionsViewController.m; sourceTree = "<group>"; };
-		41726FF0252060BC005E8ACC /* XLFormOptionsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormOptionsObject.m; sourceTree = "<group>"; };
-		41726FF1252060BC005E8ACC /* XLForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLForm.m; sourceTree = "<group>"; };
-		41726FF3252060BC005E8ACC /* NSObject+XLFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XLFormAdditions.m"; sourceTree = "<group>"; };
-		41726FF4252060BC005E8ACC /* NSPredicate+XLFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPredicate+XLFormAdditions.m"; sourceTree = "<group>"; };
-		41726FF5252060BC005E8ACC /* NSExpression+XLFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSExpression+XLFormAdditions.m"; sourceTree = "<group>"; };
-		41726FF6252060BC005E8ACC /* UIView+XLFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XLFormAdditions.h"; sourceTree = "<group>"; };
-		41726FF7252060BC005E8ACC /* NSArray+XLFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+XLFormAdditions.h"; sourceTree = "<group>"; };
-		41726FF8252060BC005E8ACC /* NSString+XLFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XLFormAdditions.m"; sourceTree = "<group>"; };
-		41726FF9252060BC005E8ACC /* NSObject+XLFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+XLFormAdditions.h"; sourceTree = "<group>"; };
-		41726FFA252060BC005E8ACC /* NSExpression+XLFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSExpression+XLFormAdditions.h"; sourceTree = "<group>"; };
-		41726FFB252060BC005E8ACC /* NSPredicate+XLFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPredicate+XLFormAdditions.h"; sourceTree = "<group>"; };
-		41726FFD252060BC005E8ACC /* XLFormRightImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormRightImageButton.m; sourceTree = "<group>"; };
-		41726FFE252060BC005E8ACC /* XLFormTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormTextView.m; sourceTree = "<group>"; };
-		41726FFF252060BC005E8ACC /* XLFormRowNavigationAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormRowNavigationAccessoryView.m; sourceTree = "<group>"; };
-		41727000252060BC005E8ACC /* XLFormRightDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormRightDetailCell.m; sourceTree = "<group>"; };
-		41727001252060BC005E8ACC /* XLFormTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormTextView.h; sourceTree = "<group>"; };
-		41727002252060BC005E8ACC /* XLFormRightImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormRightImageButton.h; sourceTree = "<group>"; };
-		41727003252060BC005E8ACC /* XLFormRightDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormRightDetailCell.h; sourceTree = "<group>"; };
-		41727004252060BC005E8ACC /* XLFormRowNavigationAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormRowNavigationAccessoryView.h; sourceTree = "<group>"; };
-		41727005252060BC005E8ACC /* NSString+XLFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XLFormAdditions.h"; sourceTree = "<group>"; };
-		41727006252060BC005E8ACC /* NSArray+XLFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+XLFormAdditions.m"; sourceTree = "<group>"; };
-		41727007252060BC005E8ACC /* UIView+XLFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XLFormAdditions.m"; sourceTree = "<group>"; };
-		41727009252060BC005E8ACC /* XLFormRegexValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormRegexValidator.m; sourceTree = "<group>"; };
-		4172700A252060BC005E8ACC /* XLFormValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormValidator.h; sourceTree = "<group>"; };
-		4172700B252060BC005E8ACC /* XLFormValidationStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormValidationStatus.m; sourceTree = "<group>"; };
-		4172700C252060BC005E8ACC /* XLFormValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormValidator.m; sourceTree = "<group>"; };
-		4172700D252060BC005E8ACC /* XLFormRegexValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormRegexValidator.h; sourceTree = "<group>"; };
-		4172700E252060BC005E8ACC /* XLFormValidationStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormValidationStatus.h; sourceTree = "<group>"; };
-		4172700F252060BC005E8ACC /* XLFormValidatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormValidatorProtocol.h; sourceTree = "<group>"; };
-		41727010252060BC005E8ACC /* NIMTesterMultiSelectVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMTesterMultiSelectVC.m; sourceTree = "<group>"; };
-		41727011252060BC005E8ACC /* NTESTesterJsonEditer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESTesterJsonEditer.h; sourceTree = "<group>"; };
-		41727012252060BC005E8ACC /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
-		41727013252060BC005E8ACC /* NIMFFloaintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMFFloaintButton.h; sourceTree = "<group>"; };
-		41727015252060BC005E8ACC /* NTESChatroomTesterObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESChatroomTesterObject.m; sourceTree = "<group>"; };
-		41727016252060BC005E8ACC /* NIMTesterDeleteTimedMessagesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMTesterDeleteTimedMessagesVC.h; sourceTree = "<group>"; };
-		41727017252060BC005E8ACC /* NTESSessionSearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSessionSearchVC.m; sourceTree = "<group>"; };
-		41727018252060BC005E8ACC /* NTESSaveLocalMessageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSaveLocalMessageVC.m; sourceTree = "<group>"; };
-		4172701A252060BC005E8ACC /* NTESPassThroughVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESPassThroughVC.h; sourceTree = "<group>"; };
-		4172701B252060BC005E8ACC /* NTESChatroomListTesterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESChatroomListTesterVC.h; sourceTree = "<group>"; };
-		4172701C252060BC005E8ACC /* NIMTesterDeleteTimedMessagesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMTesterDeleteTimedMessagesVC.m; sourceTree = "<group>"; };
-		4172701D252060BC005E8ACC /* NTESChatroomTesterObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESChatroomTesterObject.h; sourceTree = "<group>"; };
-		4172701F252060BC005E8ACC /* NTESSaveLocalMessageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSaveLocalMessageVC.h; sourceTree = "<group>"; };
-		41727020252060BC005E8ACC /* NTESSessionSearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSessionSearchVC.h; sourceTree = "<group>"; };
-		41727021252060BC005E8ACC /* NTESChatroomListTesterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESChatroomListTesterVC.m; sourceTree = "<group>"; };
-		41727022252060BC005E8ACC /* NTESPassThroughVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESPassThroughVC.m; sourceTree = "<group>"; };
-		41727024252060BC005E8ACC /* NTESTesterBaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESTesterBaseVC.m; sourceTree = "<group>"; };
-		41727025252060BC005E8ACC /* NTESTesterBaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESTesterBaseVC.h; sourceTree = "<group>"; };
-		417270AF252060CD005E8ACC /* NIMHackerLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMHackerLoader.m; sourceTree = "<group>"; };
-		417270B0252060CD005E8ACC /* NIMPrivateHacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMPrivateHacker.h; sourceTree = "<group>"; };
-		417270B1252060CD005E8ACC /* NIMPrivateHackerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMPrivateHackerConfig.m; sourceTree = "<group>"; };
-		417270B2252060CD005E8ACC /* NIMPrivateHackerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMPrivateHackerConfig.h; sourceTree = "<group>"; };
-		417270B3252060CD005E8ACC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		417270B4252060CD005E8ACC /* NIMPrivateHacker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMPrivateHacker.m; sourceTree = "<group>"; };
-		417270B5252060CD005E8ACC /* NIMHackerLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMHackerLoader.h; sourceTree = "<group>"; };
 		41E71056237D39860079EA97 /* NIMKitEmoticon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NIMKitEmoticon.bundle; sourceTree = "<group>"; };
 		48351E6226130A1B00235120 /* NECustomNavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NECustomNavigationBar.h; sourceTree = "<group>"; };
 		48351E6326130A1B00235120 /* NECustomNavigationBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NECustomNavigationBar.m; sourceTree = "<group>"; };
@@ -1251,9 +973,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4849BDAC262551440026AF64 /* NERtcCallKit.framework in Frameworks */,
 				61530BE71BABAD3B00FE50CC /* libsqlite3.0.tbd in Frameworks */,
 				BD73C07F1D9905D200F1C436 /* libc++.tbd in Frameworks */,
+				482CF0672670AE7300C35328 /* NERtcCallKit.framework in Frameworks */,
 				61530BEB1BABAD8200FE50CC /* libz.tbd in Frameworks */,
 				61AE12861DD95947005980B5 /* libNIMKit.a in Frameworks */,
 				C79CC981255E3889003B9886 /* SafariServices.framework in Frameworks */,
@@ -1324,258 +1046,6 @@
 				C716F6793D5D6D1604893032 /* Pods-NIMDemo-NIM.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		41726F91252060BC005E8ACC /* NIMDemoTestVC */ = {
-			isa = PBXGroup;
-			children = (
-				41726F92252060BC005E8ACC /* Localizable.strings */,
-				41726F94252060BC005E8ACC /* Sections */,
-				41726FB5252060BC005E8ACC /* Tools */,
-				41727014252060BC005E8ACC /* UntilTest */,
-				41727023252060BC005E8ACC /* Base */,
-			);
-			name = NIMDemoTestVC;
-			path = ../NIMHackers/NIMDemoHacker/NIMDemoTestVC;
-			sourceTree = "<group>";
-		};
-		41726F94252060BC005E8ACC /* Sections */ = {
-			isa = PBXGroup;
-			children = (
-				41726F95252060BC005E8ACC /* NTESContactViewControllerTester.m */,
-				41726F96252060BC005E8ACC /* NTESSessionViewControllerTester.m */,
-				41726F97252060BC005E8ACC /* NTESSessionListViewControllerTester.h */,
-				41726F98252060BC005E8ACC /* NIMVideoObject+NIMVideoTest.m */,
-				41726F99252060BC005E8ACC /* NIMTesterHooker.h */,
-				41726F9A252060BC005E8ACC /* NTESTestLiveViewController.m */,
-				41726F9B252060BC005E8ACC /* NTESSessionMsgConfig.m */,
-				41726F9C252060BC005E8ACC /* NTESLogTestViewController.mm */,
-				41726F9D252060BC005E8ACC /* NTESTestSendMsgConfigVC.m */,
-				41726F9E252060BC005E8ACC /* NTESChatroomListViewControllerTester.m */,
-				41726F9F252060BC005E8ACC /* NTESDbExceptionTesterViewController.mm */,
-				41726FA0252060BC005E8ACC /* NTESTestChatroomListVC.m */,
-				41726FA1252060BC005E8ACC /* NTESSessionListVCTester.h */,
-				41726FA2252060BC005E8ACC /* NTESUploadBeforeSendMsgVC.h */,
-				41726FA3252060BC005E8ACC /* NTESSessionRemoteHistoryViewControllerTester.h */,
-				41726FA4252060BC005E8ACC /* NTESTestSessionViewController.m */,
-				41726FA5252060BC005E8ACC /* NIMTesterHooker.m */,
-				41726FA6252060BC005E8ACC /* NTESTestLiveViewController.h */,
-				41726FA7252060BC005E8ACC /* NTESLogTestViewController.h */,
-				41726FA8252060BC005E8ACC /* NIMVideoObject+NIMVideoTest.h */,
-				41726FA9252060BC005E8ACC /* NTESContactViewControllerTester.h */,
-				41726FAA252060BC005E8ACC /* NTESSessionViewControllerTester.h */,
-				41726FAB252060BC005E8ACC /* NTESSessionListViewControllerTester.m */,
-				41726FAC252060BC005E8ACC /* NTESDbExceptionTesterViewController.h */,
-				41726FAD252060BC005E8ACC /* NTESTestSendMsgConfigVC.h */,
-				41726FAE252060BC005E8ACC /* NTESSessionMsgConfig.h */,
-				41726FAF252060BC005E8ACC /* NTESUploadBeforeSendMsgVC.m */,
-				41726FB0252060BC005E8ACC /* NTESSessionListVCTester.m */,
-				41726FB1252060BC005E8ACC /* NTESTestChatroomListVC.h */,
-				41726FB2252060BC005E8ACC /* NTESChatroomListViewControllerTester.h */,
-				41726FB3252060BC005E8ACC /* NTESTestSessionViewController.h */,
-				41726FB4252060BC005E8ACC /* NTESSessionRemoteHistoryViewControllerTester.m */,
-			);
-			path = Sections;
-			sourceTree = "<group>";
-		};
-		41726FB5252060BC005E8ACC /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				41726FBA252060BC005E8ACC /* XLForm */,
-				41726FB6252060BC005E8ACC /* NIMTesterMultiSelectVC.h */,
-				41726FB7252060BC005E8ACC /* NTESTesterJsonEditer.m */,
-				41726FB8252060BC005E8ACC /* NIMFFloaintButton.m */,
-				41726FB9252060BC005E8ACC /* Aspects.h */,
-				41727010252060BC005E8ACC /* NIMTesterMultiSelectVC.m */,
-				41727011252060BC005E8ACC /* NTESTesterJsonEditer.h */,
-				41727012252060BC005E8ACC /* Aspects.m */,
-				41727013252060BC005E8ACC /* NIMFFloaintButton.h */,
-			);
-			path = Tools;
-			sourceTree = "<group>";
-		};
-		41726FBA252060BC005E8ACC /* XLForm */ = {
-			isa = PBXGroup;
-			children = (
-				41726FBB252060BC005E8ACC /* XLForm.bundle */,
-				41726FBC252060BC005E8ACC /* XL */,
-			);
-			path = XLForm;
-			sourceTree = "<group>";
-		};
-		41726FBC252060BC005E8ACC /* XL */ = {
-			isa = PBXGroup;
-			children = (
-				41726FBD252060BC005E8ACC /* XLForm.h */,
-				41726FBE252060BC005E8ACC /* Cell */,
-				41726FE1252060BC005E8ACC /* Descriptors */,
-				41726FE9252060BC005E8ACC /* Controllers */,
-				41726FF1252060BC005E8ACC /* XLForm.m */,
-				41726FF2252060BC005E8ACC /* Helpers */,
-				41727008252060BC005E8ACC /* Validation */,
-			);
-			path = XL;
-			sourceTree = "<group>";
-		};
-		41726FBE252060BC005E8ACC /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				41726FBF252060BC005E8ACC /* XLFormTextViewCell.m */,
-				41726FC0252060BC005E8ACC /* XLFormInlineSelectorCell.h */,
-				41726FC1252060BC005E8ACC /* XLFormStepCounterCell.m */,
-				41726FC2252060BC005E8ACC /* XLFormSegmentedCell.m */,
-				41726FC3252060BC005E8ACC /* XLFormCheckCell.m */,
-				41726FC4252060BC005E8ACC /* XLFormButtonCell.m */,
-				41726FC5252060BC005E8ACC /* XLFormDescriptorCell.h */,
-				41726FC6252060BC005E8ACC /* XLFormPickerCell.h */,
-				41726FC7252060BC005E8ACC /* XLFormInlineRowDescriptorCell.h */,
-				41726FC8252060BC005E8ACC /* XLFormLeftRightSelectorCell.h */,
-				41726FC9252060BC005E8ACC /* XLFormBaseCell.m */,
-				41726FCA252060BC005E8ACC /* XLFormImageCell.h */,
-				41726FCB252060BC005E8ACC /* XLFormSwitchCell.m */,
-				41726FCC252060BC005E8ACC /* XLFormDatePickerCell.h */,
-				41726FCD252060BC005E8ACC /* XLFormTextFieldCell.h */,
-				41726FCE252060BC005E8ACC /* XLFormSelectorCell.h */,
-				41726FCF252060BC005E8ACC /* XLFormDateCell.h */,
-				41726FD0252060BC005E8ACC /* XLFormSliderCell.m */,
-				41726FD1252060BC005E8ACC /* XLFormStepCounterCell.h */,
-				41726FD2252060BC005E8ACC /* XLFormInlineSelectorCell.m */,
-				41726FD3252060BC005E8ACC /* XLFormTextViewCell.h */,
-				41726FD4252060BC005E8ACC /* XLFormButtonCell.h */,
-				41726FD5252060BC005E8ACC /* XLFormCheckCell.h */,
-				41726FD6252060BC005E8ACC /* XLFormSegmentedCell.h */,
-				41726FD7252060BC005E8ACC /* XLFormImageCell.m */,
-				41726FD8252060BC005E8ACC /* XLFormSwitchCell.h */,
-				41726FD9252060BC005E8ACC /* XLFormLeftRightSelectorCell.m */,
-				41726FDA252060BC005E8ACC /* XLFormBaseCell.h */,
-				41726FDB252060BC005E8ACC /* XLFormPickerCell.m */,
-				41726FDC252060BC005E8ACC /* XLFormSliderCell.h */,
-				41726FDD252060BC005E8ACC /* XLFormDateCell.m */,
-				41726FDE252060BC005E8ACC /* XLFormSelectorCell.m */,
-				41726FDF252060BC005E8ACC /* XLFormTextFieldCell.m */,
-				41726FE0252060BC005E8ACC /* XLFormDatePickerCell.m */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		41726FE1252060BC005E8ACC /* Descriptors */ = {
-			isa = PBXGroup;
-			children = (
-				41726FE2252060BC005E8ACC /* XLFormDescriptor.h */,
-				41726FE3252060BC005E8ACC /* XLFormRowDescriptor.h */,
-				41726FE4252060BC005E8ACC /* XLFormDescriptorDelegate.h */,
-				41726FE5252060BC005E8ACC /* XLFormSectionDescriptor.m */,
-				41726FE6252060BC005E8ACC /* XLFormRowDescriptor.m */,
-				41726FE7252060BC005E8ACC /* XLFormDescriptor.m */,
-				41726FE8252060BC005E8ACC /* XLFormSectionDescriptor.h */,
-			);
-			path = Descriptors;
-			sourceTree = "<group>";
-		};
-		41726FE9252060BC005E8ACC /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				41726FEA252060BC005E8ACC /* XLFormViewController.m */,
-				41726FEB252060BC005E8ACC /* XLFormOptionsObject.h */,
-				41726FEC252060BC005E8ACC /* XLFormOptionsViewController.h */,
-				41726FED252060BC005E8ACC /* XLFormRowDescriptorViewController.h */,
-				41726FEE252060BC005E8ACC /* XLFormViewController.h */,
-				41726FEF252060BC005E8ACC /* XLFormOptionsViewController.m */,
-				41726FF0252060BC005E8ACC /* XLFormOptionsObject.m */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		41726FF2252060BC005E8ACC /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				41726FF3252060BC005E8ACC /* NSObject+XLFormAdditions.m */,
-				41726FF4252060BC005E8ACC /* NSPredicate+XLFormAdditions.m */,
-				41726FF5252060BC005E8ACC /* NSExpression+XLFormAdditions.m */,
-				41726FF6252060BC005E8ACC /* UIView+XLFormAdditions.h */,
-				41726FF7252060BC005E8ACC /* NSArray+XLFormAdditions.h */,
-				41726FF8252060BC005E8ACC /* NSString+XLFormAdditions.m */,
-				41726FF9252060BC005E8ACC /* NSObject+XLFormAdditions.h */,
-				41726FFA252060BC005E8ACC /* NSExpression+XLFormAdditions.h */,
-				41726FFB252060BC005E8ACC /* NSPredicate+XLFormAdditions.h */,
-				41726FFC252060BC005E8ACC /* Views */,
-				41727005252060BC005E8ACC /* NSString+XLFormAdditions.h */,
-				41727006252060BC005E8ACC /* NSArray+XLFormAdditions.m */,
-				41727007252060BC005E8ACC /* UIView+XLFormAdditions.m */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		41726FFC252060BC005E8ACC /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				41726FFD252060BC005E8ACC /* XLFormRightImageButton.m */,
-				41726FFE252060BC005E8ACC /* XLFormTextView.m */,
-				41726FFF252060BC005E8ACC /* XLFormRowNavigationAccessoryView.m */,
-				41727000252060BC005E8ACC /* XLFormRightDetailCell.m */,
-				41727001252060BC005E8ACC /* XLFormTextView.h */,
-				41727002252060BC005E8ACC /* XLFormRightImageButton.h */,
-				41727003252060BC005E8ACC /* XLFormRightDetailCell.h */,
-				41727004252060BC005E8ACC /* XLFormRowNavigationAccessoryView.h */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		41727008252060BC005E8ACC /* Validation */ = {
-			isa = PBXGroup;
-			children = (
-				41727009252060BC005E8ACC /* XLFormRegexValidator.m */,
-				4172700A252060BC005E8ACC /* XLFormValidator.h */,
-				4172700B252060BC005E8ACC /* XLFormValidationStatus.m */,
-				4172700C252060BC005E8ACC /* XLFormValidator.m */,
-				4172700D252060BC005E8ACC /* XLFormRegexValidator.h */,
-				4172700E252060BC005E8ACC /* XLFormValidationStatus.h */,
-				4172700F252060BC005E8ACC /* XLFormValidatorProtocol.h */,
-			);
-			path = Validation;
-			sourceTree = "<group>";
-		};
-		41727014252060BC005E8ACC /* UntilTest */ = {
-			isa = PBXGroup;
-			children = (
-				41727015252060BC005E8ACC /* NTESChatroomTesterObject.m */,
-				41727016252060BC005E8ACC /* NIMTesterDeleteTimedMessagesVC.h */,
-				41727017252060BC005E8ACC /* NTESSessionSearchVC.m */,
-				41727018252060BC005E8ACC /* NTESSaveLocalMessageVC.m */,
-				4172701A252060BC005E8ACC /* NTESPassThroughVC.h */,
-				4172701B252060BC005E8ACC /* NTESChatroomListTesterVC.h */,
-				4172701C252060BC005E8ACC /* NIMTesterDeleteTimedMessagesVC.m */,
-				4172701D252060BC005E8ACC /* NTESChatroomTesterObject.h */,
-				4172701F252060BC005E8ACC /* NTESSaveLocalMessageVC.h */,
-				41727020252060BC005E8ACC /* NTESSessionSearchVC.h */,
-				41727021252060BC005E8ACC /* NTESChatroomListTesterVC.m */,
-				41727022252060BC005E8ACC /* NTESPassThroughVC.m */,
-			);
-			path = UntilTest;
-			sourceTree = "<group>";
-		};
-		41727023252060BC005E8ACC /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				41727024252060BC005E8ACC /* NTESTesterBaseVC.m */,
-				41727025252060BC005E8ACC /* NTESTesterBaseVC.h */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		417270AD252060CD005E8ACC /* Hacker */ = {
-			isa = PBXGroup;
-			children = (
-				417270B0252060CD005E8ACC /* NIMPrivateHacker.h */,
-				417270AF252060CD005E8ACC /* NIMHackerLoader.m */,
-				417270B1252060CD005E8ACC /* NIMPrivateHackerConfig.m */,
-				417270B2252060CD005E8ACC /* NIMPrivateHackerConfig.h */,
-				417270B4252060CD005E8ACC /* NIMPrivateHacker.m */,
-				417270B5252060CD005E8ACC /* NIMHackerLoader.h */,
-				417270B3252060CD005E8ACC /* README.md */,
-			);
-			name = Hacker;
-			path = ../../../NIMHackers/NIMDemoHacker/Hacker;
 			sourceTree = "<group>";
 		};
 		48E39B162446B8C500F2BA20 /* Collect */ = {
@@ -2367,7 +1837,6 @@
 		61F728281A7B23A40076C096 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				417270AD252060CD005E8ACC /* Hacker */,
 				87EA9E5721DCD36500EF0EAE /* Private */,
 				E48988E51DE42353001CF6C5 /* LayoutConfig */,
 				61E471681B7D96AA00F4A1BF /* Util */,
@@ -2605,7 +2074,6 @@
 		AE5882DC1A6F47E10070536A = {
 			isa = PBXGroup;
 			children = (
-				41726F91252060BC005E8ACC /* NIMDemoTestVC */,
 				AE5882E71A6F47E10070536A /* NIMDemo */,
 				A1A95A1920D2BF0600754E64 /* NotificationScene */,
 				A104323420DA42000079CE28 /* NotificationService */,
@@ -2853,113 +2321,42 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				417270A3252060BD005E8ACC /* NTESChatroomListTesterVC.h in Headers */,
-				4172708B252060BD005E8ACC /* XLFormTextView.h in Headers */,
-				41727062252060BD005E8ACC /* XLFormButtonCell.h in Headers */,
-				41727097252060BD005E8ACC /* XLFormValidationStatus.h in Headers */,
 				2F5769912359E5690037A2BC /* NTESMergeMessageDataSource.h in Headers */,
 				413057CC23BE0E7800DF7940 /* NTESContactSearchViewController.h in Headers */,
-				4172706A252060BD005E8ACC /* XLFormSliderCell.h in Headers */,
-				4172704C252060BC005E8ACC /* XLForm.h in Headers */,
-				4172705C252060BD005E8ACC /* XLFormSelectorCell.h in Headers */,
 				8709BBDC2442FFFD00FC2EAF /* NTESThreadSessionConfig.h in Headers */,
-				41727077252060BD005E8ACC /* XLFormOptionsObject.h in Headers */,
-				4172703F252060BC005E8ACC /* NTESTestSendMsgConfigVC.h in Headers */,
 				E6B78EAF23571C4C009CABF6 /* NTESMultiRetweetAttachment.h in Headers */,
-				4172708C252060BD005E8ACC /* XLFormRightImageButton.h in Headers */,
 				2F02F2FF235DA7D700BE5597 /* NTESMessageModel.h in Headers */,
-				41727085252060BD005E8ACC /* NSExpression+XLFormAdditions.h in Headers */,
-				417270A8252060BD005E8ACC /* NTESSessionSearchVC.h in Headers */,
-				417270A7252060BD005E8ACC /* NTESSaveLocalMessageVC.h in Headers */,
 				87E9754823A9CAFF00336165 /* NTESMessageRetrieveResultVC.h in Headers */,
 				48351E6426130A1B00235120 /* NECustomNavigationBar.h in Headers */,
 				C7979FC9255649C900023D3E /* NEGroupCallCollectionCell.h in Headers */,
-				41727066252060BD005E8ACC /* XLFormSwitchCell.h in Headers */,
-				4172709E252060BD005E8ACC /* NIMTesterDeleteTimedMessagesVC.h in Headers */,
 				E6B78EB323581548009CABF6 /* NTESFileUtil.h in Headers */,
-				4172706F252060BD005E8ACC /* XLFormDescriptor.h in Headers */,
-				4172702B252060BC005E8ACC /* NIMTesterHooker.h in Headers */,
 				C7618E22255158CE004A12FA /* NEVideoView.h in Headers */,
-				41727034252060BC005E8ACC /* NTESUploadBeforeSendMsgVC.h in Headers */,
-				41727086252060BD005E8ACC /* NSPredicate+XLFormAdditions.h in Headers */,
-				41727093252060BD005E8ACC /* XLFormValidator.h in Headers */,
 				484782B82452D6E3001B37AF /* NTESMessagePinListViewController.h in Headers */,
-				41727056252060BD005E8ACC /* XLFormLeftRightSelectorCell.h in Headers */,
 				C7618E1E255158B8004A12FA /* NEVideoOperationView.h in Headers */,
-				4172703C252060BC005E8ACC /* NTESSessionViewControllerTester.h in Headers */,
-				41727045252060BC005E8ACC /* NTESTestSessionViewController.h in Headers */,
 				E6D63BA12355D9D90063F18E /* NTESMulSelectFunctionBar.h in Headers */,
 				E6B78E962356C4A0009CABF6 /* NTESMergeForwardSession.h in Headers */,
-				41727039252060BC005E8ACC /* NTESLogTestViewController.h in Headers */,
 				2F57697C23596B480037A2BC /* NTESMergeMessageViewController.h in Headers */,
 				2F576988235992780037A2BC /* NTESTimestampCell.h in Headers */,
-				41727054252060BD005E8ACC /* XLFormPickerCell.h in Headers */,
-				41727081252060BD005E8ACC /* UIView+XLFormAdditions.h in Headers */,
 				87E9754C23A9F29200336165 /* NTESKeyWordMessageCell.h in Headers */,
-				41727058252060BD005E8ACC /* XLFormImageCell.h in Headers */,
-				4172709C252060BD005E8ACC /* NIMFFloaintButton.h in Headers */,
-				41727068252060BD005E8ACC /* XLFormBaseCell.h in Headers */,
 				48E39B192446B8E800F2BA20 /* NTESCollectMessageListViewController.h in Headers */,
-				417270BE252060CD005E8ACC /* NIMHackerLoader.h in Headers */,
-				4172704A252060BC005E8ACC /* Aspects.h in Headers */,
-				4172703A252060BC005E8ACC /* NIMVideoObject+NIMVideoTest.h in Headers */,
 				87A85DA6235DDE4E0023F2CF /* NTESSessionServiceListVC.h in Headers */,
-				41727029252060BC005E8ACC /* NTESSessionListViewControllerTester.h in Headers */,
 				410E271F23628C8700C97467 /* NTESAVPlayerView.h in Headers */,
-				41727044252060BC005E8ACC /* NTESChatroomListViewControllerTester.h in Headers */,
-				41727084252060BD005E8ACC /* NSObject+XLFormAdditions.h in Headers */,
-				41727040252060BC005E8ACC /* NTESSessionMsgConfig.h in Headers */,
-				4172708F252060BD005E8ACC /* NSString+XLFormAdditions.h in Headers */,
 				E6B78EA32356F106009CABF6 /* NTESMigrateHeader.h in Headers */,
 				E6B78EBF23587FA4009CABF6 /* NTESMessageUtil.h in Headers */,
 				E6B78E9B2356EACF009CABF6 /* NTESMessageSerialization.h in Headers */,
-				417270A5252060BD005E8ACC /* NTESChatroomTesterObject.h in Headers */,
-				41727064252060BD005E8ACC /* XLFormSegmentedCell.h in Headers */,
-				41727047252060BC005E8ACC /* NIMTesterMultiSelectVC.h in Headers */,
-				4172705D252060BD005E8ACC /* XLFormDateCell.h in Headers */,
-				41727043252060BC005E8ACC /* NTESTestChatroomListVC.h in Headers */,
-				41727035252060BC005E8ACC /* NTESSessionRemoteHistoryViewControllerTester.h in Headers */,
-				4172709A252060BD005E8ACC /* NTESTesterJsonEditer.h in Headers */,
 				8709BBD82442FED700FC2EAF /* NTESThreadTalkSessionViewController.h in Headers */,
-				417270BB252060CD005E8ACC /* NIMPrivateHackerConfig.h in Headers */,
-				41727053252060BD005E8ACC /* XLFormDescriptorCell.h in Headers */,
-				4172708E252060BD005E8ACC /* XLFormRowNavigationAccessoryView.h in Headers */,
 				489F53DB2580EEF000A4867A /* NTESRtcTokenUtils.h in Headers */,
 				413057C823BDEBC400DF7940 /* NTESSessionSearchViewController.h in Headers */,
-				41727061252060BD005E8ACC /* XLFormTextViewCell.h in Headers */,
-				4172705F252060BD005E8ACC /* XLFormStepCounterCell.h in Headers */,
 				C7979FCD25567D6200023D3E /* NEGroupCallView.h in Headers */,
-				4172707A252060BD005E8ACC /* XLFormViewController.h in Headers */,
-				41727082252060BD005E8ACC /* NSArray+XLFormAdditions.h in Headers */,
-				41727063252060BD005E8ACC /* XLFormCheckCell.h in Headers */,
-				417270B9252060CD005E8ACC /* NIMPrivateHacker.h in Headers */,
-				41727033252060BC005E8ACC /* NTESSessionListVCTester.h in Headers */,
-				41727055252060BD005E8ACC /* XLFormInlineRowDescriptorCell.h in Headers */,
-				4172705A252060BD005E8ACC /* XLFormDatePickerCell.h in Headers */,
 				415707EE24F7CD240058B5B0 /* NTESNoticationUtil.h in Headers */,
-				4172703B252060BC005E8ACC /* NTESContactViewControllerTester.h in Headers */,
-				417270AC252060BD005E8ACC /* NTESTesterBaseVC.h in Headers */,
-				41727098252060BD005E8ACC /* XLFormValidatorProtocol.h in Headers */,
-				41727038252060BC005E8ACC /* NTESTestLiveViewController.h in Headers */,
 				410E27252362D62900C97467 /* NTESAVMoivePlayerController.h in Headers */,
-				41727070252060BD005E8ACC /* XLFormRowDescriptor.h in Headers */,
 				879BBB002367D01900E4F427 /* NTESDbExceptionHandler.h in Headers */,
-				4172705B252060BD005E8ACC /* XLFormTextFieldCell.h in Headers */,
-				417270A2252060BD005E8ACC /* NTESPassThroughVC.h in Headers */,
-				4172708D252060BD005E8ACC /* XLFormRightDetailCell.h in Headers */,
 				C7618E0F25514D83004A12FA /* NECallViewController.h in Headers */,
-				4172704E252060BD005E8ACC /* XLFormInlineSelectorCell.h in Headers */,
 				E6B78EB723583EA7009CABF6 /* NTESSessionMultiRetweetContentView.h in Headers */,
-				41727079252060BD005E8ACC /* XLFormRowDescriptorViewController.h in Headers */,
 				C7618E192551589B004A12FA /* NECustomButton.h in Headers */,
-				41727096252060BD005E8ACC /* XLFormRegexValidator.h in Headers */,
-				41727078252060BD005E8ACC /* XLFormOptionsViewController.h in Headers */,
 				2F57698023598E680037A2BC /* NTESMergeMessageCell.h in Headers */,
-				4172703E252060BC005E8ACC /* NTESDbExceptionTesterViewController.h in Headers */,
-				41727071252060BD005E8ACC /* XLFormDescriptorDelegate.h in Headers */,
 				2F576984235991B50037A2BC /* NTESMessageCellFactory.h in Headers */,
 				C7578F982555818700E743EB /* NEGroupCallVC.h in Headers */,
-				41727075252060BD005E8ACC /* XLFormSectionDescriptor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3127,7 +2524,6 @@
 				871CA2E123F4F34A00C96528 /* NTESMutiClientsCell.xib in Resources */,
 				612583D720B5B284007EFF3C /* nim_embeded_frameworks.sh in Resources */,
 				610B1E051AFDDE04006454EA /* video_chat_tip_OnCall.aac in Resources */,
-				41727026252060BC005E8ACC /* Localizable.strings in Resources */,
 				83C2E1111F308B10004C7076 /* NIMDemoChartlet.bundle in Resources */,
 				611ABF111B42321600B8706C /* Settings.bundle in Resources */,
 				871CA2D323F4F21500C96528 /* NTESSearchTeamViewController.xib in Resources */,
@@ -3147,11 +2543,9 @@
 				871CA2C523F4EF4300C96528 /* NTESTeamReceiptDetailViewController.xib in Resources */,
 				61E471601B7D963E00F4A1BF /* NTESNoDisturbSettingViewController.xib in Resources */,
 				61ED4F461AE4FA020073DBD9 /* Files in Resources */,
-				417270BC252060CD005E8ACC /* README.md in Resources */,
 				871CA2DA23F4F29B00C96528 /* NTESJionTeamViewController.xib in Resources */,
 				610B1E061AFDDE04006454EA /* video_chat_tip_onTimer.aac in Resources */,
 				61E471501B7D963E00F4A1BF /* NTESVideoViewController.xib in Resources */,
-				4172704B252060BC005E8ACC /* XLForm.bundle in Resources */,
 				61A18A4D1DC74448001FD538 /* NIMKitResource.bundle in Resources */,
 				61E471421B7D963E00F4A1BF /* NTESFilePreViewController.xib in Resources */,
 				871CA2E823F4F36600C96528 /* NTESUserInfoSettingViewController.xib in Resources */,
@@ -3175,12 +2569,14 @@
 				"${PODS_ROOT}/NERtcSDK/NERTC/NERtcSDK/NERtcSDK.framework",
 				"${PODS_ROOT}/NERtcSDK/NERTC/NERtcSDK/NMCBasicModuleFramework.framework",
 				"${PODS_ROOT}/NIMSDK_LITE/NIMSDK/NIMSDK.framework",
+				"${PODS_ROOT}/YXAlog_iOS/YXAlog_iOS.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NERtcSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NMCBasicModuleFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NIMSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YXAlog_iOS.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3295,15 +2691,11 @@
 				E6D3A80E22E833610051147E /* yuv420sp.fsh.c in Sources */,
 				6118F5AA1C5A0FC1009AF01E /* UIViewController+Swizzling.m in Sources */,
 				83DE827A1F73B3ED00B0752B /* NTESMediaPreviewViewController.m in Sources */,
-				4172707B252060BD005E8ACC /* XLFormOptionsViewController.m in Sources */,
 				83A4C4EF1EC15EFE00436955 /* NTESTeamMeetingMuteCell.m in Sources */,
 				C7578F992555818700E743EB /* NEGroupCallVC.m in Sources */,
 				6118F5A71C5A0FC1009AF01E /* UINavigationController+Swizzling.m in Sources */,
 				61E4719C1B7D9C8300F4A1BF /* NTESSessionViewController.m in Sources */,
-				417270A0252060BD005E8ACC /* NTESSaveLocalMessageVC.m in Sources */,
-				417270BA252060CD005E8ACC /* NIMPrivateHackerConfig.m in Sources */,
 				8351CB721E977D9000DF4866 /* NTESContactDataCell.m in Sources */,
-				41727036252060BC005E8ACC /* NTESTestSessionViewController.m in Sources */,
 				E6D3A81122E833610051147E /* IJKSDLGLView.m in Sources */,
 				61E4714F1B7D963E00F4A1BF /* NTESVideoViewController.m in Sources */,
 				61E4715C1B7D963E00F4A1BF /* NTESListHeader.m in Sources */,
@@ -3314,7 +2706,6 @@
 				61518A4A1CA233390061C4A9 /* NTESNavigationAnimator.m in Sources */,
 				835E79691EBC21880086251D /* NTESTeamMeetingCalleeInfo.m in Sources */,
 				61E4712A1B7D963E00F4A1BF /* NTESLoginViewController.m in Sources */,
-				41727030252060BC005E8ACC /* NTESChatroomListViewControllerTester.m in Sources */,
 				61E471111B7D963E00F4A1BF /* NTESCustomSysNotificationSender.m in Sources */,
 				61E471451B7D963E00F4A1BF /* NTESGalleryViewController.m in Sources */,
 				61E4715D1B7D963E00F4A1BF /* NTESClientsTableViewController.m in Sources */,
@@ -3324,21 +2715,13 @@
 				61E4715A1B7D963E00F4A1BF /* NTESMutiClientsHeaderView.m in Sources */,
 				E6D3A80822E833610051147E /* renderer_yuv420p.c in Sources */,
 				6159DF5A1C45FAF500E32EB4 /* NTESChatroomTextContentView.m in Sources */,
-				41727059252060BD005E8ACC /* XLFormSwitchCell.m in Sources */,
-				417270A9252060BD005E8ACC /* NTESChatroomListTesterVC.m in Sources */,
 				8709BBDD2442FFFD00FC2EAF /* NTESThreadSessionConfig.m in Sources */,
 				2F57698123598E680037A2BC /* NTESMergeMessageCell.m in Sources */,
-				41727048252060BC005E8ACC /* NTESTesterJsonEditer.m in Sources */,
 				61775E931C571FE500C1DA03 /* NTESLiveActionView.m in Sources */,
-				41727049252060BC005E8ACC /* NIMFFloaintButton.m in Sources */,
 				61E4713B1B7D963E00F4A1BF /* NTESSessionChartletContentView.m in Sources */,
-				4172707F252060BD005E8ACC /* NSPredicate+XLFormAdditions.m in Sources */,
 				879C5730228444DC00F09955 /* NTESDemoConfig.m in Sources */,
 				619586811C19717B00858434 /* NTESChatroomListViewController.m in Sources */,
-				41727067252060BD005E8ACC /* XLFormLeftRightSelectorCell.m in Sources */,
 				484782B92452D6E3001B37AF /* NTESMessagePinListViewController.m in Sources */,
-				417270AA252060BD005E8ACC /* NTESPassThroughVC.m in Sources */,
-				4172704F252060BD005E8ACC /* XLFormStepCounterCell.m in Sources */,
 				415707EF24F7CD240058B5B0 /* NTESNoticationUtil.m in Sources */,
 				832BE9B41EB885010068D234 /* NTESTeamMeetingCollectionViewCell.m in Sources */,
 				61E471941B7D96AA00F4A1BF /* NTESService.m in Sources */,
@@ -3347,16 +2730,13 @@
 				C7979FCA255649C900023D3E /* NEGroupCallCollectionCell.m in Sources */,
 				6110D8B51C24009D00805BA4 /* UIScrollView+NTESPullToRefresh.m in Sources */,
 				61EAD9151B82FEE9005DC715 /* NTESPersonalCardViewController.m in Sources */,
-				41727088252060BD005E8ACC /* XLFormTextView.m in Sources */,
 				61A8EF341BB67F0900033FB8 /* UIResponder+NTESFirstResponder.m in Sources */,
 				61EEE7701C22865D00022315 /* NTESLiveInfoViewController.m in Sources */,
 				61E4712E1B7D963E00F4A1BF /* NTESSessionConfig.m in Sources */,
-				4172702A252060BC005E8ACC /* NIMVideoObject+NIMVideoTest.m in Sources */,
 				413057CD23BE0E7800DF7940 /* NTESContactSearchViewController.m in Sources */,
 				6173AEC01BAAB91C00854D49 /* NTESNickNameSettingViewController.m in Sources */,
 				61518A551CA233BB0061C4A9 /* NTESDemoRegisterTask.m in Sources */,
 				61839A9B1BF9B60400702DF0 /* NTESFPSLabel.m in Sources */,
-				41727092252060BD005E8ACC /* XLFormRegexValidator.m in Sources */,
 				61E471141B7D963E00F4A1BF /* NTESGroupedDataCollection.m in Sources */,
 				E6D3A80F22E833610051147E /* rgb.fsh.c in Sources */,
 				610B5FBF1BADCCCD001F7EFB /* NTESBirthPickerView.m in Sources */,
@@ -3364,13 +2744,10 @@
 				834382781EFCB9D30052254A /* NTESCustomSysNotificationViewController.m in Sources */,
 				832519211EC97B7C00CCA40A /* NTESMeetingMember.m in Sources */,
 				61E4714E1B7D963E00F4A1BF /* NTESWhiteboardDrawView.m in Sources */,
-				41727099252060BD005E8ACC /* NIMTesterMultiSelectVC.m in Sources */,
 				61DA56FF1B53E33F00828B8A /* UIImage+NTES.m in Sources */,
 				61E4715B1B7D963E00F4A1BF /* NTESTextHeaderView.m in Sources */,
 				61E471021B7D963E00F4A1BF /* NTESJionTeamViewController.m in Sources */,
-				417270B8252060CD005E8ACC /* NIMHackerLoader.m in Sources */,
 				48351E6526130A1B00235120 /* NECustomNavigationBar.m in Sources */,
-				41727050252060BD005E8ACC /* XLFormSegmentedCell.m in Sources */,
 				61518A541CA233BB0061C4A9 /* NTESDemoFetchChatroomTask.m in Sources */,
 				61E4718E1B7D96AA00F4A1BF /* NTESFileLocationHelper.m in Sources */,
 				61E471931B7D96AA00F4A1BF /* NTESNotificationCenter.m in Sources */,
@@ -3379,30 +2756,22 @@
 				6173AED21BAAC8CF00854D49 /* NTESMobileSettingViewController.m in Sources */,
 				6118F5A61C5A0FC1009AF01E /* UINavigationBar+Swizzling.m in Sources */,
 				185696F921C64CC8003A6CAB /* NTESImportMessageDelegateImpl.m in Sources */,
-				41727074252060BD005E8ACC /* XLFormDescriptor.m in Sources */,
 				834382761EFCB9D30052254A /* NTESCustomNotificationDB.m in Sources */,
 				87E9754D23A9F29200336165 /* NTESKeyWordMessageCell.m in Sources */,
-				4172703D252060BC005E8ACC /* NTESSessionListViewControllerTester.m in Sources */,
 				61AEC12A1BD69C6E00B00F02 /* NTESSessionCardViewController.m in Sources */,
 				61AF8CE11C55170900BFC84F /* UIScrollView+NTESDirection.m in Sources */,
 				489F53DC2580EEF000A4867A /* NTESRtcTokenUtils.m in Sources */,
-				4172705E252060BD005E8ACC /* XLFormSliderCell.m in Sources */,
-				41727065252060BD005E8ACC /* XLFormImageCell.m in Sources */,
 				61206EE71C1E607B009E4C78 /* NTESChatroomListCell.m in Sources */,
 				61E471191B7D963E00F4A1BF /* NTESContactUtilCell.m in Sources */,
-				41727032252060BC005E8ACC /* NTESTestChatroomListVC.m in Sources */,
 				61E471661B7D963E00F4A1BF /* NTESSettingPortraitCell.m in Sources */,
 				61E471131B7D963E00F4A1BF /* NTESGroupedContacts.m in Sources */,
-				41727031252060BC005E8ACC /* NTESDbExceptionTesterViewController.mm in Sources */,
 				2F576989235992780037A2BC /* NTESTimestampCell.m in Sources */,
 				E6B78EB823583EA7009CABF6 /* NTESSessionMultiRetweetContentView.m in Sources */,
 				6173AED81BAAC8F500854D49 /* NTESSignSettingViewController.m in Sources */,
 				E6B78EB023571C4C009CABF6 /* NTESMultiRetweetAttachment.m in Sources */,
 				83A4C4EB1EC084AA00436955 /* NTESTeamMeetingMutesViewController.m in Sources */,
-				417270BD252060CD005E8ACC /* NIMPrivateHacker.m in Sources */,
 				18E2EC3C21BE995D00E0E773 /* NTESExportMessageViewController.m in Sources */,
 				835E79661EBC21750086251D /* NTESTeamMeetingCallerInfo.m in Sources */,
-				4172707E252060BD005E8ACC /* NSObject+XLFormAdditions.m in Sources */,
 				6173AEC41BAAB94400854D49 /* NTESUserInfoSettingViewController.m in Sources */,
 				61B2AEFD1BB9530F0093F532 /* NTESCardPortraitCell.m in Sources */,
 				61E4711D1B7D963E00F4A1BF /* NTESContactViewController.m in Sources */,
@@ -3415,11 +2784,8 @@
 				61C2CE521C489F0D00D76104 /* NTESChatroomManager.m in Sources */,
 				61E4713C1B7D963E00F4A1BF /* NTESSessionJankenponContentView.m in Sources */,
 				61E471971B7D96AA00F4A1BF /* NTESPinyinConverter.m in Sources */,
-				41727042252060BC005E8ACC /* NTESSessionListVCTester.m in Sources */,
 				2F02F300235DA7D700BE5597 /* NTESMessageModel.m in Sources */,
-				41727052252060BD005E8ACC /* XLFormButtonCell.m in Sources */,
 				613A2FEA1C21016600508990 /* NTESChatroomSegmentedControl.m in Sources */,
-				4172706B252060BD005E8ACC /* XLFormDateCell.m in Sources */,
 				E4562D8B1CE0855A00D66909 /* NTESSDKConfigDelegate.m in Sources */,
 				A14A891C20208D1300718366 /* NTESSessionHistoryViewController.m in Sources */,
 				839E2BCF2060F45C00EB1AA7 /* UITextView+NTES.m in Sources */,
@@ -3436,25 +2802,18 @@
 				61E471391B7D963E00F4A1BF /* NTESSearchMessageContentCell.m in Sources */,
 				6173AEC91BAAC6CB00854D49 /* NTESGenderSettingViewController.m in Sources */,
 				E6B78EB423581548009CABF6 /* NTESFileUtil.m in Sources */,
-				4172709F252060BD005E8ACC /* NTESSessionSearchVC.m in Sources */,
 				E45E17801CA8CBA500C4ED69 /* NTESLogManager.m in Sources */,
-				4172702D252060BC005E8ACC /* NTESSessionMsgConfig.m in Sources */,
 				E6B78EA42356F106009CABF6 /* NTESMigrateHeader.m in Sources */,
-				41727046252060BC005E8ACC /* NTESSessionRemoteHistoryViewControllerTester.m in Sources */,
 				61518A4B1CA233390061C4A9 /* NTESNavigationHandler.m in Sources */,
 				2F5769922359E5690037A2BC /* NTESMergeMessageDataSource.m in Sources */,
-				41727069252060BD005E8ACC /* XLFormPickerCell.m in Sources */,
 				E6D3A80522E833610051147E /* common.c in Sources */,
 				834DC5C61F1C9F2A00C9E0B3 /* NTESChartletAttachment.m in Sources */,
 				61E471621B7D963E00F4A1BF /* NTESAboutViewController.m in Sources */,
 				834DC5D01F1C9FAB00C9E0B3 /* NTESRedPacketManager.m in Sources */,
-				4172702E252060BC005E8ACC /* NTESLogTestViewController.mm in Sources */,
 				61E471411B7D963E00F4A1BF /* NTESFilePreViewController.m in Sources */,
 				611ABF011B3CF4FC00B8706C /* NTESBadgeView.m in Sources */,
-				41727083252060BD005E8ACC /* NSString+XLFormAdditions.m in Sources */,
 				2F576985235991B50037A2BC /* NTESMessageCellFactory.m in Sources */,
 				8343827C1EFCB9D30052254A /* NTESSystemNotificationViewController.m in Sources */,
-				41727089252060BD005E8ACC /* XLFormRowNavigationAccessoryView.m in Sources */,
 				C7618E21255158CE004A12FA /* NEVideoView.m in Sources */,
 				E6D3A80A22E833610051147E /* shader.c in Sources */,
 				61E7B5881DCF39E200F19E83 /* NTESSessionTipContentView.m in Sources */,
@@ -3468,15 +2827,10 @@
 				E48988EE1DE4263D001CF6C5 /* NTESChatroomTextContentConfig.m in Sources */,
 				AE5882EE1A6F47E10070536A /* NTESAppDelegate.m in Sources */,
 				61E4713A1B7D963E00F4A1BF /* NTESSearchMessageEntraceCell.m in Sources */,
-				41727080252060BD005E8ACC /* NSExpression+XLFormAdditions.m in Sources */,
-				41727087252060BD005E8ACC /* XLFormRightImageButton.m in Sources */,
 				C7618E1025514D83004A12FA /* NECallViewController.m in Sources */,
-				4172702F252060BC005E8ACC /* NTESTestSendMsgConfigVC.m in Sources */,
 				410E272023628C8700C97467 /* NTESAVPlayerView.m in Sources */,
-				417270AB252060BD005E8ACC /* NTESTesterBaseVC.m in Sources */,
 				834382771EFCB9D30052254A /* NTESCustomNotificationObject.m in Sources */,
 				61A1422F1AD7B02E00DCAD88 /* NSDictionary+NTESJson.m in Sources */,
-				41727076252060BD005E8ACC /* XLFormViewController.m in Sources */,
 				61E1311D1C1A6778009AFEF1 /* NTESChatroomViewController.m in Sources */,
 				AE5882EB1A6F47E10070536A /* main.m in Sources */,
 				2F57697D23596B480037A2BC /* NTESMergeMessageViewController.m in Sources */,
@@ -3486,16 +2840,12 @@
 				61E471581B7D963E00F4A1BF /* NTESMutiClientsCell.m in Sources */,
 				61E4718B1B7D96AA00F4A1BF /* NTESClientUtil.m in Sources */,
 				61E471071B7D963E00F4A1BF /* NTESSearchTeamViewController.m in Sources */,
-				4172707C252060BD005E8ACC /* XLFormOptionsObject.m in Sources */,
 				E6D3A80622E833610051147E /* mvp.vsh.c in Sources */,
 				61E471671B7D963E00F4A1BF /* NTESSettingSwitcherCell.m in Sources */,
 				61E4710C1B7D963E00F4A1BF /* NTESTeamListViewController.m in Sources */,
 				61E4718A1B7D96AA00F4A1BF /* NTESBundleSetting.m in Sources */,
 				834DC5C71F1C9F2A00C9E0B3 /* NTESJanKenPonAttachment.m in Sources */,
-				41727041252060BC005E8ACC /* NTESUploadBeforeSendMsgVC.m in Sources */,
 				AE2AA6851A7CD35C00CFF013 /* UIView+NTES.m in Sources */,
-				4172706E252060BD005E8ACC /* XLFormDatePickerCell.m in Sources */,
-				41727091252060BD005E8ACC /* UIView+XLFormAdditions.m in Sources */,
 				E45E177A1CA8CB6200C4ED69 /* NTESLogUploader.m in Sources */,
 				61518A5A1CA234590061C4A9 /* NTESMainTabController.m in Sources */,
 				48E39B1A2446B8E800F2BA20 /* NTESCollectMessageListViewController.m in Sources */,
@@ -3513,52 +2863,34 @@
 				61E4715F1B7D963E00F4A1BF /* NTESNoDisturbSettingViewController.m in Sources */,
 				834DC5C81F1C9F2A00C9E0B3 /* NTESRedPacketAttachment.m in Sources */,
 				18E2EC3F21BE996D00E0E773 /* NTESImportMessageViewController.m in Sources */,
-				41727027252060BC005E8ACC /* NTESContactViewControllerTester.m in Sources */,
 				87A85DA7235DDE4E0023F2CF /* NTESSessionServiceListVC.m in Sources */,
 				C7618E1A2551589B004A12FA /* NECustomButton.m in Sources */,
 				C7979FCE25567D6200023D3E /* NEGroupCallView.m in Sources */,
-				4172706D252060BD005E8ACC /* XLFormTextFieldCell.m in Sources */,
 				83F32B731E94EFE200E594E0 /* NTESSubscribeManager.m in Sources */,
 				E6D3A80722E833610051147E /* renderer_rgb.c in Sources */,
-				417270A4252060BD005E8ACC /* NIMTesterDeleteTimedMessagesVC.m in Sources */,
 				61E471641B7D963E00F4A1BF /* NTESSettingViewController.m in Sources */,
-				41727094252060BD005E8ACC /* XLFormValidationStatus.m in Sources */,
 				6173AED51BAAC8E700854D49 /* NTESEmailSettingViewController.m in Sources */,
-				4172706C252060BD005E8ACC /* XLFormSelectorCell.m in Sources */,
 				E48D25C91EBB118500078BCD /* NTESAVNotifier.m in Sources */,
 				03A4CA001AC2B79700E45E03 /* UIActionSheet+NTESBlock.m in Sources */,
 				61E471431B7D963E00F4A1BF /* NTESFileTransSelectViewController.m in Sources */,
-				41727072252060BD005E8ACC /* XLFormSectionDescriptor.m in Sources */,
-				41727060252060BD005E8ACC /* XLFormInlineSelectorCell.m in Sources */,
 				61E4713E1B7D963E00F4A1BF /* NTESSessionWhiteBoardContentView.m in Sources */,
 				6118F5A91C5A0FC1009AF01E /* UIView+Swizzling.m in Sources */,
 				18E2EC4221BF7F1100E0E773 /* NTESMigrateProgressView.m in Sources */,
 				6110D8A91C23E76D00805BA4 /* NTESChatroomMemberCell.m in Sources */,
 				E48988EB1DE42391001CF6C5 /* NTESSessionCustomContentConfig.m in Sources */,
 				61E471981B7D96AA00F4A1BF /* NTESSpellingCenter.m in Sources */,
-				41727051252060BD005E8ACC /* XLFormCheckCell.m in Sources */,
 				834DC5CB1F1C9F2A00C9E0B3 /* NTESCustomAttachmentDecoder.m in Sources */,
-				4172707D252060BD005E8ACC /* XLForm.m in Sources */,
 				61FB27711C4E70AA0086E0EB /* NTESChatroomMaker.m in Sources */,
-				41727057252060BD005E8ACC /* XLFormBaseCell.m in Sources */,
 				834DC5D91F1CD84700C9E0B3 /* NTESSessionRedPacketTipContentView.m in Sources */,
 				BD52DB3E1B8F300E00434D0E /* NTESCADisplayLinkHolder.m in Sources */,
 				E6D63BA22355D9D90063F18E /* NTESMulSelectFunctionBar.m in Sources */,
 				61EAD91B1B834E72005DC715 /* NTESUserListCell.m in Sources */,
-				41727028252060BC005E8ACC /* NTESSessionViewControllerTester.m in Sources */,
-				4172702C252060BC005E8ACC /* NTESTestLiveViewController.m in Sources */,
 				87EA9E5921DCD37700EF0EAE /* NTESPrivatizationManager.m in Sources */,
 				879C572D228443FB00F09955 /* NSString+NTES.m in Sources */,
-				41727095252060BD005E8ACC /* XLFormValidator.m in Sources */,
 				E49D53C11B451C7400A869AC /* NSData+NTES.m in Sources */,
-				4172709D252060BD005E8ACC /* NTESChatroomTesterObject.m in Sources */,
 				61EEE7761C22964500022315 /* NTESLiveMasterInfoView.m in Sources */,
-				41727073252060BD005E8ACC /* XLFormRowDescriptor.m in Sources */,
-				4172704D252060BC005E8ACC /* XLFormTextViewCell.m in Sources */,
 				839E2BC520591DF800EB1AA7 /* NTESTeamReceiptSendViewController.m in Sources */,
 				87E9754923A9CAFF00336165 /* NTESMessageRetrieveResultVC.m in Sources */,
-				41727037252060BC005E8ACC /* NIMTesterHooker.m in Sources */,
-				4172709B252060BD005E8ACC /* Aspects.m in Sources */,
 				61EEE7731C22917400022315 /* NTESChatroomMemberListViewController.m in Sources */,
 				617D015D1AEDE03900C6DB77 /* UIImage+NTESColor.m in Sources */,
 				E6D3A80422E833610051147E /* renderer_yuv444p10le.c in Sources */,
@@ -3570,8 +2902,6 @@
 				907DBE851E5C777300317C36 /* NTESRecordSelectView.m in Sources */,
 				185696F621C64CB2003A6CAB /* NTESExportMessageDelegateImpl.m in Sources */,
 				61E471961B7D96AA00F4A1BF /* NTESTimerHolder.m in Sources */,
-				4172708A252060BD005E8ACC /* XLFormRightDetailCell.m in Sources */,
-				41727090252060BD005E8ACC /* NSArray+XLFormAdditions.m in Sources */,
 				18E2EC4521BF7F2700E0E773 /* NTESMigrateCompleteView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3597,14 +2927,6 @@
 			children = (
 				2F2B0587235FEBD3002B291B /* zh-Hans */,
 				879F2CA62383BDB3006FE577 /* en */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		41726F92252060BC005E8ACC /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				41726F93252060BC005E8ACC /* ja */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4023,7 +3345,6 @@
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_WORKSPACE = NO;
-				VALID_ARCHS = "arm64 arm64e armv7s";
 			};
 			name = Debug;
 		};
@@ -4082,7 +3403,6 @@
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_WORKSPACE = NO;
-				VALID_ARCHS = "arm64 arm64e armv7s";
 			};
 			name = Release;
 		};
