@@ -14,8 +14,8 @@ PODS:
   - FMDB/standard (2.7.5)
   - M80AttributedLabel (1.9.9)
   - Masonry (1.1.0)
-  - NERtcSDK (4.0.3)
-  - NIMSDK_LITE (8.3.1)
+  - NERtcSDK (4.0.7)
+  - NIMSDK_LITE (8.4.4)
   - Reachability (3.2)
   - SDWebImage (5.0.6):
     - SDWebImage/Core (= 5.0.6)
@@ -27,6 +27,7 @@ PODS:
   - SVProgressHUD (2.1.2)
   - Toast (3.1.0)
   - TZImagePickerController (3.5.9)
+  - YXAlog_iOS (1.0.6)
   - YYImage (1.0.4):
     - YYImage/Core (= 1.0.4)
   - YYImage/Core (1.0.4)
@@ -40,8 +41,8 @@ DEPENDENCIES:
   - FMDB (~> 2.7.2)
   - M80AttributedLabel (~> 1.9.9)
   - Masonry
-  - NERtcSDK (= 4.0.3)
-  - NIMSDK_LITE (= 8.3.1)
+  - NERtcSDK (= 4.0.7)
+  - NIMSDK_LITE (= 8.4.4)
   - Reachability (~> 3.2)
   - SDWebImage (~> 5.0.6)
   - SDWebImageFLPlugin (~> 0.3.0)
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - SVProgressHUD (~> 2.1.2)
   - Toast (~> 3.0)
   - TZImagePickerController (~> 3.5.2)
+  - YXAlog_iOS (= 1.0.6)
   - YYImage
   - YYImage/WebP
 
@@ -70,6 +72,7 @@ SPEC REPOS:
     - SVProgressHUD
     - Toast
     - TZImagePickerController
+    - YXAlog_iOS
     - YYImage
 
 SPEC CHECKSUMS:
@@ -80,8 +83,8 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   M80AttributedLabel: 77fedfe63804c989a6de0fa4d400ea8cad3ab441
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  NERtcSDK: 3e756ff8bf1221104b5dc6812aad2f4e8496900d
-  NIMSDK_LITE: 70dea2d2b6ef91ed19042d12eb4c5b001b858174
+  NERtcSDK: f36f54e724aa02b89c475a4132182730c25af0d0
+  NIMSDK_LITE: a976c1f1cf65ec271601e91d154c94fae0f7331b
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SDWebImageFLPlugin: cf3f4ae49f249dd785129346fd61bbc8433a88cf
@@ -89,8 +92,9 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
   TZImagePickerController: 07a2f834f4908689759a7e54f74e9a018e047cb6
+  YXAlog_iOS: 3948d6f7c0173c9dc0117a9445fc9411f97b314e
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
 
-PODFILE CHECKSUM: 7f238b1bdea74b83456b4a9f5cbd988cb6f1a08d
+PODFILE CHECKSUM: ef0f27fb75489779afbe133bc7231eac952e982d
 
 COCOAPODS: 1.10.1

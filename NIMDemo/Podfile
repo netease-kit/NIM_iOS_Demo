@@ -2,16 +2,21 @@ platform :ios, '9.0'
 workspace 'NIM.xcworkspace'
 
 abstract_target 'NIMDemo' do
-    pod 'SDWebImage', '~> 5.0.6'
-    pod 'SDWebImageFLPlugin', '~> 0.3.0'
-    pod 'Toast', '~> 3.0'
-    pod 'M80AttributedLabel', '~> 1.9.9'
-    pod 'TZImagePickerController', '~> 3.5.2'
-    pod 'YYImage'
-    pod 'YYImage/WebP'
-    pod 'NERtcSDK', '4.0.3'
-    pod 'NIMSDK_LITE', '8.3.1'
 
+    pod 'NIMSDK_LITE', '8.4.4'
+    pod 'NERtcSDK', '4.0.7'
+    pod 'YXAlog_iOS', '1.0.6'
+  
+    def common_pods
+        pod 'Toast', '~> 3.0'
+        pod 'YYImage'
+        pod 'YYImage/WebP'
+        pod 'SDWebImage', '~> 5.0.6'
+        pod 'SDWebImageFLPlugin', '~> 0.3.0'
+        pod 'M80AttributedLabel', '~> 1.9.9'
+        pod 'TZImagePickerController', '~> 3.5.2'
+    end
+  
     target 'NIM' do
         project 'NIM.xcodeproj'
         pod 'FMDB', '~> 2.7.2'
@@ -22,11 +27,12 @@ abstract_target 'NIMDemo' do
         pod 'Fabric'
         pod 'Crashlytics'
         pod 'Masonry'
-        
+        common_pods
     end
     
     target 'NIMKit' do
         project '../NIMKit/NIMKit.xcodeproj'
+        common_pods
     end
     
     target 'NERtcCallKit' do

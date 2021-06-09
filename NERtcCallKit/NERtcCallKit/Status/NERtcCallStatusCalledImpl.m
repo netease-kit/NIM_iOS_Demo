@@ -61,7 +61,6 @@
 }
 
 - (void)accept:(void (^)(NSError * _Nullable))completion {
-    [NERtcCallKit.sharedInstance cancelTimeout];
     self.context.remoteUserID = self.context.inviteInfo.fromAccountId;
     NIMSignalingAcceptRequest *accept = [[NIMSignalingAcceptRequest alloc] init];
     accept.channelId = self.context.inviteInfo.channelInfo.channelId;
@@ -71,17 +70,17 @@
     accept.autoJoin = YES;
     NSDictionary *dic = @{@"version": NERtcCallKit.versionCode};
     accept.acceptCustomInfo = [NERtcCallKitUtils JSONStringWithObject:dic];
-    NSLog(@"CK: Accept invitation");
+    NCKLogInfo(@"Accept invitation");
     [[[NIMSDK sharedSDK] signalManager] signalingAccept:accept completion:^(NSError * _Nullable error, NIMSignalingChannelDetailedInfo * _Nullable response) {
         if (error) {
             NERtcCallKit.sharedInstance.callStatus = NERtcCallStatusIdle;
-            NSLog(@"CK: 接收邀请error：%@",error);
+            NCKLogInfo(@"接收邀请error：%@",error);
             if (completion) {
                 completion(error);
             }
             return;
         }
-        NSLog(@"CK: 接收邀请response：%@",response);
+        NCKLogInfo(@"接收邀请response：%@",response);
         self.context.channelInfo = response;
         NERtcCallKit.sharedInstance.callStatus = NERtcCallStatusInCall;
         uint64_t myUid = self.context.localUid;
@@ -107,10 +106,11 @@
             // 对方老版本，则等cid=1。对方新版本，则等待token并加入
             [NERtcCallKit.sharedInstance fetchToken:nil];
             NSDictionary *callerInfo = [NERtcCallKitUtils JSONObjectWithString:self.context.inviteInfo.customInfo];
-            NSString *channelName = callerInfo[@"channelName"] ?: self.context.channelInfo.channelName;
-            self.context.channelInfo.channelName = channelName;
             id<INERtcCallKitCompat> compat = [NERtcCallKitCompatFactory.defaultFactory compatWithVersion:callerInfo[@"version"]];
-            [compat calleeJoinRtcOnAccept:channelName
+            if (callerInfo[@"channelName"]) {
+                self.context.channelInfo.channelName = callerInfo[@"channelName"];
+            }
+            [compat calleeJoinRtcOnAccept:[compat realChannelName:self.context.channelInfo]
                                     myUid:self.context.localUid
                                completion:completion];
         }

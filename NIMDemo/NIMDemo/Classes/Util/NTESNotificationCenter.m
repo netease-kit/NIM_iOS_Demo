@@ -311,7 +311,15 @@ NSString *NTESCustomNotificationCountChanged = @"NTESCustomNotificationCountChan
     } else {
         callVC = [[NECallViewController alloc] initWithOtherMember:invitor isCalled:YES type:type];
     }
-    if (callVC) {
+    if ([topMost isKindOfClass:NECallViewController.class]) {
+        NSLog(@"CallVC is not dismissed while new call is coming");
+        NECallViewController *topMostCallVC = (NECallViewController *)topMost;
+        topMost = topMost.presentingViewController;
+        topMostCallVC.dismissCompletion = ^{
+            callVC.modalPresentationStyle = UIModalPresentationFullScreen;
+            [topMost presentViewController:callVC animated:NO completion:nil];
+        };
+    } else if (callVC) {
         callVC.modalPresentationStyle = UIModalPresentationFullScreen;
         [topMost presentViewController:callVC animated:NO completion:nil];
     }

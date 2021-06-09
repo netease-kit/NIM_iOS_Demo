@@ -37,7 +37,7 @@
 }
 
 - (id<INERtcCallKitCompat>)compatWithVersion:(NSString *)version {
-    NSLog(@"CK: handle version: %@", version);
+    NCKLogInfo(@"handle version: %@", version);
     if (!version.length || [version compare:@"1.1.0" options:NSNumericSearch] == NSOrderedAscending) {
         return self.compat_1_0_0;
     }

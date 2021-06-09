@@ -256,12 +256,9 @@
 #pragma mark - event
 - (void)cancelEvent:(NECustomButton *)button {
     WEAK_SELF(weakSelf);
-    [[NERtcCallKit sharedInstance] cancel:^(NSError * _Nullable error) {
+    [[NERtcCallKit sharedInstance] hangup:^(NSError * _Nullable error) {
         STRONG_SELF(strongSelf);
-        if (error) {
-            [strongSelf.view makeToast:error.localizedDescription];
-            // 邀请已接受 取消失败 不销毁VC
-        }
+        [strongSelf.view makeToast:error.localizedDescription];
     }];
     [self destroy];
 }
@@ -269,23 +266,36 @@
 - (void)rejectEvent:(NECustomButton *)button {
     self.acceptBtn.enabled = NO;
     WEAK_SELF(weakSelf);
-    [[NERtcCallKit sharedInstance] reject:^(NSError * _Nullable error) {
-        STRONG_SELF(strongSelf);
-        strongSelf.acceptBtn.enabled = YES;
-        [strongSelf destroy];
-    }];
+    switch (button.tag) {
+        case 0: { // 拒绝
+            [[NERtcCallKit sharedInstance] reject:^(NSError * _Nullable error) {
+                STRONG_SELF(strongSelf);
+                strongSelf.acceptBtn.enabled = YES;
+                [strongSelf destroy];
+            }];
+            break;
+        }
+        case 1: { // 挂断
+            [[NERtcCallKit sharedInstance] hangup:^(NSError * _Nullable error) {
+                STRONG_SELF(strongSelf);
+                strongSelf.acceptBtn.enabled = YES;
+                [strongSelf destroy];
+            }];
+        }
+        default:
+            break;
+    }
 }
 
 - (void)acceptEvent:(NECustomButton *)button {
-    self.rejectBtn.enabled = NO;
     self.acceptBtn.enabled = NO;
     self.connectingLabel.hidden = NO;
+    self.rejectBtn.tag = 1; // 给拒绝按钮打个标签，再点击拒绝等同于挂断
     WEAK_SELF(weakSelf);
     [[NERtcCallKit sharedInstance] accept:^(NSError * _Nullable error) {
         STRONG_SELF(strongSelf);
         if (error) {
             strongSelf.connectingLabel.hidden = YES;
-            strongSelf.rejectBtn.enabled = YES;
             strongSelf.acceptBtn.enabled = YES;
             NSString *errorToast = [NSString stringWithFormat:@"接听失败%@",error.localizedDescription];
             [strongSelf.view.window makeToast:errorToast];
@@ -486,6 +496,11 @@
     [self.player stop];
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"video_chat_tip_receiver" withExtension:@"aac"];
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    NSError *error;
+    [AVAudioSession.sharedInstance setCategory:AVAudioSessionCategorySoloAmbient withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&error];
+    if (error) {
+        NSLog(@"Error changing audio session category: %@", error.localizedDescription);
+    }
     self.player.numberOfLoops = 30;
     [self.player play];
 }
@@ -541,7 +556,11 @@
         self.player = nil;
     }
     if (self && [self respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:^{
+            if (self.dismissCompletion) {
+                self.dismissCompletion();
+            }
+        }];
     }
     [[NERtcCallKit sharedInstance] setupLocalView:nil];
     [[NERtcCallKit sharedInstance] removeDelegate:self];

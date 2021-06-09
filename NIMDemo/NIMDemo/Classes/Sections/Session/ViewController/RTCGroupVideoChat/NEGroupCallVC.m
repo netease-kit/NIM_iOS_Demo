@@ -52,7 +52,22 @@
     [super viewDidLoad];
     [self setupUI];
     [self setupSDK];
-    [self.player play];
+    if (![self.myselfID isEqualToString:self.caller]) {
+        NSError *error;
+        [AVAudioSession.sharedInstance setCategory:AVAudioSessionCategorySoloAmbient withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&error];
+        if (error) {
+            NSLog(@"Error changing audio session category: %@", error.localizedDescription);
+        }
+        [self.player play]; // 主叫暂时不播铃声
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (NERtcCallKit.sharedInstance.callStatus == NERtcCallStatusIdle) {
+        // 处理从选择成员界面超时返回
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -235,6 +250,11 @@
     [self onUserLeave:userID];
 }
 
+- (void)onDisconnect:(NSError *)reason {
+    [self.view.window makeToast:@"您已断开连接"];
+    [self dismissViewControllerAnimated:YES completion:nil]; // 已被其他端处理
+}
+
 - (void)onOtherClientAccept {
     [self.view.window makeToast:@"已在其他设备接听"];
     [self dismissViewControllerAnimated:YES completion:nil]; // 已被其他端处理
@@ -249,14 +269,9 @@
 }
 
 - (void)onCallingTimeOut {
-    WEAK_SELF(weakSelf);
     if (NERtcCallKit.sharedInstance.callStatus != NERtcCallStatusInCall) {
-        [[NERtcCallKit sharedInstance] cancel:^(NSError * _Nullable error) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                STRONG_SELF(strongSelf);
-                [strongSelf dismissViewControllerAnimated:YES completion:nil];
-            });
-        }];
+        [[NERtcCallKit sharedInstance] cancel:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 #pragma mark - NEGroupCallViewDelegate
@@ -316,6 +331,32 @@
     [[NERtcCallKit sharedInstance] leave:^(NSError * _Nullable error) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
+}
+
+- (void)addItemClick:(id)sender {
+    NIMContactTeamMemberSelectConfig *config = [[NIMContactTeamMemberSelectConfig alloc] init];
+    config.session = [NIMSession session:self.teamId type:NIMSessionTypeTeam];
+    config.teamType = NIMKitTeamTypeNomal;
+    config.teamId = self.teamId;
+    config.filterIds = self.otherMembers.array;
+    config.needMutiSelected = YES;
+    config.maxSelectMemberCount = 8 - self.otherMembers.count;
+    config.showSelectDetail = YES;
+    NIMContactSelectViewController *vc = [[NIMContactSelectViewController alloc] initWithConfig:config];
+    __weak typeof(self) wself = self;
+    vc.finshBlock = ^(NSArray<NSString *> * newMembers){
+        __strong typeof(wself) sself = wself;
+        if (!sself) return;
+        [NERtcCallKit.sharedInstance groupInvite:newMembers groupID:sself.teamId completion:^(NSError * _Nullable error) {
+            __strong typeof(wself) sself = wself;
+            if (!sself) return;
+            if (error) {
+                return [self.view makeToast:error.localizedDescription];
+            }
+            [sself uiAddMembers:newMembers];
+        }];
+    };
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
 }
 
 #pragma mark - get
@@ -390,6 +431,12 @@
         UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:@"视频通话"];
         item.hidesBackButton = YES;
         item.prompt = nil;
+        
+        if ([self.myselfID isEqualToString:self.caller]) {
+            // 只有呼叫方才能继续拉人
+            UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItemClick:)];
+            item.rightBarButtonItem = rightButton;
+        }
         _topBar.items = @[item];
         [_topBar setValue:@(UIBarPositionBottom) forKey:@"barPosition"];
     }

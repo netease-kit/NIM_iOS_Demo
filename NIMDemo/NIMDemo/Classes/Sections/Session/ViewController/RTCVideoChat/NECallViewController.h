@@ -13,6 +13,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NECallViewController : UIViewController<NERtcCallKitDelegate,NEVideoViewDelegate>
+
+/// 如果正在dismiss，提供dismiss完成的回调
+@property (nonatomic, copy) void(^dismissCompletion)(void);
+
 /// 初始化ViewController
 /// @param member 对方IM账号
 /// @param isCalled 是否是被呼叫

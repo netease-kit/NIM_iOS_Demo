@@ -162,6 +162,13 @@ NS_ASSUME_NONNULL_BEGIN
              type:(NERtcCallType)type
        completion:(nullable void(^)(NSError * _Nullable error))completion;
 
+/// 呼叫过程中邀请用户加入（仅限群呼）
+/// @param userIDs  呼叫的用户ID数组 (不包含自己)
+/// @param completion 回调
+- (void)groupInvite:(NSArray<NSString *> *)userIDs
+            groupID:(nullable NSString *)groupID
+         completion:(nullable void(^)(NSError * _Nullable error))completion;
+
 /// 取消呼叫
 /// @param completion 回调
 - (void)cancel:(nullable void(^)(NSError * _Nullable error))completion;

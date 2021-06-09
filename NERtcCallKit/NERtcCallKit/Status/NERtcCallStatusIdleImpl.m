@@ -181,6 +181,8 @@
 
 - (void)cancel:(void (^)(NSError * _Nullable))completion
 {
+    if (!completion) return;
+
     NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20013 userInfo:@{NSLocalizedDescriptionKey: @"未在通话中，不能取消"}];
     completion(error);
 }
@@ -219,7 +221,7 @@
 }
 
 - (void)onTimeout {
-    NSLog(@"Error: onTimeout shouldn't be triggerred in idle status");
+    NCKLogError(@"onTimeout shouldn't be triggerred in idle status");
 }
 
 @end

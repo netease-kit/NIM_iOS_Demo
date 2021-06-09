@@ -59,6 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
                  token:(NSString *)token
             completion:(void(^)(NSError * _Nullable error))completion;
 
+/// 通话结束
+- (void)onCallEnd;
+
 /// 等待超时
 - (void)waitTimeout;
 

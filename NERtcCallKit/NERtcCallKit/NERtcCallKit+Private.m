@@ -17,7 +17,10 @@
 
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
 @implementation NERtcCallKit (Private)
+#pragma clang diagnostic pop
 
 @dynamic delegateProxy, callStatus;
 
@@ -168,16 +171,17 @@
     if (!self.context.channelInfo) {
         if (self.callStatus != NERtcCallStatusIdle) { // 理论上不会走到这里
             self.callStatus = NERtcCallStatusIdle;
-            NSLog(@"Error: channel has been cleared while calling status is %@", @(self.callStatus));
+            NCKLogError(@"Channel has been cleared while calling status is %@", @(self.callStatus));
         }
         if (completion) {
             completion();
         }
         return;
     }
-    NSLog(@"CK: Close signaling channel: %@", self.context.channelInfo.channelId);
+    NCKLogInfo(@"Close signaling channel: %@", self.context.channelInfo.channelId);
     NIMSignalingCloseChannelRequest *close = [[NIMSignalingCloseChannelRequest alloc] init];
     close.channelId = self.context.channelInfo.channelId;
+    close.offlineEnabled = YES;
     [NIMSDK.sharedSDK.signalManager signalingCloseChannel:close completion:^(NSError * _Nullable error) {
         if (error) {
             [self.delegateProxy onError:error];
@@ -187,13 +191,22 @@
         }
     }];
     self.callStatus = NERtcCallStatusIdle;
-    [NERtcEngine.sharedEngine leaveChannel];
-    [self.context cleanUp];
+    switch (NERtcEngine.sharedEngine.connectionState) {
+        case kNERtcConnectionStateConnected:
+        case kNERtcConnectionStateConnecting:
+        case kNERtcConnectionStateReconnecting: {
+            [NERtcEngine.sharedEngine leaveChannel];
+            break;
+        }
+        default:
+            break;
+    }
+    NCKLogFlush();
 }
 
 - (void)fetchToken:(void (^)(NSString * _Nonnull, NSError * _Nullable))completion {
     if (!self.tokenHandler) {
-        NSLog(@"CK: Using unsafe mode, return empty token");
+        NCKLogInfo(@"Using unsafe mode, return empty token");
         if (completion) {
             completion(@"", nil);
         }
@@ -201,15 +214,22 @@
     }
     NSString *channelId = self.context.channelInfo.channelId;
     uint64_t myUid = self.context.localUid;
-    NSLog(@"CK: Request token for ChannelId: %@, myUid: %@", channelId, @(myUid));
+    NCKLogInfo(@"Request token for ChannelId: %@, myUid: %@", channelId, @(myUid));
     __weak typeof(self) wself = self;
     self.tokenHandler(self.context.localUid, ^(NSString *token, NSError *error) {
         __strong typeof(wself) sself = wself;
         if (!sself) return;
-        NSLog(@"CK: Request token for channel result:%@ for ChannelId: %@, myUid: %@", error.localizedDescription?:token, channelId, @(myUid));
-        sself.context.token = token;
+        if (error) {
+            NCKLogError(@"Request token error:%@ for ChannelId: %@, myUid: %@", error.localizedDescription, channelId, @(myUid));
+        } else {
+            NCKLogInfo(@"Request token success:%@ for ChannelId: %@, myUid: %@", token, channelId, @(myUid));
+            if (sself.context.channelInfo) {
+                sself.context.token = token;
+            } else {
+                NCKLogError(@"But channel is closed.");
+            }
+        }
         [sself.context.tokenLock signal];
-        [sself.context.tokenLock unlock];
         if (completion) {
             completion(token, error);
         }
@@ -256,7 +276,8 @@
                  token:(NSString *)token
             completion:(void(^)(NSError * _Nullable error))completion {
     
-    if (!self.context.channelInfo) {
+    if (!self.context.channelInfo || (!self.context.isGroupCall && ![channelID isEqualToString:[self.context.compat realChannelName:self.context.channelInfo]])) {
+        NCKLogError(@"Try to join channel %@ which is already closed", channelID);
         if (completion) {
             NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:kNERtcCallKitChannelIsClosedError userInfo:@{NSLocalizedDescriptionKey: kNERtcCallKitChannelIsClosedErrorDescription}];
             completion(error);
@@ -264,9 +285,9 @@
         return;
     }
     if (!token) {
-        return NSLog(@"CK: Cannot Join RTC with a nil token!!");
+        return NCKLogError(@"Cannot Join RTC with a nil token!!");
     }
-    NSLog(@"CK:  Join RTC Channel: %@, uid : %lld, token: %@", channelID, myUid, token);
+    NCKLogInfo(@" Join RTC Channel: %@, uid : %lld, token: %@", channelID, myUid, token);
     
     BOOL videoEnable = self.context.channelInfo.channelType == NIMSignalingChannelTypeVideo;
     [NERtcEngine.sharedEngine enableLocalVideo:videoEnable];
@@ -274,7 +295,16 @@
                                                  channelName:channelID
                                                        myUid:myUid
                                                   completion:^(NSError * _Nullable error, uint64_t channelId, uint64_t elapesd) {
-        NSLog(@"CK: Join RTC finish with cid: %@, error: %@", @(channelId), error.localizedDescription);
+        if (error) {
+            NCKLogError(@"Join RTC error: %@ with cid: %@", @(channelId), error.localizedDescription);
+        } else {
+            NCKLogInfo(@"Join RTC success with cid: %@", @(channelId));
+        }
+        if (!self.context.channelInfo) {
+            NCKLogError(@"Join RTC success but channel already destroyed with cid: %@", @(channelId));
+            error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:kNERtcCallKitChannelIsClosedError userInfo:@{NSLocalizedDescriptionKey: kNERtcCallKitChannelIsClosedErrorDescription}];
+            [NERtcEngine.sharedEngine leaveChannel];
+        }
         if (completion) {
             completion(error);
         }

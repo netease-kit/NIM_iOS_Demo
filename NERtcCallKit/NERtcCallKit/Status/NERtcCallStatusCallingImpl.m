@@ -147,10 +147,9 @@
 - (void)onTimeout {
     [NERtcCallKit.sharedInstance cancelInvites:^(NSError * _Nullable error) {
         [NERtcCallKit.sharedInstance send1to1CallRecord:NIMRtcCallStatusTimeout];
-        [NERtcCallKit.sharedInstance closeSignalChannel:^{
-            [NERtcCallKit.sharedInstance.delegateProxy onCallingTimeOut];
-        }];
+        [NERtcCallKit.sharedInstance closeSignalChannel:nil];
     }];
+    [NERtcCallKit.sharedInstance.delegateProxy onCallingTimeOut];
 }
 
 
