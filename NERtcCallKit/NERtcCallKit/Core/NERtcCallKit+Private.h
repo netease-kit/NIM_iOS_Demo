@@ -10,7 +10,6 @@
 #import "NERtcCallKitDelegateProxy.h"
 #import "NERtcCallKitContext.h"
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NERtcCallKit (Private)
@@ -19,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NERtcCallStatus callStatus;
 
 /// 代理派发
-@property (nonatomic, strong, readonly) NERtcCallKitDelegateProxy *delegateProxy;
+@property (nonatomic, strong, readonly) NERtcCallKitDelegateProxy<NERtcCallKitDelegate> *delegateProxy;
 
 /// 发送话单
 - (void)send1to1CallRecord:(NIMRtcCallStatus)callStatus;
@@ -29,11 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
                 callees:(nullable NSArray<NSString *> *)callees
             isFromGroup:(BOOL)isFromGroup
                 groupID:(nullable NSString *)groupID
+             attachment:(nullable NSString *)attachment
              completion:(nullable void (^)(NSError * _Nullable error))completion;
 
 /// 批量邀请
 - (void)batchInvite:(NSArray<NSString *> *)userIDs
             groupID:(nullable NSString *)groupID
+         attachment:attachment
          completion:(nullable void(^)(NSError * _Nullable error))completion;
 
 /// 取消邀请
@@ -49,12 +50,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)waitTokenTimeout:(NSTimeInterval)timeout completion:(void(^)(NSString *token))completion;
 
 /// 加入音视频频道
-- (void)joinRtcChannel:(NSString *)channelID
+- (void)joinRtcChannel:(NSString *)channelName
                  myUid:(uint64_t)myUid
             completion:(void(^)(NSError * _Nullable error))completion;
 
 // 带token直接加入频道
-- (void)joinRtcChannel:(NSString *)channelID
+- (void)joinRtcChannel:(NSString *)channelName
                  myUid:(uint64_t)myUid
                  token:(NSString *)token
             completion:(void(^)(NSError * _Nullable error))completion;
@@ -67,6 +68,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 取消超时
 - (void)cancelTimeout;
+
+/// 上下文对象
+- (NERtcCallKitContext *)context;
 
 @end
 

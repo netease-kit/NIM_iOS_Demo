@@ -1,6 +1,6 @@
 //
 //  NERtcCallKitConsts.h
-//  NLiteAVDemo
+//  NERtcCallKit
 //
 //  Created by Wenchao Ding on 2020/10/30.
 //  Copyright © 2020 Netease. All rights reserved.
@@ -26,5 +26,7 @@ typedef void(^NERtcCallKitTokenHandler)(uint64_t uid, void(^complete)(NSString *
 #define kNERtcCallKitBusyCode @"601"
 
 static const NSUInteger kNERtcCallKitMaxTimeOut = 2 * 60;
+
+#define NERtcCallKitDeprecate(msg) __attribute__((deprecated(msg)))
 
 #endif /* NERtcCallKitConsts_h */

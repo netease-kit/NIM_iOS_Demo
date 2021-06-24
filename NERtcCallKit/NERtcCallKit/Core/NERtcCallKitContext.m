@@ -9,6 +9,7 @@
 #import "NERtcCallKitContext.h"
 #import <NIMSDK/NIMSDK.h>
 #import "NERtcCallKitConsts.h"
+#import "NCKEventReporter.h"
 
 @interface NERtcCallKitContext ()
 
@@ -65,6 +66,8 @@
     [self.tokenLock signal];
     [self.memberSemas removeAllObjects];
     self.compat = nil;
+    [NCKEventReporter.sharedReporter flushAsync];
+    NCKLogFlush();
 }
 
 - (uint64_t)localUid {

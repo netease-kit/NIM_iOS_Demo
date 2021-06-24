@@ -7,7 +7,7 @@
 //
 
 #import "NERtcCallKitUtils.h"
-//#import <NIMSDK/NIMSDK.h>
+#import <NIMSDK/NIMSDK.h>
 
 @implementation NERtcCallKitUtils
 
@@ -18,18 +18,17 @@
 }
 
 + (NSString *)displayNameForUser:(NSString *)userID groupID:(NSString *)groupID {
-//    if (groupID.length) {
-//        NIMTeamMember *member = [NIMSDK.sharedSDK.teamManager teamMember:userID inTeam:groupID];
-//        if (member.nickname.length) {
-//            return member.nickname;
-//        }
-//    }
-//    NIMUser *info = [NIMSDK.sharedSDK.userManager userInfo:userID];
-//    if (info.alias.length) {
-//        return info.alias;
-//    }
-//    return userID;
-    return @"";
+    if (groupID.length) {
+        NIMTeamMember *member = [NIMSDK.sharedSDK.teamManager teamMember:userID inTeam:groupID];
+        if (member.nickname.length) {
+            return member.nickname;
+        }
+    }
+    NIMUser *info = [NIMSDK.sharedSDK.userManager userInfo:userID];
+    if (info.alias.length) {
+        return info.alias;
+    }
+    return userID;
 }
 
 + (NSString *)JSONStringWithObject:(id)JSONObject {

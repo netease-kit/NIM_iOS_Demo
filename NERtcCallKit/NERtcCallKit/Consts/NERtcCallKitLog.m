@@ -12,7 +12,7 @@
 
 + (void)load {
     YXAlogOptions *options = [[YXAlogOptions alloc] init];
-    options.path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"NERtcCallKit"];
+    options.path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"NERtcCallKit/Log"];
     options.moduleName = @"CallKit";
     options.level = YXAlogLevelInfo;
     options.filePrefix = @"Log";

@@ -1,6 +1,6 @@
 //
 //  NERtcCallOptions.h
-//  NLiteAVDemo
+//  NERtcCallKit
 //
 //  Created by Wenchao Ding on 2020/10/28.
 //  Copyright © 2020 Netease. All rights reserved.

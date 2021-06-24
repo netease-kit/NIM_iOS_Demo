@@ -24,9 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 开始呼叫
 /// @param userID 呼叫的用户ID
 /// @param type 通话类型
+/// @param attachment 附件信息，必须是NSString, NSArray或NSDictionary
 /// @param completion 回调
 - (void)call:(NSString *)userID
         type:(NERtcCallType)type
+  attachment:(nullable NSString *)attachment
   completion:(nullable void(^)(NSError * _Nullable error))completion;
 
 /// 多人呼叫
@@ -36,13 +38,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)groupCall:(NSArray<NSString *> *)userIDs
           groupID:(nullable NSString *)groupID
              type:(NERtcCallType)type
+       attachment:(nullable NSString *)attachment
        completion:(nullable void(^)(NSError * _Nullable error))completion;
 
-/// 呼叫过程中邀请用户加入
+/// 呼叫过程中邀请用户加入（仅限群呼）
 /// @param userIDs  呼叫的用户ID数组 (不包含自己)
 /// @param completion 回调
 - (void)groupInvite:(NSArray<NSString *> *)userIDs
             groupID:(nullable NSString *)groupID
+         attachment:(nullable NSString *)attachment
          completion:(nullable void(^)(NSError * _Nullable error))completion;
 
 /// 取消呼叫

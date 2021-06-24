@@ -22,7 +22,11 @@
     return NERtcCallStatusIdle;
 }
 
-- (void)call:(NSString *)userID type:(NERtcCallType)type completion:(void (^)(NSError * _Nullable))completion {
+- (void)call:(NSString *)userID
+        type:(NERtcCallType)type
+  attachment:(nullable NSString *)attachment
+  completion:(void (^)(NSError * _Nullable))completion {
+    
     self.context.isGroupCall = NO;
     self.context.remoteUserID = userID;
     NERtcCallKit.sharedInstance.callStatus = NERtcCallStatusCalling;
@@ -56,6 +60,7 @@
                                                  callees:nil
                                              isFromGroup:NO
                                                  groupID:nil
+                                              attachment:attachment
                                               completion:^(NSError * _Nullable error) {
                 if (error) {
                     [NERtcCallKit.sharedInstance closeSignalChannel:^{
@@ -88,6 +93,7 @@
 - (void)groupCall:(NSArray<NSString *> *)userIDs
           groupID:(NSString *)groupID
              type:(NERtcCallType)type
+       attachment:(nullable NSString *)attachment
        completion:(void (^)(NSError * _Nullable))completion {
     
     self.context.isGroupCall = YES;
@@ -133,7 +139,10 @@
             }];
             
             // 4. 邀请
-            [NERtcCallKit.sharedInstance batchInvite:userIDs groupID:groupID completion:^(NSError * _Nullable error) {
+            [NERtcCallKit.sharedInstance batchInvite:userIDs
+                                             groupID:groupID
+                                          attachment:attachment
+                                          completion:^(NSError * _Nullable error) {
                 if (!error) {
                     if (completion) {
                         completion(nil);
@@ -161,6 +170,16 @@
     }];
     
     [NERtcCallKit.sharedInstance waitTimeout];
+}
+
+- (void)groupInvite:(NSArray<NSString *> *)userIDs
+            groupID:(NSString *)groupID
+         attachment:(nullable NSString *)attachment
+         completion:(void (^)(NSError * _Nullable))completion {
+    if (!completion) return;
+    
+    NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20029 userInfo:@{NSLocalizedDescriptionKey: @"只能在通话中邀请"}];
+    completion(error);
 }
 
 - (void)hangup:(void (^)(NSError * _Nullable))completion
@@ -208,15 +227,6 @@
     if (!completion) return;
     
     NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20025 userInfo:@{NSLocalizedDescriptionKey: @"只能在呼叫过程中切换"}];
-    completion(error);
-}
-
-- (void)groupInvite:(NSArray<NSString *> *)userIDs
-            groupID:(NSString *)groupID
-         completion:(void (^)(NSError * _Nullable))completion {
-    if (!completion) return;
-    
-    NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20029 userInfo:@{NSLocalizedDescriptionKey: @"只能在通话中邀请"}];
     completion(error);
 }
 

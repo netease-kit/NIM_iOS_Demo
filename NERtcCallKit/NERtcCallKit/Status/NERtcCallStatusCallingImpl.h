@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NERtcCallStatusCallingImpl : NSObject <INERtcCallStatus>
+@interface NERtcCallStatusCallingImpl : NSObject<INERtcCallStatus>
 
 @end
 

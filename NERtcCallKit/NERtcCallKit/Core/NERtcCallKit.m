@@ -1,6 +1,6 @@
 //
 //  NERtcCallKit.m
-//  NLiteAVDemo
+//  NERtcCallKit
 //
 //  Created by Wenchao Ding on 2020/10/28.
 //  Copyright © 2020 Netease. All rights reserved.
@@ -25,12 +25,13 @@
 #import "NERtcCallStatusInCallImpl.h"
 
 #import "NERtcCallKit+Private.h"
+#import "NCKEventReporter.h"
 
-static NSString * kNERtcCallKitMarketVersion = @"1.2.1";
+static NSString * kNERtcCallKitMarketVersion = @"1.3.0";
 
 @interface NERtcCallKit() <NIMSignalManagerDelegate,NIMLoginManagerDelegate,NERtcEngineDelegateEx,INERtcCallStatus,NERtcEngineMediaStatsObserver>
 
-@property (nonatomic, strong) NERtcCallKitDelegateProxy *delegateProxy;
+@property (nonatomic, strong) NERtcCallKitDelegateProxy<NERtcCallKitDelegate> *delegateProxy;
 
 @property (nonatomic, weak) id<INERtcCallStatus> currentStatus;
 
@@ -62,7 +63,9 @@ static NSString * kNERtcCallKitMarketVersion = @"1.2.1";
     self = [super init];
     if (self) {
         self.context = [[NERtcCallKitContext alloc] init];
-        self.delegateProxy = [[NERtcCallKitDelegateProxy alloc] init];
+        self.delegateProxy = [[NERtcCallKitDelegateProxy<NERtcCallKitDelegate> alloc] initWithDeprecations: @{
+            NSStringFromSelector(@selector(onInvited:userIDs:isFromGroup:groupID:type:attachment:)): NSStringFromSelector(@selector(onInvited:userIDs:isFromGroup:groupID:type:))
+        }];
         self.idleStatus = [[NERtcCallStatusIdleImpl alloc] init];
         self.idleStatus.context = self.context;
         self.callingStatus = [[NERtcCallStatusCallingImpl alloc] init];
@@ -174,18 +177,6 @@ static NSString * kNERtcCallKitMarketVersion = @"1.2.1";
     }
 }
 
-- (void)enableLocalVideo:(BOOL)enable {
-    [[NERtcEngine sharedEngine] enableLocalVideo:enable];
-}
-
-- (void)switchCamera {
-    [[NERtcEngine sharedEngine] switchCamera];
-}
-
-- (void)muteLocalAudio:(BOOL)mute {
-    [[NERtcEngine sharedEngine] muteLocalAudio:mute];
-}
-
 - (void)setLoudSpeakerMode:(BOOL)speaker error:(NSError * _Nullable __autoreleasing * _Nullable)error {
     int ret = [NERtcEngine.sharedEngine setLoudspeakerMode:speaker];
     if (ret != 0) {
@@ -213,6 +204,8 @@ static NSString * kNERtcCallKitMarketVersion = @"1.2.1";
         return self.currentStatus;
     } else if ([self.delegateProxy respondsToSelector:aSelector]) {
         return self.delegateProxy;
+    } else if ([NERtcEngine.sharedEngine respondsToSelector:aSelector]) {
+        return NERtcEngine.sharedEngine;
     }
     return [super forwardingTargetForSelector:aSelector];
 }
@@ -416,10 +409,19 @@ static NSString * kNERtcCallKitMarketVersion = @"1.2.1";
     [self onCallEnd];
 }
 
+- (void)onLogin:(NIMLoginStep)step {
+    if (step == NIMLoginStepLoginOK) {
+        [NCKEventReporter.sharedReporter flushAsync];
+    }
+}
+
 #pragma mark - NERtcEngineDelegateEx
 //  其他用户加入频道
 - (void)onNERtcEngineUserDidJoinWithUserID:(uint64_t)userID userName:(NSString *)userName {
     [self.context fetchMemberWithUid:userID completion:^(NIMSignalingMemberInfo * _Nonnull member) {
+        if (self.context.channelInfo.channelType == NIMSignalingChannelTypeAudio) {
+            [self cancelTimeout];
+        }
         [self.delegateProxy onUserEnter:member.accountId];
     }];
 }
@@ -434,9 +436,10 @@ static NSString * kNERtcCallKitMarketVersion = @"1.2.1";
 
 // 对方关闭了摄像头
 - (void)onNERtcEngineUserVideoDidStop:(uint64_t)userID {
-    [self.context fetchMemberWithUid:userID completion:^(NIMSignalingMemberInfo * _Nonnull member) {
+    NIMSignalingMemberInfo *member = [self.context memberOfUid:userID];
+    if (member) {
         [self.delegateProxy onCameraAvailable:NO userID:member.accountId];
-    }];
+    }
 }
 
 // 对方打开音频
@@ -450,9 +453,22 @@ static NSString * kNERtcCallKitMarketVersion = @"1.2.1";
 // 对方关闭音频
 - (void)onNERtcEngineUserAudioDidStop:(uint64_t)userID {
     [NERtcEngine.sharedEngine subscribeRemoteAudio:NO forUserID:userID];
-    [self.context fetchMemberWithUid:userID completion:^(NIMSignalingMemberInfo * _Nonnull member) {
+    NIMSignalingMemberInfo *member = [self.context memberOfUid:userID];
+    if (member) {
         [self.delegateProxy onAudioAvailable:NO userID:member.accountId];
-    }];
+    }
+}
+
+- (void)onNERtcEngineUser:(uint64_t)userID videoMuted:(BOOL)muted {
+    NIMSignalingMemberInfo *member = [self.context memberOfUid:userID];
+    if (!member) return;
+    [self.delegateProxy onVideoMuted:muted userID:member.accountId];
+}
+
+- (void)onNERtcEngineUser:(uint64_t)userID audioMuted:(BOOL)muted {
+    NIMSignalingMemberInfo *member = [self.context memberOfUid:userID];
+    if (!member) return;
+    [self.delegateProxy onAudioMuted:muted userID:member.accountId];
 }
 
 // 对方离开视频
@@ -478,12 +494,6 @@ static NSString * kNERtcCallKitMarketVersion = @"1.2.1";
     self.callStatus = NERtcCallStatusIdle;
     NSError *error = reason == kNERtcNoError ? nil : [NSError errorWithDomain:kNERtcCallKitErrorDomain code:reason userInfo:@{NSLocalizedDescriptionKey: NERtcErrorDescription(reason)}];
     [self.delegateProxy onDisconnect:error];
-}
-
-- (void)onEngineFirstAudioFrameDecoded:(uint64_t)userID {
-    if (self.context.channelInfo.channelType == NIMSignalingChannelTypeAudio) {
-        [self cancelTimeout];
-    }
 }
 
 - (void)onEngineFirstVideoFrameDecoded:(uint64_t)userID width:(uint32_t)width height:(uint32_t)height {
@@ -542,14 +552,14 @@ static NSString * kNERtcCallKitMarketVersion = @"1.2.1";
     self.context.isGroupCall = isFromGroup;
 
     self.callStatus = NERtcCallStatusCalled;
-    
+    NCKLogInfo(@"onInvited with info %@", customInfo);
     if (isFromGroup) {
         NSArray<NSString *> *userIDs = customInfo[@"callUserList"] ?: @[];
         NSString *groupID = customInfo[@"groupID"];
         self.context.groupID = groupID;
-        [self.delegateProxy onInvited:invitee userIDs:userIDs isFromGroup:YES groupID:groupID type:type];
+        [self.delegateProxy onInvited:invitee userIDs:userIDs isFromGroup:YES groupID:groupID type:type attachment:customInfo[@"_attachment"]];
     } else {
-        [self.delegateProxy onInvited:invitee userIDs:@[info.toAccountId] isFromGroup:NO groupID:nil type:type];
+        [self.delegateProxy onInvited:invitee userIDs:@[info.toAccountId] isFromGroup:NO groupID:nil type:type attachment:customInfo[@"_attachment"]];
     }
     [self waitTimeout];
 }
@@ -558,9 +568,7 @@ static NSString * kNERtcCallKitMarketVersion = @"1.2.1";
     self.callStatus = NERtcCallStatusIdle;
     [NERtcEngine.sharedEngine leaveChannel];
     [self cancelTimeout];
-    [self.context cleanUp];
     [self.delegateProxy onCallEnd];
-    NCKLogFlush();
 }
 
 #pragma mark - set

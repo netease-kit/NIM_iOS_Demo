@@ -25,6 +25,7 @@
 
 - (void)call:(NSString *)userID
         type:(NERtcCallType)type
+  attachment:(nullable NSString *)attachment
   completion:(void (^)(NSError * _Nullable))completion {
     if (!completion) return;
     
@@ -32,10 +33,24 @@
     completion(error);
 }
 
-- (void)groupCall:(NSArray<NSString *> *)userIDs groupID:(NSString *)groupID type:(NERtcCallType)type completion:(void (^)(NSError * _Nullable))completion {
+- (void)groupCall:(NSArray<NSString *> *)userIDs
+          groupID:(NSString *)groupID
+             type:(NERtcCallType)type
+       attachment:(nullable NSString *)attachment
+       completion:(void (^)(NSError * _Nullable))completion {
     if (!completion) return;
     
     NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20003 userInfo:@{NSLocalizedDescriptionKey: @"正在被呼叫，不能发起呼叫"}];
+    completion(error);
+}
+
+- (void)groupInvite:(NSArray<NSString *> *)userIDs
+            groupID:(NSString *)groupID
+         attachment:(nullable NSString *)attachment
+         completion:(void (^)(NSError * _Nullable))completion {
+    if (!completion) return;
+    
+    NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20031 userInfo:@{NSLocalizedDescriptionKey: @"只能在通话中邀请"}];
     completion(error);
 }
 
@@ -137,15 +152,6 @@
     if (!completion) return;
     
     NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20027 userInfo:@{NSLocalizedDescriptionKey: @"只能在呼叫过程中切换"}];
-    completion(error);
-}
-
-- (void)groupInvite:(NSArray<NSString *> *)userIDs
-            groupID:(NSString *)groupID
-         completion:(void (^)(NSError * _Nullable))completion {
-    if (!completion) return;
-    
-    NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:20031 userInfo:@{NSLocalizedDescriptionKey: @"只能在通话中邀请"}];
     completion(error);
 }
 

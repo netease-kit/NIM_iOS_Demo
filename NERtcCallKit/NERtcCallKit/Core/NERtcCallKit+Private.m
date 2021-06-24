@@ -24,8 +24,7 @@
 
 @dynamic delegateProxy, callStatus;
 
-- (void)send1to1CallRecord:(NIMRtcCallStatus)callStatus
-{
+- (void)send1to1CallRecord:(NIMRtcCallStatus)callStatus {
     if (self.context.isGroupCall) {
         return;
     }
@@ -48,7 +47,9 @@
                 callees:(NSArray<NSString *> *)callees
             isFromGroup:(BOOL)isFromGroup
                 groupID:(NSString *)groupID
+             attachment:(nullable NSString *)attachment
              completion:(void (^)(NSError * _Nullable))completion {
+    
     NIMSignalingInviteRequest *invite = [[NIMSignalingInviteRequest alloc] init];
     invite.accountId = userID;
     invite.requestId = [NERtcCallKitUtils generateRequestID];
@@ -69,6 +70,7 @@
     NSString *channelName = [NSString stringWithFormat:@"%@|%@|%@", invite.channelId, @(isFromGroup), isFromGroup ? (groupID?:@"0") : @(callerUid)];
     dic[@"channelName"] = channelName;
     dic[@"version"] = self.class.versionCode;
+    dic[@"_attachment"] = attachment;
 
     invite.customInfo = [NERtcCallKitUtils JSONStringWithObject:dic];
     
@@ -102,6 +104,7 @@
 
 - (void)batchInvite:(NSArray<NSString *> *)userIDs
             groupID:(NSString *)groupID
+         attachment:attachment
          completion:(void (^)(NSError * _Nullable))completion {
     
     dispatch_group_t group = dispatch_group_create();
@@ -119,6 +122,7 @@
                       callees:callUsersOrderedSet.array
                   isFromGroup:YES
                       groupID:groupID
+                   attachment:attachment
                    completion:^(NSError * _Nullable error) {
             if (error) {
                 outError = error;
@@ -201,7 +205,6 @@
         default:
             break;
     }
-    NCKLogFlush();
 }
 
 - (void)fetchToken:(void (^)(NSString * _Nonnull, NSError * _Nullable))completion {
@@ -257,27 +260,27 @@
     });
 }
 
-- (void)joinRtcChannel:(NSString *)channelID
+- (void)joinRtcChannel:(NSString *)channelName
                  myUid:(uint64_t)myUid
             completion:(void (^)(NSError * _Nullable))completion {
     if (!self.tokenHandler) {
-        [self joinRtcChannel:channelID myUid:myUid token:@"" completion:completion];
+        [self joinRtcChannel:channelName myUid:myUid token:@"" completion:completion];
         return;
     }
     __weak typeof(self) wself = self;
     [self fetchToken:^(NSString * _Nonnull token, NSError * _Nullable error) {
         __strong typeof(wself) sself = wself;
-        [sself joinRtcChannel:channelID myUid:myUid token:token completion:completion];
+        [sself joinRtcChannel:channelName myUid:myUid token:token completion:completion];
     }];
 }
 
-- (void)joinRtcChannel:(NSString *)channelID
+- (void)joinRtcChannel:(NSString *)channelName
                  myUid:(uint64_t)myUid
                  token:(NSString *)token
             completion:(void(^)(NSError * _Nullable error))completion {
     
-    if (!self.context.channelInfo || (!self.context.isGroupCall && ![channelID isEqualToString:[self.context.compat realChannelName:self.context.channelInfo]])) {
-        NCKLogError(@"Try to join channel %@ which is already closed", channelID);
+    if (!self.context.channelInfo || (!self.context.isGroupCall && ![channelName isEqualToString:[self.context.compat realChannelName:self.context.channelInfo]])) {
+        NCKLogError(@"Try to join channel %@ which is already closed", channelName);
         if (completion) {
             NSError *error = [NSError errorWithDomain:kNERtcCallKitErrorDomain code:kNERtcCallKitChannelIsClosedError userInfo:@{NSLocalizedDescriptionKey: kNERtcCallKitChannelIsClosedErrorDescription}];
             completion(error);
@@ -287,12 +290,12 @@
     if (!token) {
         return NCKLogError(@"Cannot Join RTC with a nil token!!");
     }
-    NCKLogInfo(@" Join RTC Channel: %@, uid : %lld, token: %@", channelID, myUid, token);
+    NCKLogInfo(@"Start join RTC cname: %@, uid : %lld, token: %@, accid: %@", channelName, myUid, token, self.context.userID);
     
     BOOL videoEnable = self.context.channelInfo.channelType == NIMSignalingChannelTypeVideo;
     [NERtcEngine.sharedEngine enableLocalVideo:videoEnable];
     int ret = [NERtcEngine.sharedEngine joinChannelWithToken:token
-                                                 channelName:channelID
+                                                 channelName:channelName
                                                        myUid:myUid
                                                   completion:^(NSError * _Nullable error, uint64_t channelId, uint64_t elapesd) {
         if (error) {
@@ -307,6 +310,14 @@
         }
         if (completion) {
             completion(error);
+        }
+        if (!error) {
+            NERtcCallKitJoinChannelEvent *event = [[NERtcCallKitJoinChannelEvent alloc] init];
+            event.accid = self.context.userID;
+            event.uid = myUid;
+            event.cid = channelId;
+            event.cname = channelName;
+            [self.delegateProxy onJoinChannel:event];
         }
     }];
     if (ret == kNERtcErrInvalidState) {
