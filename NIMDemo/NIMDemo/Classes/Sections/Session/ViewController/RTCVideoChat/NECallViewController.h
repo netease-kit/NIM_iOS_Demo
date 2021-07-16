@@ -1,6 +1,6 @@
 //
 //  NECallViewController.h
-//  NLiteAVDemo
+//  NERtcCallKit
 //
 //  Created by I am Groot on 2020/8/21.
 //  Copyright © 2020 Netease. All rights reserved.

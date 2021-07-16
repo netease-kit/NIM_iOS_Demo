@@ -170,7 +170,13 @@
     [NERtcCallKit sharedInstance].timeOutSeconds = 30;
     if (NERtcCallKit.sharedInstance.callStatus != NERtcCallStatusCalled) {
         WEAK_SELF(weakSelf);
-        [[NERtcCallKit sharedInstance] groupCall:self.otherMembers.array groupID:self.teamId type:NERtcCallTypeVideo completion:^(NSError * _Nullable error) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:@{@"groupCall": @"testValue"} options:0 error:nil];
+        NSString *attachment = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [NERtcCallKit.sharedInstance groupCall:self.otherMembers.array
+                                       groupID:self.teamId
+                                          type:NERtcCallTypeVideo
+                                    attachment:attachment
+                                    completion:^(NSError * _Nullable error) {
             NSLog(@"groupCall:error::%@",error);
             STRONG_SELF(strongSelf);
             NEGroupCallCollectionCell *cell = [strongSelf cellForUser:strongSelf.caller];
@@ -216,13 +222,13 @@
     }
     [self updateVideoViewForJoinedUser:userID];
 }
-- (void)onCameraAvailable:(BOOL)available userID:(NSString *)userID {
-    if (userID.length) {
-        NEGroupCallCollectionCell *cell = [self cellForUser:userID];
-        cell.cameraTip.text = [NSString stringWithFormat:@"%@关闭了摄像头",userID];
-        cell.cameraTip.hidden = available;
-    }
+
+- (void)onVideoMuted:(BOOL)muted userID:(NSString *)userID {
+    NEGroupCallCollectionCell *cell = [self cellForUser:userID];
+    cell.cameraTip.text = [NSString stringWithFormat:@"%@关闭了摄像头",userID];
+    cell.cameraTip.hidden = !muted;
 }
+
 - (void)onUserBusy:(NSString *)userID {
     if (userID.length) {
         NEGroupCallCollectionCell *cell = [self cellForUser:userID];
@@ -230,6 +236,7 @@
         cell.cameraTip.hidden = NO;
     }
 }
+
 - (void)onUserReject:(NSString *)userID {
     if (userID.length) {
         NEGroupCallCollectionCell *cell = [self cellForUser:userID];
@@ -237,6 +244,7 @@
         cell.cameraTip.hidden = NO;
     }
 }
+
 - (void)onUserLeave:(NSString *)userID {
     if (userID.length) {
         NEGroupCallCollectionCell *cell = [self cellForUser:userID];
@@ -321,7 +329,8 @@
 }
 - (void)cameraBtnClick:(UIButton *)button {
     button.selected = !button.selected;
-    [[NERtcCallKit sharedInstance] enableLocalVideo:!button.selected];
+    BOOL muted = button.selected;
+    [NERtcCallKit.sharedInstance muteLocalVideo:muted];
 }
 - (void)switchCameraBtn:(UIButton *)button {
     [[NERtcCallKit sharedInstance] switchCamera];
@@ -347,7 +356,12 @@
     vc.finshBlock = ^(NSArray<NSString *> * newMembers){
         __strong typeof(wself) sself = wself;
         if (!sself) return;
-        [NERtcCallKit.sharedInstance groupInvite:newMembers groupID:sself.teamId completion:^(NSError * _Nullable error) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:@{@"groupInvite": @"testValue"} options:0 error:nil];
+        NSString *attachment = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [NERtcCallKit.sharedInstance groupInvite:newMembers
+                                         groupID:sself.teamId
+                                      attachment:attachment
+                                      completion:^(NSError * _Nullable error) {
             __strong typeof(wself) sself = wself;
             if (!sself) return;
             if (error) {

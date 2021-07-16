@@ -19,7 +19,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self initUI];
-//        [self addGestureRecognizer];
     }
     return self;
 }
@@ -35,9 +34,7 @@
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     [self.cameraTip mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(0);
-        make.centerY.mas_equalTo(0);
-        make.height.mas_equalTo(40);
+        make.edges.equalTo(self.contentView);
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.mas_equalTo(0);
@@ -81,6 +78,7 @@
         _cameraTip.font = [UIFont systemFontOfSize:14.0];
         _cameraTip.adjustsFontSizeToFitWidth = YES;
         _cameraTip.numberOfLines = 0;
+        _cameraTip.backgroundColor = UIColor.grayColor;
     }
     return _cameraTip;
 }
@@ -89,7 +87,6 @@
     if (!_muteImageView) {
         _muteImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _muteImageView.image = [UIImage imageNamed:@"call_listen"];
-//        _muteImageView.hidden = YES;
 
     }
     return _muteImageView;

@@ -1,27 +1,27 @@
 //
-//  NTESRegisterViewController.m
+//  NTESSmsLoginViewController.m
 //  NIM
 //
-//  Created by amao on 8/10/15.
-//  Copyright (c) 2015 Netease. All rights reserved.
+//  Created by Wenchao Ding on 2021/7/2.
+//  Copyright © 2021 Netease. All rights reserved.
 //
 
-#import "NTESRegisterViewController.h"
-#import "NTESDemoService.h"
-#import "NSString+NTES.h"
-#import "UIView+Toast.h"
-#import "UIView+NTES.h"
-#import "SVProgressHUD.h"
-#import "NTESLoginManager.h"
-#import "NTESCountDownManager.h"
+#import "NTESSmsLoginViewController.h"
 #import "NTESLoginViewController.h"
+#import "NTESRegisterViewController.h"
+#import "NTESLoginManager.h"
+#import "NTESMainTabController.h"
+#import "NTESService.h"
+#import "NTESCountDownManager.h"
 #import "NSString+NTES.h"
+#import <Toast/UIView+Toast.h>
+#import <SVProgressHUD.h>
 
-@interface NTESRegisterViewController ()<UITextFieldDelegate>
+@interface NTESSmsLoginViewController () <UITextFieldDelegate,NTESRegisterViewControllerDelegate>
 
 @end
 
-@implementation NTESRegisterViewController
+@implementation NTESSmsLoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,13 +54,16 @@
     if (textField == self.phoneTextField) {
         return newString.length <= 11;
     }
-    if (textField == self.nicknameTextField) {
-        return newString.length <= 10;
-    }
     if (textField == self.authCodeTextField) {
         return newString.length <= 6;
     }
     return NO;
+}
+
+#pragma mark - RegisterDelegate
+
+- (void)registerDidComplete:(NSString *)account password:(NSString *)password {
+    [self finishIMLogin:account token:password];
 }
 
 #pragma mark - Actions
@@ -87,17 +90,28 @@
     }];
 }
 
+- (IBAction)pwdLoginClicked:(id)sender {
+    NTESLoginViewController *viewController = [[NTESLoginViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (IBAction)registerClicked:(id)sender {
+    NTESRegisterViewController *viewController = [[NTESRegisterViewController alloc] init];
+    viewController.delegate = self;
+    viewController.phone = self.phoneTextField.text;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
 - (void)doneItemClicked:(id)sender {
     if (self.phoneTextField.text.length < 11) {
         [self.view makeToast:@"手机号格式错误"];
         return;
     }
-    NTESSmsRegisterParams *params = [[NTESSmsRegisterParams alloc] init];
+    NTESSmsLoginParams *params = [[NTESSmsLoginParams alloc] init];
     params.mobile = self.phoneTextField.text;
     params.smsCode = self.authCodeTextField.text;
-    params.nickname = self.nicknameTextField.text;
     __weak typeof(self) wself = self;
-    [NTESLoginManager.sharedManager smsRegister:params completion:^(NTESSmsLoginResult *result, NSError *error) {
+    [NTESLoginManager.sharedManager smsLogin:params completion:^(NTESSmsLoginResult *result, NSError *error) {
         __strong typeof(wself) sself = wself;
         if (!sself) return;
         if (error) {
@@ -158,13 +172,6 @@
     
     self.phoneTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.phoneTextField.placeholder attributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
     self.authCodeTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.authCodeTextField.placeholder attributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
-    self.nicknameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.nicknameTextField.placeholder attributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
-    
-    if (self.phone.length) {
-        self.phoneTextField.text = self.phone;
-        [self.phoneTextField sendActionsForControlEvents:UIControlEventEditingChanged];
-    }
-    
 }
 
 - (void)setupNotifications {
@@ -179,9 +186,14 @@
 }
 
 - (void)finishIMLogin:(NSString *)accid token:(NSString *)token {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(registerDidComplete:password:)]) {
-        [self.delegate registerDidComplete:accid password:token];
-    }
+    NTESLoginData *sdkData = [[NTESLoginData alloc] init];
+    sdkData.account   = accid;
+    sdkData.token     = token;
+    [[NTESLoginManager sharedManager] setCurrentLoginData:sdkData];
+    
+    [[NTESServiceManager sharedManager] start];
+    NTESMainTabController * mainTab = [[NTESMainTabController alloc] initWithNibName:nil bundle:nil];
+    [UIApplication sharedApplication].keyWindow.rootViewController = mainTab;
 }
 
 @end

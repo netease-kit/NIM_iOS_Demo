@@ -11,24 +11,37 @@
 @protocol NTESRegisterViewControllerDelegate <NSObject>
 
 @optional
-- (void)registDidComplete:(NSString *)account password:(NSString *)password;
+- (void)registerDidComplete:(NSString *)account password:(NSString *)password;
 
 @end
 
 @interface NTESRegisterViewController : UIViewController
 
-@property (nonatomic, weak) IBOutlet UITextField *accountTextfield;
+/// 手机号
+@property (nonatomic, copy) NSString *phone;
 
-@property (nonatomic, weak) IBOutlet UITextField *nicknameTextfield;
-
-@property (nonatomic, weak) IBOutlet UITextField *passwordTextfield;
-
-@property (nonatomic, weak) IBOutlet UIView *containView;
-
-@property (nonatomic, weak) IBOutlet UIButton *existedButton;
-
-@property (nonatomic, weak) IBOutlet UIImageView *logo;
-
+/// 代理对象
 @property (nonatomic, weak) id<NTESRegisterViewControllerDelegate> delegate;
+
+/// 手机号
+@property (strong, nonatomic) IBOutlet UITextField *phoneTextField;
+
+/// 验证码
+@property (strong, nonatomic) IBOutlet UITextField *authCodeTextField;
+
+/// 昵称
+@property (strong, nonatomic) IBOutlet UITextField *nicknameTextField;
+
+/// 获取验证码
+@property (strong, nonatomic) IBOutlet UIButton *authCodeButton;
+
+/// 获取验证码
+- (IBAction)authCodeClicked:(id)sender;
+
+/// 手机号输入
+- (IBAction)phoneValueChanged:(id)sender;
+
+/// 验证码输入
+- (IBAction)authCodeValueChanged:(id)sender;
 
 @end

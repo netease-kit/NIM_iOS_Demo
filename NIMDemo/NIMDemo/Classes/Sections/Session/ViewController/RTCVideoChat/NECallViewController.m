@@ -1,6 +1,6 @@
 //
 //  NECallViewController.m
-//  NLiteAVDemo
+//  NERtcCallKit
 //
 //  Created by I am Groot on 2020/8/21.
 //  Copyright © 2020 Netease. All rights reserved.
@@ -80,7 +80,12 @@
     if (self.status == NERtcCallStatusCalling) {
         WEAK_SELF(weakSelf);
         NSLog(@"CallVC: Start call: %@", self.otherUserID);
-        [[NERtcCallKit sharedInstance] call:self.otherUserID type:self.type completion:^(NSError * _Nullable error) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:@{@"call": @"testValue"} options:0 error:nil];
+        NSString *attachment = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [NERtcCallKit.sharedInstance call:self.otherUserID
+                                     type:self.type
+                               attachment:attachment
+                               completion:^(NSError * _Nullable error) {
             STRONG_SELF(strongSelf);
             [self setupLocalView];
             if (error) {
@@ -332,11 +337,10 @@
 
 - (void)cameraBtnClick:(UIButton *)button {
     button.selected = !button.selected;
-    
-    BOOL enable = !button.selected;
-    [[NERtcCallKit sharedInstance] enableLocalVideo:enable];
-    [self cameraAvailble:enable userId:self.myselfID];
-    if (enable) {
+    BOOL muted = button.selected;
+    [NERtcCallKit.sharedInstance muteLocalVideo:muted];
+    [self onVideoMuted:muted userID:self.myselfID];
+    if (muted) {
         self.statsCount = 0; // 打开摄像头后会有正常的统计数据波动，同样忽略前3次统计
     }
 }
@@ -375,12 +379,22 @@
     self.cancelBtn.enabled = NO;
 }
 - (void)onUserCancel:(NSString *)userID {
-    [[NERtcCallKit sharedInstance] hangup:nil];
     [self destroy];
 }
-- (void)onCameraAvailable:(BOOL)available userID:(NSString *)userID {
-    [self cameraAvailble:available userId:userID];
+
+- (void)onVideoMuted:(BOOL)muted userID:(NSString *)userID {
+    NSString *tips = [self.myselfID isEqualToString:userID]?@"关闭了摄像头":@"对方关闭了摄像头";
+    BOOL tipForceHidden = self.type == NERtcCallTypeAudio;
+    if ([self.bigVideoView.userID isEqualToString:userID]) {
+        self.bigVideoView.titleLabel.hidden = !muted || tipForceHidden;
+        self.bigVideoView.titleLabel.text = tips;
+    }
+    if ([self.smallVideoView.userID isEqualToString:userID]) {
+        self.smallVideoView.titleLabel.hidden = !muted || tipForceHidden;
+        self.smallVideoView.titleLabel.text = tips;
+    }
 }
+
 - (void)onCallingTimeOut {
     [self.view.window makeToast:@"对方无响应"];
     [self destroy];
@@ -425,7 +439,6 @@
     if (self.statsCount++ < 3) { // 忽略前3次统计
         return;
     }
-//    NSLog(@"%@", @(otherUserStat.txQuality));
     switch (otherUserStat.txQuality) {
         case kNERtcNetworkQualityUnknown: {
             self.statsLabel.text = @"对方网络状态可能较差";
@@ -503,19 +516,6 @@
     }
     self.player.numberOfLoops = 30;
     [self.player play];
-}
-- (void)cameraAvailble:(BOOL)available userId:(NSString *)userId {
-    NSLog(@"CallVC: User %@ camera did %@", userId, available ? @"Start" : @"Stop");
-    NSString *tips = [self.myselfID isEqualToString:userId]?@"关闭了摄像头":@"对方关闭了摄像头";
-    BOOL tipForceHidden = self.type == NERtcCallTypeAudio;
-    if ([self.bigVideoView.userID isEqualToString:userId]) {
-        self.bigVideoView.titleLabel.hidden = available || tipForceHidden;
-        self.bigVideoView.titleLabel.text = tips;
-    }
-    if ([self.smallVideoView.userID isEqualToString:userId]) {
-        self.smallVideoView.titleLabel.hidden = available || tipForceHidden;
-        self.smallVideoView.titleLabel.text = tips;
-    }
 }
 
 - (void)setupLocalView {

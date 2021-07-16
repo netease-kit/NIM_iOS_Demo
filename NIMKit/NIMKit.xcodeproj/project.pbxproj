@@ -131,7 +131,7 @@
 		87B0C32A242CA3E400B58E81 /* NIMAdvanceMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B0C329242CA3E400B58E81 /* NIMAdvanceMenu.m */; };
 		A132BCBC1F29E898003412BA /* NIMGroupedData.m in Sources */ = {isa = PBXBuildFile; fileRef = A132BCBB1F29E898003412BA /* NIMGroupedData.m */; };
 		A14A892B202754A100718366 /* NIMLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = A14A892A202754A100718366 /* NIMLoadMoreView.m */; };
-		BF8FA7C1A846E89EBBE05010 /* libPods-NIMDemo-NIMKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DE9731F78F35AF9C6F95265 /* libPods-NIMDemo-NIMKit.a */; };
+		D65A7F52B878A814B7CAD1D3 /* libPods-NIMDemo-NIMKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5A0DECA377E7095755B6010 /* libPods-NIMDemo-NIMKit.a */; };
 		E41160A61DE2EFCA00E426FB /* NIMMessageCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = E41160A31DE2EFCA00E426FB /* NIMMessageCellFactory.m */; };
 		E41160A71DE2EFCA00E426FB /* NIMMessageMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E41160A51DE2EFCA00E426FB /* NIMMessageMaker.m */; };
 		E41160AA1DE2EFEB00E426FB /* NIMKitLocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E41160A91DE2EFEB00E426FB /* NIMKitLocationPoint.m */; };
@@ -173,6 +173,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0779011B67BD8B27138D9016 /* Pods-NIM-NIMKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NIM-NIMKit.debug.xcconfig"; path = "../NIMDemo/Pods/Target Support Files/Pods-NIM-NIMKit/Pods-NIM-NIMKit.debug.xcconfig"; sourceTree = "<group>"; };
 		098800A0A4655A87BA2CFFE8 /* Pods-NIMDemo-NIMKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NIMDemo-NIMKit.release.xcconfig"; path = "../NIMDemo/Pods/Target Support Files/Pods-NIMDemo-NIMKit/Pods-NIMDemo-NIMKit.release.xcconfig"; sourceTree = "<group>"; };
 		2DEBC19D44F419FD65145F46 /* Pods-NIMDemo-NIMKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NIMDemo-NIMKit.debug.xcconfig"; path = "../NIMDemo/Pods/Target Support Files/Pods-NIMDemo-NIMKit/Pods-NIMDemo-NIMKit.debug.xcconfig"; sourceTree = "<group>"; };
 		4117776123A35A8C00C9F7D6 /* NIMTeamMuteMemberListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMTeamMuteMemberListViewController.h; sourceTree = "<group>"; };
@@ -213,7 +214,6 @@
 		48B2D774255634B80030A166 /* NIMSessionRtcCallRecordContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMSessionRtcCallRecordContentView.h; sourceTree = "<group>"; };
 		48B2D775255634B80030A166 /* NIMSessionRtcCallRecordContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NIMSessionRtcCallRecordContentView.m; sourceTree = "<group>"; };
 		48E72ECD24409974001D2BDA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		5DE9731F78F35AF9C6F95265 /* libPods-NIMDemo-NIMKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NIMDemo-NIMKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		610D719F1D0E5A9C00FCE25A /* NIMKitNotificationFirer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMKitNotificationFirer.h; sourceTree = "<group>"; };
 		610D71A01D0E5A9C00FCE25A /* NIMKitNotificationFirer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMKitNotificationFirer.m; sourceTree = "<group>"; };
 		6110D8AD1C24001300805BA4 /* UITableView+NIMScrollToBottom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+NIMScrollToBottom.h"; sourceTree = "<group>"; };
@@ -383,6 +383,7 @@
 		61F4E5661CE1DBC0000AD2A9 /* NIMKitColorButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMKitColorButtonCell.m; sourceTree = "<group>"; };
 		61F4E5671CE1DBC0000AD2A9 /* NIMKitSwitcherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMKitSwitcherCell.h; sourceTree = "<group>"; };
 		61F4E5681CE1DBC0000AD2A9 /* NIMKitSwitcherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMKitSwitcherCell.m; sourceTree = "<group>"; };
+		6262C7AB849EBC443027D815 /* Pods-NIM-NIMKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NIM-NIMKit.release.xcconfig"; path = "../NIMDemo/Pods/Target Support Files/Pods-NIM-NIMKit/Pods-NIM-NIMKit.release.xcconfig"; sourceTree = "<group>"; };
 		83110B6C1FA0680000AA1E4D /* NIMKitConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMKitConfig.h; sourceTree = "<group>"; };
 		83110B6D1FA0680000AA1E4D /* NIMKitConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NIMKitConfig.m; sourceTree = "<group>"; };
 		832BE9B51EB983BC0068D234 /* NIMKitDependency.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMKitDependency.h; sourceTree = "<group>"; };
@@ -432,6 +433,7 @@
 		A132BCBB1F29E898003412BA /* NIMGroupedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMGroupedData.m; sourceTree = "<group>"; };
 		A14A8929202754A100718366 /* NIMLoadMoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMLoadMoreView.h; sourceTree = "<group>"; };
 		A14A892A202754A100718366 /* NIMLoadMoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NIMLoadMoreView.m; sourceTree = "<group>"; };
+		B5A0DECA377E7095755B6010 /* libPods-NIMDemo-NIMKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NIMDemo-NIMKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E41160A21DE2EFCA00E426FB /* NIMMessageCellFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMMessageCellFactory.h; sourceTree = "<group>"; };
 		E41160A31DE2EFCA00E426FB /* NIMMessageCellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMMessageCellFactory.m; sourceTree = "<group>"; };
 		E41160A41DE2EFCA00E426FB /* NIMMessageMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMMessageMaker.h; sourceTree = "<group>"; };
@@ -505,7 +507,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF8FA7C1A846E89EBBE05010 /* libPods-NIMDemo-NIMKit.a in Frameworks */,
+				D65A7F52B878A814B7CAD1D3 /* libPods-NIMDemo-NIMKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,7 +517,7 @@
 		0D86765F6B025CA5FDD7CFF4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5DE9731F78F35AF9C6F95265 /* libPods-NIMDemo-NIMKit.a */,
+				B5A0DECA377E7095755B6010 /* libPods-NIMDemo-NIMKit.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1041,6 +1043,8 @@
 			children = (
 				2DEBC19D44F419FD65145F46 /* Pods-NIMDemo-NIMKit.debug.xcconfig */,
 				098800A0A4655A87BA2CFFE8 /* Pods-NIMDemo-NIMKit.release.xcconfig */,
+				0779011B67BD8B27138D9016 /* Pods-NIM-NIMKit.debug.xcconfig */,
+				6262C7AB849EBC443027D815 /* Pods-NIM-NIMKit.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";

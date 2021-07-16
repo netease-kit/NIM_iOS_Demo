@@ -13,7 +13,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <NIMSDK/NIMSDK.h>
-#import <NERtcCallKit/NERtcCallKit.h>
+//#import <NERtcCallKit/NERtcCallKit.h>
 #import "NTESGlobalMacro.h"
 #import "NIMKit.h"
 #import "NSString+NTES.h"

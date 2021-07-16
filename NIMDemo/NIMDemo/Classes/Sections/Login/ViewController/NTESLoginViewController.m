@@ -243,7 +243,7 @@ NTES_USE_CLEAR_BAR
 }
 
 #pragma mark - NTESRegisterViewControllerDelegate
-- (void)registDidComplete:(NSString *)account password:(NSString *)password{
+- (void)registerDidComplete:(NSString *)account password:(NSString *)password{
     if (account.length) {
         self.usernameTextField.text = account;
         self.passwordTextField.text = password;

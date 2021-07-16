@@ -8,10 +8,16 @@
 
 #import "NTESLoginManager.h"
 #import "NTESFileLocationHelper.h"
-
+#import "NTESDemoConfig.h"
 
 #define NIMAccount      @"account"
 #define NIMToken        @"token"
+
+#if DEBUG
+static NSString * const kApiHost = @"https://yiyong-qa.netease.im";
+#else
+static NSString * const kApiHost = @"http://yiyong.netease.im";
+#endif
 
 @interface NTESLoginData ()<NSCoding>
 
@@ -93,6 +99,124 @@
         data = [NSKeyedArchiver archivedDataWithRootObject:_currentLoginData];
     }
     [data writeToFile:[self filepath] atomically:YES];
+}
+
+- (void)sendSmsCode:(NSString *)mobile completion:(void (^)(NSError *))completion {
+    NSURL *baseURL = [NSURL URLWithString:kApiHost];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"/auth/sendLoginSmsCode" relativeToURL:baseURL]];
+    request.HTTPMethod = @"POST";
+    NSDictionary *params = @{ @"mobile": mobile };
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
+    [request setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:NTESDemoConfig.sharedConfig.appKey forHTTPHeaderField:@"appKey"];
+    NSURLSessionDataTask *task = [NSURLSession.sharedSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSDictionary *JSON;
+        if (!error) {
+            if ([(NSHTTPURLResponse *)response statusCode] != 200) {
+                error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Fail for status code: %@", @([(NSHTTPURLResponse *)response statusCode])]}];
+            } else if (!data) {
+                error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:@{NSLocalizedDescriptionKey: @"Empty data"}];
+            } else {
+                JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                if (!error) {
+                    NSInteger code = [JSON[@"code"] integerValue];
+                    if (code != 200) {
+                        error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSURLErrorBadServerResponse userInfo:@{NSLocalizedDescriptionKey: JSON[@"msg"] ?: @"Empty message field!"}];
+                    }
+                }
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion(error);
+            }
+        });
+    }];
+    [task resume];
+}
+
+- (void)smsLogin:(NTESSmsLoginParams *)params completion:(void (^)(NTESSmsLoginResult *, NSError *))completion {
+    NSURL *baseURL = [NSURL URLWithString:kApiHost];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"/auth/loginBySmsCode" relativeToURL:baseURL]];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:params.toDictionary options:0 error:nil];
+    [request setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:NTESDemoConfig.sharedConfig.appKey forHTTPHeaderField:@"appKey"];
+    NSURLSessionDataTask *task = [NSURLSession.sharedSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSDictionary *JSON;
+        if (!error) {
+            if ([(NSHTTPURLResponse *)response statusCode] != 200) {
+                error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Fail for status code: %@", @([(NSHTTPURLResponse *)response statusCode])]}];
+            } else if (!data) {
+                error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:@{NSLocalizedDescriptionKey: @"Empty data"}];
+            } else {
+                JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                if (!error) {
+                    NSInteger code = [JSON[@"code"] integerValue];
+                    if (code != 200) {
+                        error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSURLErrorBadServerResponse userInfo:@{NSLocalizedDescriptionKey: JSON[@"msg"] ?: @"Empty message field!"}];
+                    }
+                }
+            }
+        }
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) {
+                    completion(nil, error);
+                }
+            });
+            return;
+        }
+        NTESSmsLoginResult *result = [[NTESSmsLoginResult alloc] initWithDictionary:JSON[@"data"]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion(result, nil);
+            }
+        });
+    }];
+    [task resume];
+}
+
+- (void)smsRegister:(NTESSmsRegisterParams *)params completion:(void (^)(NTESSmsLoginResult *, NSError *))completion {
+    NSURL *baseURL = [NSURL URLWithString:kApiHost];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"/auth/registerBySmsCode" relativeToURL:baseURL]];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:params.toDictionary options:0 error:nil];
+    [request setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:NTESDemoConfig.sharedConfig.appKey forHTTPHeaderField:@"appKey"];
+    NSURLSessionDataTask *task = [NSURLSession.sharedSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSDictionary *JSON;
+        if (!error) {
+            if ([(NSHTTPURLResponse *)response statusCode] != 200) {
+                error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Fail for status code: %@", @([(NSHTTPURLResponse *)response statusCode])]}];
+            } else if (!data) {
+                error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:@{NSLocalizedDescriptionKey: @"Empty data"}];
+            } else {
+                JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                if (!error) {
+                    NSInteger code = [JSON[@"code"] integerValue];
+                    if (code != 200) {
+                        error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSURLErrorBadServerResponse userInfo:@{NSLocalizedDescriptionKey: JSON[@"msg"] ?: @"Empty message field!"}];
+                    }
+                }
+            }
+        }
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) {
+                    completion(nil, error);
+                }
+            });
+            return;
+        }
+        NTESSmsLoginResult *result = [[NTESSmsLoginResult alloc] initWithDictionary:JSON[@"data"]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion(result, nil);
+            }
+        });
+    }];
+    [task resume];
 }
 
 
