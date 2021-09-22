@@ -102,9 +102,7 @@
     
     // NIM 私有化配置
     [self setupPrivatizationIM:data];
-    
-    // AVChat 私有化配置
-    [self setupPrivatizationAVChat:data];
+
 }
 
 - (void)setupPrivatizationDemo:(NSData *)data {
@@ -133,9 +131,5 @@
     [nimServerSetting updateSettingFromConfigData:data];
 }
 
-- (void)setupPrivatizationAVChat:(NSData *)data {
-    NIMAVChatServerSetting *avChatServerSetting = [NIMAVChatSDK sharedSDK].serverSetting;
-    [avChatServerSetting updateSettingFromConfigData:data];
-}
 
 @end

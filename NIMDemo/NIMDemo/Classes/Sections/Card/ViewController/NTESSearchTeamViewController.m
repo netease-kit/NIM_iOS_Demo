@@ -45,7 +45,6 @@
     if(!error) {
         NTESJionTeamViewController *vc = [[NTESJionTeamViewController alloc] initWithNibName:nil bundle:nil];
         vc.joinTeam = team;
-        DDLogInfo(@"Fetch team info success:%@", team);
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         [self.view makeToast:error.localizedDescription.ntes_localized

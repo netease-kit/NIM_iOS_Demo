@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NIMSessionRtcCallRecordContentView : NIMSessionMessageContentView
 
+@property (nonatomic, strong) UIImageView *imageView;
+
 @property (nonatomic, strong) UILabel *textLabel;
 
 @end

@@ -212,6 +212,7 @@
 "操作失败！" = "operated is failed";
 //NTESLoginViewController
 "请输入帐号" = "Please enter your account";
+"请输入手机号" = "Please enter your phone number";
 "请输入密码" = "Please enter your password";
 "完成" = "Finish";
 "查看SDK日志" = "Check SDK logs";

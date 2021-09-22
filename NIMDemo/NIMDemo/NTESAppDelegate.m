@@ -7,6 +7,7 @@
 //
 
 #import "NTESAppDelegate.h"
+#import "NTESSmsLoginViewController.h"
 #import "NTESLoginViewController.h"
 #import "UIView+Toast.h"
 #import "NTESService.h"
@@ -18,6 +19,8 @@
 #import "NTESLoginManager.h"
 #import "NTESCustomAttachmentDecoder.h"
 #import "NTESClientUtil.h"
+#import "NTESNotificationCenter.h"
+#import "NIMKit.h"
 #import "NTESSDKConfigDelegate.h"
 #import "NTESCellLayoutConfig.h"
 #import "NTESSubscribeManager.h"
@@ -29,9 +32,11 @@
 #import "NTESPrivatizationManager.h"
 #import <TZLocationManager.h>
 #import "NTESDbExceptionHandler.h"
+#import "NTESBundleSetting.h"
 #import <SVProgressHUD/SVProgressHUD.h>
+#import "NTESRtcTokenUtils.h"
+#import <NERtcCallKit/NERtcCallKit.h>
 
-@import Firebase;
 @import PushKit;
 
 NSString *NTESNotificationLogout = @"NTESNotificationLogout";
@@ -45,15 +50,16 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [FIRApp configure];
-
+    
     if (@available(iOS 13.0, *)) {
         [[TZLocationManager manager] startLocation];//sdk 获取wifi信息需要使用
     }
     
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-
+    //NERTCSDK
+    [self setupRTCKit];
     [self setupNIMSDK];
+    
     [self setupServices];
     [self setupCrashlytics];
     
@@ -104,6 +110,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     key = [key isEqualToString:@"nil"] ? nil : key;
     [[NIMSDK sharedSDK] updateApnsToken:deviceToken
                        customContentKey:key];
+
     DDLogInfo(@"didRegisterForRemoteNotificationsWithDeviceToken:  %@", deviceToken);
 }
 
@@ -211,17 +218,15 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (void)setupMainViewController
 {
     NTESLoginData *data = [[NTESLoginManager sharedManager] currentLoginData];
+    NSString *account = [data account];
+    NSString *token = [data token];
     
     //如果有缓存用户名密码推荐使用自动登录
-    if ([data isValid])
+    if ([account length] && [token length])
     {
         NIMAutoLoginData *loginData = [[NIMAutoLoginData alloc] init];
-        loginData.account = [data account];
-        loginData.token = [data token];
-        loginData.authType = [data authType];
-        if (loginData.authType == NIMSDKAuthTypeThirdParty) {
-            loginData.loginExtension = [data loginExtension];
-        }
+        loginData.account = account;
+        loginData.token = token;
         
         [[[NIMSDK sharedSDK] loginManager] autoLogin:loginData];
         [[NTESServiceManager sharedManager] start];
@@ -247,7 +252,7 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
 - (void)setupLoginViewController
 {
     [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
-    NTESLoginViewController *loginController = [[NTESLoginViewController alloc] init];
+    NTESSmsLoginViewController *loginController = [[NTESSmsLoginViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginController];
     self.window.rootViewController = nav;
 }
@@ -303,28 +308,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [self showAutoLoginErrorAlert:error];
 }
 
- - (NSString *)provideDynamicTokenForAccount:(NSString *)account {
-     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://imtest.netease.im/nimserver/god/mockDynamicToken.action"]];
-     request.timeoutInterval = 10;
-     [request setHTTPMethod:@"POST"];
-     [request setValue: @"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-     [request setHTTPBody:[[NSString stringWithFormat:@"appkey=%@&accid=%@", @"fe416640c8e8a72734219e1847ad2547", account] dataUsingEncoding:NSUTF8StringEncoding]];
-
-     NSData *responseObject = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-     NSError *error;
-     if (!responseObject) {
-         return @"";
-     }
-
-     NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[responseStr dataUsingEncoding:NSUTF8StringEncoding]
-                                                          options:kNilOptions error:&error];
-     if ([[json valueForKey:@"code"] intValue] != 200) {
-         return @"";
-     }
-
-     return [json valueForKey:@"data"];
- }
 
 #pragma mark - logic impl
 - (void)setupServices
@@ -345,7 +328,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [[NIMSDKConfig sharedConfig] setDelegate:self.sdkConfigDelegate];
     [[NIMSDKConfig sharedConfig] setShouldSyncUnreadCount:YES];
     [[NIMSDKConfig sharedConfig] setShouldSyncStickTopSessionInfos:YES];
-    [[NIMSDKConfig sharedConfig] setShouldConsiderRevokedMessageUnreadCount:YES];
     [[NIMSDKConfig sharedConfig] setMaxAutoLoginRetryTimes:10];
     [[NIMSDKConfig sharedConfig] setMaximumLogDays:[[NTESBundleSetting sharedConfig] maximumLogDays]];
     [[NIMSDKConfig sharedConfig] setShouldCountTeamNotification:[[NTESBundleSetting sharedConfig] countTeamNotification]];
@@ -353,10 +335,6 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     [[NIMSDKConfig sharedConfig] setFetchAttachmentAutomaticallyAfterReceiving:[[NTESBundleSetting sharedConfig] autoFetchAttachment]];
     [[NIMSDKConfig sharedConfig] setFetchAttachmentAutomaticallyAfterReceivingInChatroom:[[NTESBundleSetting sharedConfig] autoFetchAttachment]];
     [[NIMSDKConfig sharedConfig] setAsyncLoadRecentSessionEnabled:[NTESBundleSetting sharedConfig].asyncLoadRecentSessionEnabled];
-    [[NIMSDKConfig sharedConfig] setExceptionOptimizationEnabled:[NTESBundleSetting sharedConfig].exceptionLogUploadEnabled];
-    
-    BOOL disableTraceroute = [[NTESBundleSetting sharedConfig] disableTraceroute];
-    [[NIMSDKConfig sharedConfig] setDisableTraceroute:disableTraceroute];
     
     
     //多端登录时，告知其他端，这个端的登录类型，目前对于android的TV端，手表端使用。
@@ -394,8 +372,21 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
         [NIMSDK sharedSDK].sceneDict = (NSMutableDictionary *)dict;
         NSLog(@"%@, %@", dict, [NIMSDK sharedSDK].sceneDict);
     }
+    
 }
 
+- (void)setupRTCKit {
+    NSString *appKey = [[NTESDemoConfig sharedConfig] appKey];
+    NERtcCallOptions *option = [NERtcCallOptions new];
+    option.APNSCerName = [[NTESDemoConfig sharedConfig] apnsCername];
+    [[NERtcCallKit sharedInstance] setupAppKey:appKey options:option];
+    // 安全模式需要计算token，如果tokenHandler为nil表示非安全模式，需要联系经销商开通
+    NERtcCallKit.sharedInstance.tokenHandler = ^(uint64_t uid, void (^complete)(NSString *token, NSError *error)) {
+        [NTESRtcTokenUtils.sharedInstance requestTokenWithUid:uid appKey:appKey completion:^(NSError * _Nullable error, NSString * _Nullable token) {
+            complete(token, error);
+        }];
+    };
+}
 - (void)setupCrashlytics
 {
     //Fabric 崩溃统计

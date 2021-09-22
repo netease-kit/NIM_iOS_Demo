@@ -26,7 +26,6 @@
 #import "NTESBlackListViewController.h"
 #import "NTESUserUtil.h"
 #import "NTESLogUploader.h"
-#import "NTESNetDetectViewController.h"
 #import "NTESSessionUtil.h"
 #import "JRMFHeader.h"
 #import "NTESMigrateMessageViewController.h"
@@ -186,10 +185,6 @@
                                             CellAction :@"onTouchCustomNotify:",
                                           },
                                         @{
-                                            Title      :@"音视频网络探测".ntes_localized,
-                                            CellAction :@"onTouchNetDetect:",
-                                            },
-                                        @{
                                             Title      :@"本地消息迁移".ntes_localized,
                                             CellAction :@"onTouchMigrateMessages:",
                                             ShowAccessory : @(YES),
@@ -257,7 +252,7 @@
 
 
 - (void)onTouchShowLog:(id)sender{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"查看日志".ntes_localized delegate:nil cancelButtonTitle:@"取消".ntes_localized destructiveButtonTitle:nil otherButtonTitles:@"查看 DEMO 配置".ntes_localized,@"查看 SDK 日志".ntes_localized,@"查看网络通话日志".ntes_localized,@"查看网络探测日志".ntes_localized,@"查看 Demo 日志".ntes_localized, nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"查看日志".ntes_localized delegate:nil cancelButtonTitle:@"取消".ntes_localized destructiveButtonTitle:nil otherButtonTitles:@"查看 DEMO 配置".ntes_localized,@"查看 SDK 日志".ntes_localized,@"查看 Demo 日志".ntes_localized, nil];
     [actionSheet showInView:self.view completionHandler:^(NSInteger index) {
         switch (index) {
             case 0:
@@ -267,12 +262,6 @@
                 [self showSDKLog];
                 break;
             case 2:
-                [self showSDKNetCallLog];
-                break;
-            case 3:
-                [self showSDKNetDetectLog];
-                break;
-            case 4:
                 [self showDemoLog];
                 break;
             default:
@@ -370,14 +359,6 @@
     [self.navigationController pushViewController:about animated:YES];
 }
 
-- (void)onTouchNetDetect:(id)sender {
-    NTESNetDetectViewController *vc = [[NTESNetDetectViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav
-                       animated:YES
-                     completion:nil];
-}
-
 - (void)logoutCurrentAccount:(id)sender{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"退出当前帐号？".ntes_localized message:nil delegate:nil cancelButtonTitle:@"取消".ntes_localized otherButtonTitles:@"确定".ntes_localized, nil];
     [alert showAlertWithCompletionHandler:^(NSInteger alertIndex) {
@@ -427,23 +408,6 @@
                        animated:YES
                      completion:nil];
 }
-
-- (void)showSDKNetCallLog{
-    UIViewController *vc = [[NTESLogManager sharedManager] sdkNetCallLogViewController];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav
-                       animated:YES
-                     completion:nil];
-}
-
-- (void)showSDKNetDetectLog{
-    UIViewController *vc = [[NTESLogManager sharedManager] sdkNetDetectLogViewController];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav
-                       animated:YES
-                     completion:nil];
-}
-
 
 - (void)showDemoLog{
     UIViewController *logViewController = [[NTESLogManager sharedManager] demoLogViewController];

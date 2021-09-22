@@ -181,8 +181,7 @@
     itemTop.switchOn         = self.option.isTop;
     itemTop.rowHeight        = 50.f;
     itemTop.type             = TeamCardRowItemTypeSwitch;
-    itemTop.identify         = NIMTeamCardSwithCellTypeTop;
-
+    
     if (isOwner || isManager) {
         ret = @[
                   @[teamMember],

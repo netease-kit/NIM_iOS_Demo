@@ -23,7 +23,10 @@
     CGFloat msgContentMaxWidth = (msgBubbleMaxWidth - contentRightToBubble - bubbleLeftToContent);
     
     CGSize contentSize = [text boundingRectWithSize:CGSizeMake(msgContentMaxWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: font} context:nil].size;
-    return contentSize;
+    
+    CGSize imageSize = CGSizeMake(contentSize.height, contentSize.height);
+    CGFloat imageMarging = bubbleLeftToContent;
+    return CGSizeMake(contentSize.width+imageSize.width+imageMarging, contentSize.height);
 }
 
 - (NSString *)cellContent:(NIMMessage *)message

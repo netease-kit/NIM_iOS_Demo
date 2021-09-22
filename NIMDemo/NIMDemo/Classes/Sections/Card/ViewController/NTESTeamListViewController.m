@@ -107,23 +107,8 @@
     self.myTeams = [self didFetchTeams];
 }
 
-- (void)handleTeamMemberChanged:(NIMTeam *)team {
-    self.myTeams = [self didFetchTeams];
-}
-
 - (void)onTeamMemberChanged:(NIMTeam *)team {
-    // 忽略，使用onTeamMemberUpdated+onTeamMemberRemoved
-//    [self handleTeamMemberChanged:team];
-}
-
-- (void)onTeamMemberUpdated:(NIMTeam *)team withMembers:(NSArray<NSString *> *)memberIDs
-{
-    [self handleTeamMemberChanged:team];
-}
-
-- (void)onTeamMemberRemoved:(NIMTeam *)team withMembers:(NSArray<NSString *> *)memberIDs
-{
-    [self handleTeamMemberChanged:team];
+    self.myTeams = [self didFetchTeams];
 }
 
 @end

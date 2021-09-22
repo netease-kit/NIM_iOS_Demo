@@ -325,12 +325,6 @@
     return days;
 }
 
-
-- (NIMNetCallVideoCrop)videochatVideoCrop
-{
-    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_video_crop"] integerValue];
-}
-
 - (BOOL)videochatAutoRotateRemoteVideo
 {
     return [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_auto_rotate_remote_video"] boolValue];
@@ -342,43 +336,10 @@
     return (setting == 0) ? UIViewContentModeScaleAspectFill : UIViewContentModeScaleAspectFit;
 }
 
-- (NIMNetCallVideoQuality)preferredVideoQuality
-{
-    NSInteger videoQualitySetting = [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_preferred_video_quality"] integerValue];
-    if ((videoQualitySetting >= NIMNetCallVideoQualityDefault) &&
-        (videoQualitySetting <= NIMNetCallVideoQuality720pLevel)) {
-        return (NIMNetCallVideoQuality)videoQualitySetting;
-    }
-    return NIMNetCallVideoQualityDefault;
-}
-
 
 - (BOOL)startWithBackCamera
 {
     return [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_start_with_back_camera"] boolValue];
-}
-
-- (NIMNetCallVideoCodec)perferredVideoEncoder
-{
-    NSInteger videoEncoderSetting = [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_preferred_video_encoder"] integerValue];
-
-    if ((videoEncoderSetting >= NIMNetCallVideoCodecDefault) &&
-        (videoEncoderSetting <= NIMNetCallVideoCodecHardware)) {
-        return (NIMNetCallVideoCodec)videoEncoderSetting;
-    }
-    return NIMNetCallVideoCodecDefault;
-}
-
-- (NIMNetCallVideoCodec)perferredVideoDecoder
-{
-    NSInteger videoDecoderSetting = [[[NSUserDefaults standardUserDefaults] objectForKey:@"videochat_preferred_video_decoder"] integerValue];
-    
-    if ((videoDecoderSetting >= NIMNetCallVideoCodecDefault) &&
-        (videoDecoderSetting <= NIMNetCallVideoCodecHardware)) {
-        return (NIMNetCallVideoCodec)videoDecoderSetting;
-    }
-    return NIMNetCallVideoCodecDefault;
-
 }
 - (NSUInteger)videoMaxEncodeKbps
 {
@@ -442,18 +403,6 @@
     }
     else {
         return NO;
-    }
-}
-
-- (NIMAVChatScene)scene
-{
-    id setting = [[NSUserDefaults standardUserDefaults] objectForKey:@"avchat_scene"];
-    
-    if (setting) {
-        return [setting unsignedIntegerValue];
-    }
-    else {
-        return NIMAVChatSceneDefault;
     }
 }
 
@@ -572,12 +521,6 @@
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"nim_test_msg_env"];
 }
 
-- (BOOL)disableTraceroute
-{
-    id ret = [[NSUserDefaults standardUserDefaults] objectForKey:@"nim_test_disable_traceroute"];
-    return ret ? [ret boolValue] : NO;
-}
-
 - (NSString *)description
 {
     return [NSString stringWithFormat:
@@ -595,12 +538,8 @@
                 "server_record_audio %d\n" \
                 "server_record_video %d\n" \
                 "server_record_whiteboard_data %d\n" \
-                "videochat_video_crop %zd\n" \
                 "videochat_auto_rotate_remote_video %d \n" \
-                "videochat_preferred_video_quality %zd\n" \
                 "videochat_start_with_back_camera %zd\n" \
-                "videochat_preferred_video_encoder %zd\n" \
-                "videochat_preferred_video_decoder %zd\n" \
                 "videochat_video_encode_max_kbps %zd\n" \
                 "videochat_local_record_video_kbps %zd\n" \
                 "videochat_local_record_video_quality %zd\n" \
@@ -608,7 +547,6 @@
                 "videochat_audio_denoise %zd\n" \
                 "videochat_voice_detect %zd\n" \
                 "videochat_prefer_hd_audio %zd\n"\
-                "avchat_scene %zd\n"\
                 "chatroom_retry_count %zd\n"\
                 "sync_when_remote_fetch_messages %zd\n"\
                 "enable_revoke_count %zd\n"\
@@ -626,12 +564,8 @@
                 [self serverRecordAudio],
                 [self serverRecordVideo],
                 [self serverRecordWhiteboardData],
-                [self videochatVideoCrop],
                 [self videochatAutoRotateRemoteVideo],
-                [self preferredVideoQuality],
                 (NSInteger)[self startWithBackCamera],
-                [self perferredVideoEncoder],
-                [self perferredVideoDecoder],
                 [self videoMaxEncodeKbps],
                 [self localRecordVideoKbps],
                 [self localRecordVideoQuality],
@@ -639,7 +573,6 @@
                 (NSInteger)[self audioDenoise],
                 (NSInteger)[self voiceDetect],
                 (NSInteger)[self preferHDAudio],
-                [self scene],
                 [self chatroomRetryCount],
                 (NSInteger)[self enableSyncWhenFetchRemoteMessages],
                 (NSInteger)[self isIgnoreRevokeMessageCount]

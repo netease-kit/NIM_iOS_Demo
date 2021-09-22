@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, NTESRecentSessionMarkType){
 
 + (NSString *)tipOnMessageRevoked:(NIMRevokeMessageNotification *)notificaton;
 
-+ (NSString *)tipOnMessageRevokedLocal;
++ (NSString *)tipOnMessageRevokedLocal:(NSString *)postscript;
 
 + (void)addRecentSessionMark:(NIMSession *)session type:(NTESRecentSessionMarkType)type;
 

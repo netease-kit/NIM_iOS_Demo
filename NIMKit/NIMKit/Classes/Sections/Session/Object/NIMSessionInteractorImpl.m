@@ -77,7 +77,7 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
     return [self.dataSource items];
 }
 
-- (void)markRead:(BOOL)needMarkDataModel
+- (void)markRead
 {
     if ([self shouldAutoMarkRead])
     {
@@ -87,25 +87,8 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
         {
             [self sendMessageReceipt:self.items];
         }
-        
-        if (needMarkDataModel)
-        {
-            [self markReadInDataModel];
-        }
     }
 }
-
-- (void)markReadInDataModel {
-    for (id model in [self items]) {
-        if ([model isKindOfClass:[NIMMessageModel class]]) {
-            NIMMessageModel *messageModel = (NIMMessageModel *)model;
-            if (messageModel.message.status == NIMMessageStatusNone) {
-                messageModel.message.status = NIMMessageStatusRead;
-            }
-        }
-    }
-}
-
 
 - (void)addMessages:(NSArray *)messages
 {
@@ -781,7 +764,7 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
         if (messages.count)
         {
             [wself checkReceipts:nil];
-            [wself markRead:NO];
+            [wself markRead];
         }
         
         [wself refreshAllChatExtendDatasByMessages:messages];

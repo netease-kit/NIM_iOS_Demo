@@ -82,7 +82,7 @@
 
 - (NSInteger)maxSelectedNum{
     if (self.needMutiSelected) {
-        return self.maxSelectMemberCount? self.maxSelectMemberCount : NSIntegerMax;
+        return self.maxSelectMemberCount;
     }else{
         return 1;
     }

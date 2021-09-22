@@ -26,8 +26,6 @@
 - (instancetype)initWithMember:(NIMTeamMember *)member
                       teamType:(NIMTeamType)teamType;
 
-- (instancetype)initWithUserId:(NSString *)userId
-                      teamType:(NIMTeamType)teamType;
 @end
 
 

@@ -94,19 +94,11 @@
 
 - (NSString *)socksRTSPassword;                       //白板密码
 
-- (NIMNetCallVideoCrop)videochatVideoCrop;          //视频画面裁剪比例
-
 - (BOOL)videochatAutoRotateRemoteVideo;             //自动旋转视频聊天远端画面
 
 - (UIViewContentMode)videochatRemoteVideoContentMode; //对端画面的填充模式
 
-- (NIMNetCallVideoQuality)preferredVideoQuality;    //期望的视频发送清晰度
-
 - (BOOL)startWithBackCamera;                        //使用后置摄像头开始视频通话
-
-- (NIMNetCallVideoCodec)perferredVideoEncoder;      //期望的视频编码器
-
-- (NIMNetCallVideoCodec)perferredVideoDecoder;      //期望的视频解码器
 
 - (NSUInteger)videoMaxEncodeKbps;                   //最大发送视频编码码率
 
@@ -121,8 +113,6 @@
 - (BOOL)voiceDetect;                                //语音检测开关
 
 - (BOOL)preferHDAudio;                              //期望高清语音
-
-- (NIMAVChatScene)scene;                            //音视频场景设置
 
 - (NSInteger)chatroomRetryCount;                    //进聊天室重试次数
 
@@ -161,8 +151,5 @@
 - (BOOL)enableRevokeMsgPostscript;
 
 - (NSString *)messageEnv;  //环境变量，用于指向不同的抄送、第三方回调等配置
-
-/// 禁用 traceroute
-- (BOOL)disableTraceroute;
 
 @end

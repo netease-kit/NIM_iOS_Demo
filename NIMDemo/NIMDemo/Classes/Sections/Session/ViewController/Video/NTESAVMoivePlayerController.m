@@ -8,7 +8,7 @@
 
 #import "NTESAVMoivePlayerController.h"
 #import "NTESAVPlayerView.h"
-
+#import <AVFoundation/AVFoundation.h>
 static NSString *kErrorDomain = @"IJKAVMoviePlayer";
 static const NSInteger kEC_CurrentPlayerItemIsNil   = 5001;
 static const NSInteger kEC_PlayerItemCancelled      = 5002;

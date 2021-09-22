@@ -21,9 +21,6 @@
 #import "NTESSnapchatAttachment.h"
 #import "NTESJanKenPonAttachment.h"
 #import "NTESFileTransSelectViewController.h"
-#import "NTESAudioChatViewController.h"
-#import "NTESWhiteboardViewController.h"
-#import "NTESVideoChatViewController.h"
 #import "NTESChartletAttachment.h"
 #import "NTESGalleryViewController.h"
 #import "NTESVideoViewController.h"
@@ -50,7 +47,6 @@
 #import "NIMLocationViewController.h"
 #import "NIMKitInfoFetchOption.h"
 #import "NTESSubscribeManager.h"
-#import "NTESTeamMeetingViewController.h"
 #import "NTESTeamMeetingCallerInfo.h"
 #import "NIMInputAtCache.h"
 #import "NTESRedPacketManager.h"
@@ -73,6 +69,10 @@
 #import "NTESThreadTalkSessionViewController.h"
 #import "UIView+NIMToast.h"
 #import "NTESWhiteboardAttachment.h"
+#import "NECallViewController.h"
+#import "NTESTimerHolder.h"
+
+#import "NEGroupCallVC.h"
 
 NSString *kNTESDemoRevokeMessageFromMeNotication = @"kNTESDemoRevokeMessageFromMeNotication";
 
@@ -404,39 +404,22 @@ UISearchBarDelegate>
 - (void)onTapMediaItemAudioChat:(NIMMediaItem *)item
 {
     if ([self checkRTSCondition]) {
-        //由于音视频聊天里头有音频和视频聊天界面的切换，直接用present的话页面过渡会不太自然，这里还是用push，然后做出present的效果
-        NTESAudioChatViewController *vc = [[NTESAudioChatViewController alloc] initWithCallee:self.session.sessionId];
-        CATransition *transition = [CATransition animation];
-        transition.duration = 0.25;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
-        transition.type = kCATransitionPush;
-        transition.subtype = kCATransitionFromTop;
-        [self.navigationController.view.layer addAnimation:transition forKey:nil];
-        self.navigationController.navigationBarHidden = YES;
-        [self.navigationController pushViewController:vc animated:NO];
+        NECallViewController *callVC = [[NECallViewController alloc] initWithOtherMember:self.session.sessionId isCalled:NO type:NERtcCallTypeAudio];
+        [self.navigationController presentViewController:callVC animated:YES completion:nil];
     }
 }
-
-
 
 #pragma mark - 视频聊天
 - (void)onTapMediaItemVideoChat:(NIMMediaItem *)item
 {
     if ([self checkRTSCondition]) {
-        //由于音视频聊天里头有音频和视频聊天界面的切换，直接用present的话页面过渡会不太自然，这里还是用push，然后做出present的效果
-        NTESVideoChatViewController *vc = [[NTESVideoChatViewController alloc] initWithCallee:self.session.sessionId];
-        CATransition *transition = [CATransition animation];
-        transition.duration = 0.25;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
-        transition.type = kCATransitionPush;
-        transition.subtype = kCATransitionFromTop;
-        [self.navigationController.view.layer addAnimation:transition forKey:nil];
-        self.navigationController.navigationBarHidden = YES;
-        [self.navigationController pushViewController:vc animated:NO];
+        NECallViewController *callVC = [[NECallViewController alloc] initWithOtherMember:self.session.sessionId isCalled:NO type:NERtcCallTypeVideo];
+        [self.navigationController presentViewController:callVC animated:YES completion:nil];
     }
 }
 
 #pragma mark - 群组会议
+//点击按钮发起多人视频通话
 - (void)onTapMediaItemTeamMeeting:(NIMMediaItem *)item
 {
     if ([self checkRTSCondition])
@@ -472,12 +455,10 @@ UISearchBarDelegate>
         __weak typeof(self) weakSelf = self;
         vc.finshBlock = ^(NSArray * memeber){
             NSString *me = [NIMSDK sharedSDK].loginManager.currentAccount;
-            NTESTeamMeetingCallerInfo *info = [[NTESTeamMeetingCallerInfo alloc] init];
-            info.members = [@[me] arrayByAddingObjectsFromArray:memeber];
-            info.teamId = team.teamId;
-            info.teamType = teamType;
-            NTESTeamMeetingViewController *vc = [[NTESTeamMeetingViewController alloc] initWithCallerInfo:info];
-            [weakSelf presentViewController:vc animated:NO completion:nil];
+            NEGroupCallVC *groupVC = [[NEGroupCallVC alloc] initWithCaller:me otherMembers:memeber isCalled:NO];
+            groupVC.teamId = weakSelf.session.sessionId;
+            groupVC.modalPresentationStyle = UIModalPresentationFullScreen;
+            [weakSelf presentViewController:groupVC animated:NO completion:nil];
         };;
         [vc show];
     }
@@ -564,17 +545,17 @@ UISearchBarDelegate>
 }
 
 #pragma mark - 白板
-- (void)onTapMediaItemWhiteBoard:(NIMMediaItem *)item
-{
-    NTESWhiteboardViewController *vc = [[NTESWhiteboardViewController alloc] initWithSessionID:nil
-                                                                                        peerID:self.session.sessionId
-                                                                                         types:NIMRTSServiceReliableTransfer | NIMRTSServiceAudio
-                                                                                          info:@"白板演示"];
-    if (@available(iOS 13, *)) {
-        vc.modalPresentationStyle = UIModalPresentationFullScreen;
-    }
-    [self presentViewController:vc animated:NO completion:nil];
-}
+//- (void)onTapMediaItemWhiteBoard:(NIMMediaItem *)item
+//{
+//    NTESWhiteboardViewController *vc = [[NTESWhiteboardViewController alloc] initWithSessionID:nil
+//                                                                                        peerID:self.session.sessionId
+//                                                                                         types:NIMRTSServiceReliableTransfer | NIMRTSServiceAudio
+//                                                                                          info:@"白板演示"];
+//    if (@available(iOS 13, *)) {
+//        vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    }
+//    [self presentViewController:vc animated:NO completion:nil];
+//}
 
 
 
@@ -745,7 +726,6 @@ UISearchBarDelegate>
     option.apnsPayload = payload;
     option.shouldBeCounted = ![[NTESBundleSetting sharedConfig] isIgnoreRevokeMessageCount];
     option.postscript = postscript;
-    option.attach = _revokeAttach;
     [[NIMSDK sharedSDK].chatManager revokeMessage:message option:option completion:^(NSError * _Nullable error) {
         if (error) {
             if (error.code == NIMRemoteErrorCodeDomainExpireOld) {
@@ -768,12 +748,10 @@ UISearchBarDelegate>
 
 - (void)onRevokeMessageFromMe:(NSNotification *)note {
     NIMMessage *message = note.userInfo[@"msg"];
+    NSString *postscript = note.userInfo[@"postscript"];
     if (message) {
         NIMMessageModel *model = [self uiDeleteMessage:message];
-        //主动撤回场景下，将之前填充的attach内容再次填充保存
-        NIMMessage *tip = [NTESSessionMsgConverter msgWithTip:[NTESSessionUtil tipOnMessageRevokedLocal]
-                                                 revokeAttach:_revokeAttach
-                                            revokeCallbackExt:nil];
+        NIMMessage *tip = [NTESSessionMsgConverter msgWithTip:[NTESSessionUtil tipOnMessageRevokedLocal:postscript]];
         tip.timestamp = model.messageTime;
         [self uiInsertMessages:@[tip]];
         
@@ -923,7 +901,6 @@ UISearchBarDelegate>
         }
         UIView *sender = event.data;
         self.currentSingleSnapView = [NTESGalleryViewController alertSingleSnapViewWithMessage:object.message baseView:sender];
-        self.isPreviewSnappicture = YES;
         handled = YES;
     }
     else if([eventName isEqualToString:NIMDemoEventNameCloseSnapPicture])
@@ -932,7 +909,7 @@ UISearchBarDelegate>
         NIMCustomObject *object = event.messageModel.message.messageObject;
         UIView *senderView = event.data;
         [senderView dismissPresentedView:YES complete:nil];
-        self.isPreviewSnappicture = NO;
+        
         NTESSnapchatAttachment *attachment = (NTESSnapchatAttachment *)object.attachment;
         if(attachment.isFired){
             return handled;
@@ -1111,6 +1088,15 @@ UISearchBarDelegate>
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)showCall:(NIMMessage *)message {
+    NIMRtcCallRecordObject *record = message.messageObject;
+    NERtcCallType callType = record.callType == NIMRtcCallTypeVideo ? NERtcCallTypeVideo : NERtcCallTypeAudio;
+    NECallViewController *callVC = [[NECallViewController alloc] initWithOtherMember:self.session.sessionId
+                                                                            isCalled:NO
+                                                                                type:callType];
+    [self.navigationController presentViewController:callVC animated:YES completion:nil];
+}
+
 - (void)showCustom:(NIMMessage *)message
 {
    //普通的自定义消息点击事件可以在这里做哦~
@@ -1250,13 +1236,13 @@ UISearchBarDelegate>
 }
 
 - (void)enterSuperTeamCard:(id)sender{
-NIMTeam *team =[[NIMSDK sharedSDK].superTeamManager teamById:self.session.sessionId];
-    NIMTeamCardViewControllerOption *option =[[NIMTeamCardViewControllerOption alloc] init];
-    option.isTop =[NIMSDK.sharedSDK.chatExtendManager stickTopInfoForSession:self.session] != nil;
+    NIMTeam *team = [[NIMSDK sharedSDK].superTeamManager teamById:self.session.sessionId];
+    NIMTeamCardViewControllerOption *option = [[NIMTeamCardViewControllerOption alloc] init];
+    option.isTop = [NIMSDK.sharedSDK.chatExtendManager stickTopInfoForSession:self.session] != nil;
 
-    NIMSuperTeamCardViewController *vc =[[NIMSuperTeamCardViewController alloc] initWithTeam:team session:self.session option:option];
-    vc.delegate = self;
-
+    NIMSuperTeamCardViewController *vc = [[NIMSuperTeamCardViewController alloc] initWithTeam:team
+                                                                                      session:self.session
+                                                                                       option:option];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -1600,6 +1586,7 @@ NIMTeam *team =[[NIMSDK sharedSDK].superTeamManager teamById:self.session.sessio
                     @(NIMMessageTypeVideo) :    @"showVideo:",
                     @(NIMMessageTypeLocation) : @"showLocation:",
                     @(NIMMessageTypeFile)  :    @"showFile:",
+                    @(NIMMessageTypeRtcCallRecord): @"showCall:",
                     @(NIMMessageTypeCustom):    @"showCustom:"};
     });
     return actions;

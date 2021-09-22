@@ -306,7 +306,7 @@
         }
         
         [self uiAddMessages:messages];
-        [self.interactor markRead:NO];
+        [self.interactor markRead];
     }
 }
 
@@ -878,7 +878,7 @@
 #pragma mark - 标记已读
 - (void)markRead
 {
-    [self.interactor markRead:YES];
+    [self.interactor markRead];
 }
 
 

@@ -82,40 +82,52 @@ static NSString * const collectionReadCellReuseId   = @"collectionReadCellReuseI
     [SVProgressHUD show];
     [[NIMSDK sharedSDK].chatManager queryMessageReceiptDetail:self.message completion:^(NSError * _Nullable error, NIMTeamMessageReceiptDetail * _Nullable detail) {
         [SVProgressHUD dismiss];
-        if (error != nil) {
+        if (!error)
+        {
+            for (NSString *userId in detail.readUserIds)
+            {
+                NIMTeamMember *member = [[NIMSDK sharedSDK].teamManager teamMember:userId inTeam:detail.sessionId];
+                if (member)
+                {
+                    NIMTeamCardMemberItem *item = [[NIMTeamCardMemberItem alloc] initWithMember:member
+                                                                                       teamType:NIMTeamTypeAdvanced];
+                    [weakSelf.readMembers addObject:item];
+                }
+                else
+                {
+                    //群成员异常，可能是被踢了
+                    NIMTeamCardMemberItem *item = [[NIMTeamCardMemberItem alloc] initWithMember:member
+                                                                                       teamType:NIMTeamTypeAdvanced];
+                    [weakSelf.readMembers addObject:item];
+                }
+                
+            }
+            for (NSString *userId in detail.unreadUserIds)
+            {
+                NIMTeamMember *member = [[NIMSDK sharedSDK].teamManager teamMember:userId inTeam:detail.sessionId];
+                if (member)
+                {
+                    NIMTeamCardMemberItem *item = [[NIMTeamCardMemberItem alloc] initWithMember:member
+                                                                                       teamType:NIMTeamTypeAdvanced];
+                    [weakSelf.unreadMembers addObject:item];
+                }
+                else
+                {
+                    NIMTeamCardMemberItem *item = [[NIMTeamCardMemberItem alloc] initWithMember:member
+                                                                                       teamType:NIMTeamTypeAdvanced];
+                    [weakSelf.unreadMembers addObject:item];
+                }
+            }
+            [weakSelf.readUsers reloadData];
+            [weakSelf.unreadUsers reloadData];
+            [weakSelf.segmentControl setTitle:[NSString stringWithFormat:@"%@(%zd)",@"未读".ntes_localized, weakSelf.unreadMembers.count] forSegmentAtIndex:0];
+            [weakSelf.segmentControl setTitle:[NSString stringWithFormat:@"%@(%zd)",@"已读".ntes_localized,weakSelf.readMembers.count] forSegmentAtIndex:1];
+        }
+        else
+        {
             [weakSelf.view makeToast:@"请求失败请重试".ntes_localized duration:2.0 position:CSToastPositionCenter];
-            detail = [[NIMSDK sharedSDK].chatManager localMessageReceiptDetail:self.message];
-            NSLog(@"localMessageReceiptDetail，read：%@, unread：%@", detail.readUserIds, detail.unreadUserIds);
         }
-        for (NSString *userId in detail.readUserIds) {
-            NIMTeamMember *member = [[NIMSDK sharedSDK].teamManager teamMember:userId inTeam:detail.sessionId];
-            if (member) {
-                NIMTeamCardMemberItem *item = [[NIMTeamCardMemberItem alloc] initWithMember:member
-                                                                                   teamType:NIMTeamTypeAdvanced];
-                [weakSelf.readMembers addObject:item];
-            } else {
-                //群成员异常，可能是被踢了
-                NIMTeamCardMemberItem *item = [[NIMTeamCardMemberItem alloc] initWithUserId:userId
-                                                                                   teamType:NIMTeamTypeAdvanced];
-                [weakSelf.readMembers addObject:item];
-            }
-        }
-        for (NSString *userId in detail.unreadUserIds) {
-            NIMTeamMember *member = [[NIMSDK sharedSDK].teamManager teamMember:userId inTeam:detail.sessionId];
-            if (member) {
-                NIMTeamCardMemberItem *item = [[NIMTeamCardMemberItem alloc] initWithMember:member
-                                                                                   teamType:NIMTeamTypeAdvanced];
-                [weakSelf.unreadMembers addObject:item];
-            } else {
-                NIMTeamCardMemberItem *item = [[NIMTeamCardMemberItem alloc] initWithUserId:userId
-                                                                                   teamType:NIMTeamTypeAdvanced];
-                [weakSelf.unreadMembers addObject:item];
-            }
-        }
-        [weakSelf.readUsers reloadData];
-        [weakSelf.unreadUsers reloadData];
-        [weakSelf.segmentControl setTitle:[NSString stringWithFormat:@"%@(%zd)", @"未读".ntes_localized, weakSelf.unreadMembers.count] forSegmentAtIndex:0];
-        [weakSelf.segmentControl setTitle:[NSString stringWithFormat:@"%@(%zd)", @"已读".ntes_localized, weakSelf.readMembers.count] forSegmentAtIndex:1];
+        
     }];
 }
 

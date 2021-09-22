@@ -218,22 +218,6 @@
     return message;
 }
 
-+ (NIMMessage *)msgWithTip:(NSString *)tip
-              revokeAttach:(NSString *)revokeAttach
-         revokeCallbackExt:(NSString *)revokeCallbackExt {
-    NIMMessage *message        = [[NIMMessage alloc] init];
-    NIMTipObject *tipObject    = [[NIMTipObject alloc] initWithAttach:revokeAttach
-                                                          callbackExt:revokeCallbackExt];
-    message.messageObject      = tipObject;
-    message.text               = tip;
-    NIMMessageSetting *setting = [[NIMMessageSetting alloc] init];
-    setting.apnsEnabled        = NO;
-    setting.shouldBeCounted    = NO;
-    message.setting            = setting;
-    message.env = [[NTESBundleSetting sharedConfig] messageEnv];
-    return message;
-}
-
 
 + (NIMMessage *)msgWithRedPacket:(NTESRedPacketAttachment *)attachment
 {

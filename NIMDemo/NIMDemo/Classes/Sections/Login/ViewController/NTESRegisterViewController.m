@@ -12,216 +12,176 @@
 #import "UIView+Toast.h"
 #import "UIView+NTES.h"
 #import "SVProgressHUD.h"
+#import "NTESLoginManager.h"
+#import "NTESCountDownManager.h"
+#import "NTESLoginViewController.h"
+#import "NSString+NTES.h"
 
-@interface NTESRegisterViewController ()
+@interface NTESRegisterViewController ()<UITextFieldDelegate>
 
 @end
 
 @implementation NTESRegisterViewController
 
-NTES_USE_CLEAR_BAR
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self resetTextField:self.accountTextfield placeholder:@"帐号：限20位字母或者数字".ntes_localized];
-    [self resetTextField:self.nicknameTextfield placeholder:@"昵称：限10位汉字、字母或者数字".ntes_localized];
-    [self resetTextField:self.passwordTextfield placeholder:@"密码：6~20位字母或者数字".ntes_localized];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    [self setupUI];
+    [self setupNotifications];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self setupNav];
+    [self.navigationController.navigationBar setBackgroundImage:UIImage.new
+                             forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.tintColor = UIColor.whiteColor;
 }
 
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
-- (void)setupNav
-{
-    UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [registerBtn setTitle:@"完成".ntes_localized forState:UIControlStateNormal];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
-    [registerBtn setTitleColor:UIColorFromRGB(0x2294ff) forState:UIControlStateNormal];
-    
-    [registerBtn setBackgroundImage:[UIImage imageNamed:@"login_btn_done_normal"] forState:UIControlStateNormal];
-    [registerBtn setBackgroundImage:[UIImage imageNamed:@"login_btn_done_pressed"] forState:UIControlStateHighlighted];
-    [registerBtn addTarget:self
-                    action:@selector(onRegister:)
-          forControlEvents:UIControlEventTouchUpInside];
-    
-    [registerBtn sizeToFit];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (textField == self.phoneTextField) {
+        return newString.length <= 11;
+    }
+    if (textField == self.nicknameTextField) {
+        return newString.length <= 10;
+    }
+    if (textField == self.authCodeTextField) {
+        return newString.length <= 6;
+    }
+    return NO;
+}
+
+#pragma mark - Actions
+
+- (IBAction)phoneValueChanged:(id)sender {
+    self.authCodeButton.enabled = self.phoneTextField.text.length > 0;
+    self.navigationItem.rightBarButtonItem.enabled = self.phoneTextField.text.length > 0 && self.authCodeTextField.text.length > 0;
+}
+
+- (IBAction)authCodeValueChanged:(id)sender {
+    self.navigationItem.rightBarButtonItem.enabled = self.phoneTextField.text.length > 0 && self.authCodeTextField.text.length > 0;
+}
+
+- (IBAction)authCodeClicked:(id)sender {
+    __weak typeof(self) wself = self;
+    [NTESLoginManager.sharedManager sendSmsCode:self.phoneTextField.text completion:^(NSError *error) {
+        __strong typeof(wself) sself = wself;
+        if (!sself) return;
+        if (error) {
+            [sself.view makeToast:error.localizedDescription];
+            return;
+        }
+        [sself startCountDown];
+    }];
+}
+
+- (void)doneItemClicked:(id)sender {
+    if (self.phoneTextField.text.length < 11) {
+        [self.view makeToast:@"手机号格式错误"];
+        return;
+    }
+    NTESSmsRegisterParams *params = [[NTESSmsRegisterParams alloc] init];
+    params.mobile = self.phoneTextField.text;
+    params.smsCode = self.authCodeTextField.text;
+    params.nickname = self.nicknameTextField.text;
+    __weak typeof(self) wself = self;
+    [NTESLoginManager.sharedManager smsRegister:params completion:^(NTESSmsLoginResult *result, NSError *error) {
+        __strong typeof(wself) sself = wself;
+        if (!sself) return;
+        if (error) {
+            [sself.view makeToast:error.localizedDescription];
+            return;
+        }
+        [NTESCountDownManager.sharedInstance stop];
+        NSString *accid = result.imAccid;
+        NSString *token = result.imToken;
+        // IM Login
+        [NIMSDK.sharedSDK.loginManager login:accid
+                                       token:token
+                                  completion:^(NSError * _Nullable error) {
+            [SVProgressHUD dismiss];
+            if (error) {
+                NSString *toast = [NSString stringWithFormat:@"%@ code: %zd",@"登录失败".ntes_localized, error.code];
+                [self.view makeToast:toast duration:2.0 position:CSToastPositionCenter];
+                return;
+            }
+            [self finishIMLogin:accid token:token];
+        }];
+    }];
+}
+
+- (void)onCountDownNotification:(NSNotification *)notification {
+    NSInteger counter = [notification.userInfo[NTESCountDownCounterUserInfoKey] integerValue];
+    if (counter > 0) {
+        [self.authCodeButton setTitle:[NSString stringWithFormat:@"%lds后可重发",counter] forState:UIControlStateDisabled];
+    } else {
+        self.authCodeButton.enabled = YES;
+    }
+}
+
+#pragma mark - Private
+
+- (void)setupUI {
+    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(doneItemClicked:)];
+    [doneItem setBackgroundImage:[UIImage imageNamed:@"login_btn_done_normal"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [doneItem setTitleTextAttributes:@{
+        NSFontAttributeName: [UIFont systemFontOfSize:15],
+        NSForegroundColorAttributeName: UIColor.systemBlueColor
+    } forState:UIControlStateNormal];
+    [doneItem setTitleTextAttributes:@{
+        NSFontAttributeName: [UIFont systemFontOfSize:15],
+        NSForegroundColorAttributeName: [UIColor.systemBlueColor colorWithAlphaComponent:0.5]
+    } forState:UIControlStateDisabled];
+    [doneItem setTitleTextAttributes:@{
+        NSFontAttributeName: [UIFont systemFontOfSize:15]
+    } forState:UIControlStateHighlighted];
+    doneItem.enabled = NO;
+    self.navigationItem.rightBarButtonItem = doneItem;
     
     UIImage *image = [UIImage imageNamed:@"icon_back_normal.png"];
     [self.navigationController.navigationBar setBackIndicatorImage:image];
     [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:image];
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.navigationController.navigationBar setTintColor:UIColorFromRGB(0xffffff)];
     self.navigationItem.backBarButtonItem = backItem;
-    _containView.backgroundColor = [UIColor clearColor];
-}
-
-- (IBAction)onChanged:(id)sender
-{
-    BOOL enabled = [[_accountTextfield text] length] &&
-    [[_nicknameTextfield text] length] &&
-    [[_passwordTextfield text] length];
-    [self.navigationItem.rightBarButtonItem setEnabled:enabled];
-}
-
-- (void)onRegister:(id)sender
-{
-    NTESRegisterData *data = [[NTESRegisterData alloc] init];
-    data.account = [_accountTextfield text];
-    data.nickname= [_nicknameTextfield text];
-    data.token = [[_passwordTextfield text] tokenByPassword];
-    if (![self check]) {
-        return;
-    }
-    [SVProgressHUD show];
-    __weak typeof(self) weakSelf = self;
     
-    [[NTESDemoService sharedService] registerUser:data
-                                       completion:^(NSError *error, NSString *errorMsg) {
-                                           [SVProgressHUD dismiss];
-                                           if (error == nil) {
-                                               [weakSelf.navigationController.view makeToast:@"注册成功".ntes_localized
-                                                                                    duration:2
-                                                                                    position:CSToastPositionCenter];
-                                               if ([weakSelf.delegate respondsToSelector:@selector(registDidComplete:password:)]) {
-                                                   [weakSelf.delegate registDidComplete:data.account password:[_passwordTextfield text]];
-                                               }
-                                               [weakSelf.navigationController popViewControllerAnimated:YES];
-                                           }
-                                           else
-                                           {
-                                               if ([weakSelf.delegate respondsToSelector:@selector(registDidComplete:password:)]) {
-                                                   [weakSelf.delegate registDidComplete:nil password:nil];
-                                               }
-                                               
-                                               NSString *toast = @"注册失败".ntes_localized;
-                                               if ([errorMsg isKindOfClass:[NSString class]] &&errorMsg.length) {
-                                                   toast = [toast stringByAppendingFormat:@": %@",errorMsg];
-                                               }
-                                               [weakSelf.view makeToast:toast
-                                                               duration:2
-                                                               position:CSToastPositionCenter];
-                                               
-                                           }
-
-                                       }];
-}
-
-
-- (IBAction)exist:(id)sender{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)keyboardWillChangeFrame:(NSNotification *)notification{
-    NSDictionary* userInfo = [notification userInfo];
-    NSTimeInterval animationDuration;
-    UIViewAnimationCurve animationCurve;
-    CGRect keyboardFrame;
-    [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
-    [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
-    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    [UIView setAnimationCurve:animationCurve];
-    CGFloat bottomSpacing = -5.f;
-    UIView *inputView = self.passwordTextfield.superview;
-    if (inputView.bottom + bottomSpacing > CGRectGetMinY(keyboardFrame)) {
-        CGFloat delta;
-        if (UIScreenHeight >= 568) {
-            delta = self.existedButton.bottom + bottomSpacing - CGRectGetMinY(keyboardFrame);
-            self.existedButton.bottom -= delta;
-        }else{
-            delta = inputView.bottom + bottomSpacing - CGRectGetMinY(keyboardFrame);
-        }
-        inputView.bottom -= delta;
+    self.phoneTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.phoneTextField.placeholder attributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
+    self.authCodeTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.authCodeTextField.placeholder attributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
+    self.nicknameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.nicknameTextField.placeholder attributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
+    
+    if (self.phone.length) {
+        self.phoneTextField.text = self.phone;
+        [self.phoneTextField sendActionsForControlEvents:UIControlEventEditingChanged];
     }
-    if (self.logo.bottom > self.navigationController.navigationBar.bottom) {
-        self.logo.bottom = self.navigationController.navigationBar.bottom;
-        self.logo.alpha  = 0;
-        self.navigationItem.title = @"注册".ntes_localized;
-    }
-    [UIView commitAnimations];
     
 }
 
-#pragma mark - UITextFieldDelegate
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if ([string isEqualToString:@"\n"]) {
-        [self onRegister:nil];
-        return NO;
+- (void)setupNotifications {
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(onCountDownNotification:) name:NTESCountDownTickNotification object:nil];
+}
+
+- (void)startCountDown {
+    self.authCodeButton.enabled = NO;
+    if (!NTESCountDownManager.sharedInstance.isCounting) {
+        [NTESCountDownManager.sharedInstance start:60];
     }
-    return YES;
 }
 
-#pragma mark - Private
-- (void)resetTextField:(UITextField *)textField  placeholder:(NSString *)placeholder {
-    textField.tintColor = [UIColor whiteColor];
-    NSDictionary *attrs = @{NSForegroundColorAttributeName: UIColorFromRGBA(0xffffff, .6f)};
-    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attrs];
-    textField.tintColor = [UIColor whiteColor];
-    UIButton *clearButton = [textField valueForKey:@"_clearButton"];
-    [clearButton setImage:[UIImage imageNamed:@"login_icon_clear"] forState:UIControlStateNormal];
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [super touchesBegan:touches withEvent:event];
-    [_accountTextfield resignFirstResponder];
-    [_nicknameTextfield resignFirstResponder];
-    [_passwordTextfield resignFirstResponder];
-}
-
-
-- (BOOL)check{
-    if (!self.checkAccount) {
-        [self.view makeToast:@"账号长度有误".ntes_localized
-                    duration:2
-                    position:CSToastPositionCenter];
-        
-        return NO;
+- (void)finishIMLogin:(NSString *)accid token:(NSString *)token {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(registerDidComplete:password:)]) {
+        [self.delegate registerDidComplete:accid password:token];
     }
-    if (!self.checkPassword) {
-        [self.view makeToast:@"密码长度有误".ntes_localized
-                    duration:2
-                    position:CSToastPositionCenter];
-        
-        return NO;
-    }
-    if (!self.checkNickname) {
-        [self.view makeToast:@"昵称长度有误".ntes_localized
-                    duration:2
-                    position:CSToastPositionCenter];
-        
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)checkAccount{
-    NSString *account = [_accountTextfield text];
-    return account.length > 0 && account.length <= 20;
-}
-
-- (BOOL)checkPassword{
-    NSString *checkPassword = [_passwordTextfield text];
-    return checkPassword.length >= 6 && checkPassword.length <= 20;
-}
-
-- (BOOL)checkNickname{
-    NSString *nickname= [_nicknameTextfield text];
-    return nickname.length > 0 && nickname.length <= 10;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
 }
 
 @end

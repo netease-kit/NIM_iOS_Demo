@@ -134,41 +134,30 @@
 #else
     if (@available(iOS 14, *)) {
         PHAuthorizationStatus rstatus = [PHPhotoLibrary authorizationStatusForAccessLevel:PHAccessLevelReadWrite];
-        switch (rstatus) {
-            case PHAuthorizationStatusNotDetermined:
-            {
-                [PHPhotoLibrary requestAuthorizationForAccessLevel:PHAccessLevelReadWrite handler:^(PHAuthorizationStatus status) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if (status == PHAuthorizationStatusRestricted
-                            || status == PHAuthorizationStatusDenied
-                            || status == PHAuthorizationStatusLimited) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                if(handler) handler(nil);
-                            });
-                        } else if (status == PHAuthorizationStatusAuthorized) {
-                            [weakSelf setupPicker:handler];
-                        }
-                    });
-                }];
-            }
-                break;
-            case PHAuthorizationStatusAuthorized:
-            case PHAuthorizationStatusLimited:
-            {
-                [weakSelf setupPicker:handler];
-            }
-                break;
-                
-            default:
-            {
-                [[[UIAlertView alloc] initWithTitle:nil
-                                            message:@"相册权限受限".nim_localized
-                                           delegate:nil
-                                  cancelButtonTitle:@"确定".nim_localized
-                                  otherButtonTitles:nil] show];
-                if(handler) handler(nil);
-            }
-                break;
+        if (rstatus == PHAuthorizationStatusNotDetermined) {
+            [PHPhotoLibrary requestAuthorizationForAccessLevel:PHAccessLevelReadWrite handler:^(PHAuthorizationStatus status) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (status == PHAuthorizationStatusRestricted
+                        || status == PHAuthorizationStatusDenied
+                        || status == PHAuthorizationStatusLimited) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if(handler) handler(nil);
+                        });
+                        
+                    } else if (status == PHAuthorizationStatusAuthorized) {
+                        [weakSelf setupPicker:handler];
+                    }
+                });
+            }];
+        } else if (rstatus == PHAuthorizationStatusAuthorized){
+            [weakSelf setupPicker:handler];
+        } else {
+            [[[UIAlertView alloc] initWithTitle:nil
+                                        message:@"相册权限受限".nim_localized
+                                       delegate:nil
+                              cancelButtonTitle:@"确定".nim_localized
+                              otherButtonTitles:nil] show];
+            if(handler) handler(nil);
         }
     } else {
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){

@@ -43,10 +43,6 @@
 
 + (NIMMessage *)msgWithTip:(NSString *)tip;
 
-+ (NIMMessage *)msgWithTip:(NSString *)tip
-              revokeAttach:(NSString *)revokeAttach
-         revokeCallbackExt:(NSString *)revokeCallbackExt;
-
 + (NIMMessage *)msgWithRedPacket:(NTESRedPacketAttachment *)attachment;
 
 + (NIMMessage *)msgWithRedPacketTip:(NTESRedPacketTipAttachment *)attachment;

@@ -183,12 +183,6 @@ typedef NS_ENUM(NSInteger,NTESMainTabType) {
     [self refreshSessionBadge];
 }
 
-- (void)onBatchMarkMessagesReadInSessions:(NSArray<NIMSession *> *)sessions
-{
-    self.sessionUnreadCount = [NIMSDK sharedSDK].conversationManager.allUnreadCount;
-    [self refreshSessionBadge];
-}
-
 #pragma mark - NIMSystemNotificationManagerDelegate
 - (void)onSystemNotificationCountChanged:(NSInteger)unreadCount
 {

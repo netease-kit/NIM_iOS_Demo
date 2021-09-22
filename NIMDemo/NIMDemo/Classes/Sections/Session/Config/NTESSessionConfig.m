@@ -63,11 +63,11 @@
                                     selectedImage:[UIImage imageNamed:@"bk_media_snap_pressed"]
                                             title:@"阅后即焚".ntes_localized];
 
-    NIMMediaItem *whiteBoard = [NIMMediaItem item:@"onTapMediaItemWhiteBoard:"
-                                      normalImage:[UIImage imageNamed:@"btn_whiteboard_invite_normal"]
-                                    selectedImage:[UIImage imageNamed:@"btn_whiteboard_invite_pressed"]
-
-                                            title:@"白板".ntes_localized];
+//    NIMMediaItem *whiteBoard = [NIMMediaItem item:@"onTapMediaItemWhiteBoard:"
+//                                      normalImage:[UIImage imageNamed:@"btn_whiteboard_invite_normal"]
+//                                    selectedImage:[UIImage imageNamed:@"btn_whiteboard_invite_pressed"]
+//
+//                                            title:@"白板".ntes_localized];
     //红包功能因合作终止，暂时关闭
 //    NIMMediaItem *redPacket  = [NIMMediaItem item:@"onTapMediaItemRedPacket:"
 //                                      normalImage:[UIImage imageNamed:@"icon_redpacket_normal"]
@@ -95,7 +95,7 @@
     }
     else
     {
-        items = @[janKenPon,audioChat,videoChat,fileTrans,snapChat,whiteBoard,tip];
+        items = @[janKenPon,audioChat,videoChat,fileTrans,snapChat,tip];
     }
     
 

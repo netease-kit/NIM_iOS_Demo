@@ -84,7 +84,7 @@ static const NSInteger kNIMEmoticonsCountInPage = 7;
 {
     [self genMediaButtonsWithMessage:message];
     [self.pageView reloadData];
-    self.hidden = (_mediaButtons.count == 0);
+    self.hidden = NO;
     [self setNeedsLayout];
 }
 

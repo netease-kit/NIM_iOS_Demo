@@ -90,17 +90,6 @@
     return self;
 }
 
-- (instancetype)initWithUserId:(NSString *)userId
-                      teamType:(NIMTeamType)teamType {
-    if (self = [super init]) {
-        _member = nil;
-        _teamType = teamType;
-        _userId = userId;
-        _opeator = CardHeaderOpeatorNone;
-    }
-    return self;
-}
-
 - (NSUInteger)hash {
     return [self.userId hash];
 }

@@ -5,6 +5,14 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
+			<key>File</key>
+			<string>Tester</string>
+			<key>Title</key>
+			<string>测试配置</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>API参数设置</string>
 			<key>Type</key>
@@ -267,14 +275,14 @@
 			<string>PSTextFieldSpecifier</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<false/>
-			<key>Key</key>
-			<string>file_download_token_enabled</string>
-			<key>Title</key>
-			<string>文件下载权限控制开关</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>文件下载权限控制开关</string>
+			<key>Key</key>
+			<string>file_download_token_enabled</string>
+			<key>DefaultValue</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -366,30 +374,6 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<integer>0</integer>
-			<key>Key</key>
-			<string>videochat_video_crop</string>
-			<key>Title</key>
-			<string>发送画面裁剪</string>
-			<key>Titles</key>
-			<array>
-				<string>16:9</string>
-				<string>4:3</string>
-				<string>1:1</string>
-				<string>不裁剪</string>
-			</array>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Values</key>
-			<array>
-				<integer>0</integer>
-				<integer>1</integer>
-				<integer>2</integer>
-				<integer>3</integer>
-			</array>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
 			<string>videochat_auto_rotate_remote_video</string>
@@ -416,36 +400,6 @@
 			<array>
 				<integer>0</integer>
 				<integer>1</integer>
-			</array>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<integer>0</integer>
-			<key>Key</key>
-			<string>videochat_preferred_video_quality</string>
-			<key>Title</key>
-			<string>画面质量</string>
-			<key>Titles</key>
-			<array>
-				<string>默认</string>
-				<string>低</string>
-				<string>中</string>
-				<string>高</string>
-				<string>480P</string>
-				<string>540P</string>
-				<string>720P</string>
-			</array>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Values</key>
-			<array>
-				<integer>0</integer>
-				<integer>1</integer>
-				<integer>2</integer>
-				<integer>3</integer>
-				<integer>4</integer>
-				<integer>5</integer>
-				<integer>6</integer>
 			</array>
 		</dict>
 		<dict>
