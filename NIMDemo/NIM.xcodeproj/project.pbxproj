@@ -46,8 +46,6 @@
 		484782B82452D6E3001B37AF /* NTESMessagePinListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 484782B62452D6E3001B37AF /* NTESMessagePinListViewController.h */; };
 		484782B92452D6E3001B37AF /* NTESMessagePinListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 484782B72452D6E3001B37AF /* NTESMessagePinListViewController.m */; };
 		48775CB226705E400079480F /* NERtcCallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48775CB126705E400079480F /* NERtcCallKit.framework */; };
-		489F53DB2580EEF000A4867A /* NTESRtcTokenUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 489F53D92580EEF000A4867A /* NTESRtcTokenUtils.h */; };
-		489F53DC2580EEF000A4867A /* NTESRtcTokenUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 489F53DA2580EEF000A4867A /* NTESRtcTokenUtils.m */; };
 		48C3204226983299008AF194 /* NTESSmsRegisterParams.h in Headers */ = {isa = PBXBuildFile; fileRef = 48C3204026983299008AF194 /* NTESSmsRegisterParams.h */; };
 		48C3204326983299008AF194 /* NTESSmsRegisterParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C3204126983299008AF194 /* NTESSmsRegisterParams.m */; };
 		48CA7AF4268EB68200E758C8 /* NTESSmsLoginViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 48CA7AF2268EB68200E758C8 /* NTESSmsLoginViewController.h */; };
@@ -447,8 +445,6 @@
 		484782B72452D6E3001B37AF /* NTESMessagePinListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESMessagePinListViewController.m; sourceTree = "<group>"; };
 		4849BDAB262551440026AF64 /* NERtcCallKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NERtcCallKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48775CB126705E400079480F /* NERtcCallKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NERtcCallKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		489F53D92580EEF000A4867A /* NTESRtcTokenUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESRtcTokenUtils.h; sourceTree = "<group>"; };
-		489F53DA2580EEF000A4867A /* NTESRtcTokenUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESRtcTokenUtils.m; sourceTree = "<group>"; };
 		48C3204026983299008AF194 /* NTESSmsRegisterParams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESSmsRegisterParams.h; sourceTree = "<group>"; };
 		48C3204126983299008AF194 /* NTESSmsRegisterParams.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESSmsRegisterParams.m; sourceTree = "<group>"; };
 		48CA7AF2268EB68200E758C8 /* NTESSmsLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESSmsLoginViewController.h; sourceTree = "<group>"; };
@@ -1827,8 +1823,6 @@
 		61E471681B7D96AA00F4A1BF /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				489F53D92580EEF000A4867A /* NTESRtcTokenUtils.h */,
-				489F53DA2580EEF000A4867A /* NTESRtcTokenUtils.m */,
 				879C572E228444DB00F09955 /* NTESDemoConfig.h */,
 				879C572F228444DC00F09955 /* NTESDemoConfig.m */,
 				E48D25C71EBB118500078BCD /* NTESAVNotifier.h */,
@@ -2393,7 +2387,6 @@
 				E6B78EBF23587FA4009CABF6 /* NTESMessageUtil.h in Headers */,
 				E6B78E9B2356EACF009CABF6 /* NTESMessageSerialization.h in Headers */,
 				8709BBD82442FED700FC2EAF /* NTESThreadTalkSessionViewController.h in Headers */,
-				489F53DB2580EEF000A4867A /* NTESRtcTokenUtils.h in Headers */,
 				413057C823BDEBC400DF7940 /* NTESSessionSearchViewController.h in Headers */,
 				C7979FCD25567D6200023D3E /* NEGroupCallView.h in Headers */,
 				415707EE24F7CD240058B5B0 /* NTESNoticationUtil.h in Headers */,
@@ -2809,7 +2802,6 @@
 				87E9754D23A9F29200336165 /* NTESKeyWordMessageCell.m in Sources */,
 				61AEC12A1BD69C6E00B00F02 /* NTESSessionCardViewController.m in Sources */,
 				61AF8CE11C55170900BFC84F /* UIScrollView+NTESDirection.m in Sources */,
-				489F53DC2580EEF000A4867A /* NTESRtcTokenUtils.m in Sources */,
 				61206EE71C1E607B009E4C78 /* NTESChatroomListCell.m in Sources */,
 				61E471191B7D963E00F4A1BF /* NTESContactUtilCell.m in Sources */,
 				61E471661B7D963E00F4A1BF /* NTESSettingPortraitCell.m in Sources */,

@@ -34,7 +34,6 @@
 #import "NTESDbExceptionHandler.h"
 #import "NTESBundleSetting.h"
 #import <SVProgressHUD/SVProgressHUD.h>
-#import "NTESRtcTokenUtils.h"
 #import <NERtcCallKit/NERtcCallKit.h>
 
 @import PushKit;
@@ -381,11 +380,11 @@ NSString *NTESNotificationLogout = @"NTESNotificationLogout";
     option.APNSCerName = [[NTESDemoConfig sharedConfig] apnsCername];
     [[NERtcCallKit sharedInstance] setupAppKey:appKey options:option];
     // 安全模式需要计算token，如果tokenHandler为nil表示非安全模式，需要联系经销商开通
+    /*
     NERtcCallKit.sharedInstance.tokenHandler = ^(uint64_t uid, void (^complete)(NSString *token, NSError *error)) {
-        [NTESRtcTokenUtils.sharedInstance requestTokenWithUid:uid appKey:appKey completion:^(NSError * _Nullable error, NSString * _Nullable token) {
-            complete(token, error);
-        }];
-    };
+     // 获取自己的安全token 传给SDK，体验情况没有自己业务服务器，无法获取token，请在管理后台关闭安全模式
+     // complete("your token",nil);
+    }; */
 }
 - (void)setupCrashlytics
 {
