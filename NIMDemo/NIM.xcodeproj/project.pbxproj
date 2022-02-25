@@ -2479,17 +2479,17 @@
 					A104323220DA42000079CE28 = {
 						CreatedOnToolsVersion = 9.4;
 						DevelopmentTeam = 569GNZ5392;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					A1A95A1520D2BF0500754E64 = {
 						CreatedOnToolsVersion = 9.4;
 						DevelopmentTeam = 569GNZ5392;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					AE5882E41A6F47E10070536A = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = 569GNZ5392;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2607,18 +2607,9 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NIMDemo-NIM/Pods-NIMDemo-NIM-frameworks.sh",
-				"${PODS_ROOT}/NERtcSDK/NERTC/NERtcSDK/NERtcSDK.framework",
-				"${PODS_ROOT}/NERtcSDK/NERTC/NERtcSDK/NMCBasicModuleFramework.framework",
-				"${PODS_ROOT}/NIMSDK_LITE/NIMSDK/NIMSDK.framework",
-				"${PODS_ROOT}/YXAlog_iOS/YXAlog_iOS.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NERtcSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NMCBasicModuleFramework.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NIMSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YXAlog_iOS.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2631,14 +2622,9 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NIMDemo-NIM/Pods-NIMDemo-NIM-resources.sh",
-				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TZImagePickerController.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3120,9 +3106,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 569GNZ5392;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -3130,7 +3116,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.netease.NIM.demo.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3181,9 +3167,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 569GNZ5392;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NotificationScene/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -3191,7 +3177,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.netease.NIM.demo.NotificationScene;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3353,8 +3339,8 @@
 				CODE_SIGN_ENTITLEMENTS = "NIMDemo/Supporting Files/NIMDev.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 569GNZ5392;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3387,7 +3373,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.netease.NIM.demo;
 				PRODUCT_NAME = NIM;
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = nim_demo_dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_WORKSPACE = NO;

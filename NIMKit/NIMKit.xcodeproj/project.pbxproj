@@ -161,13 +161,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6187F91D1B818ED800EFFB3A /* CopyFiles */ = {
+		6187F91D1B818ED800EFFB3A /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -1216,8 +1217,7 @@
 				0819646E044772226819FF81 /* [CP] Check Pods Manifest.lock */,
 				6187F91B1B818ED800EFFB3A /* Sources */,
 				6187F91C1B818ED800EFFB3A /* Frameworks */,
-				6187F91D1B818ED800EFFB3A /* CopyFiles */,
-				55E785DC29FEB2A029579757 /* [CP] Copy Pods Resources */,
+				6187F91D1B818ED800EFFB3A /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -1279,24 +1279,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		55E785DC29FEB2A029579757 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/../NIMDemo/Pods/Target Support Files/Pods-NIMDemo-NIMKit/Pods-NIMDemo-NIMKit-resources.sh",
-				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../NIMDemo/Pods/Target Support Files/Pods-NIMDemo-NIMKit/Pods-NIMDemo-NIMKit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
