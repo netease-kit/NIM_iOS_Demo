@@ -1,6 +1,6 @@
 platform :ios, '10.0'
 workspace 'NIM.xcworkspace'
-
+install! 'cocoapods', :disable_input_output_paths => true
 abstract_target 'NIMDemo' do
 
     pod 'NIMSDK_LITE', '8.4.4'
