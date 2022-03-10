@@ -68,4 +68,5 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-NIMDemo/Podfile.lock
+Podfile.lock
+.DS_Store

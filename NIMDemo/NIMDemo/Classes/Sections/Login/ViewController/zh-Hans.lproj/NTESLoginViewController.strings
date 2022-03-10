@@ -1,9 +1,0 @@
-
-/* Class = "UIButton"; normalTitle = "注册"; ObjectID = "X8W-Sp-ZPP"; */
-"X8W-Sp-ZPP.normalTitle" = "注册";
-
-/* Class = "UITextField"; placeholder = "请输入密码"; ObjectID = "iQ0-Xm-KOT"; */
-"iQ0-Xm-KOT.placeholder" = "请输入密码";
-
-/* Class = "UITextField"; placeholder = "请输入帐号"; ObjectID = "kea-NK-HEP"; */
-"kea-NK-HEP.placeholder" = "请输入帐号";
