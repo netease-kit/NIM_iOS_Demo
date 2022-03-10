@@ -12,8 +12,8 @@ target 'app' do
   pod 'ContactKit'
   pod 'QChatKit'
 
-  pod 'ContactKit-UI', :path => 'contactkit/contactkit-ui/ContactKit-UI.podspec'
-  pod 'QChatKit-UI', :path => 'qChatkit/qChatkit-ui/QChatKit-UI.podspec'
+  pod 'ContactKit-UI', :path => 'ContactKitUI/ContactKit-UI.podspec'
+  pod 'QChatKit-UI', :path => 'QChatKitUI/QChatKit-UI.podspec'
   
 end
 
