@@ -19,14 +19,17 @@ import IQKeyboardManagerSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     public var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-//      Request your app: https://doc.yunxin.163.com/docs/TM5MzM5Njk/Tc0MjYwNDg?platformId=60278
-        assert(AppKey.appKey != "Your app key" , "Please request your app key from website")
+        appkeyTips()
         
         window?.backgroundColor = .white
         setupInit()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshRoot), name: Notification.Name("logout"), object: nil)
         return true
+    }
+    
+    func appkeyTips() {
+//      website: https://doc.yunxin.163.com/docs/TM5MzM5Njk/Tc0MjYwNDg?platformId=60278
+        assert(AppKey.appKey != "Your app key" , "Please request your app key from website")
     }
         
     func setupInit(){
