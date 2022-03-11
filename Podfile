@@ -7,13 +7,14 @@ target 'app' do
   
   pod 'YXLogin', '1.0.0'
   pod 'NIMSDK', '~> 9.0.1'
-  pod 'CoreKit_IM'
-  pod 'NECoreKit'
-  pod 'ContactKit'
-  pod 'QChatKit'
-
-  pod 'ContactKit-UI', :path => 'ContactKitUI/ContactKit-UI.podspec'
-  pod 'QChatKit-UI', :path => 'QChatKitUI/QChatKit-UI.podspec'
+  
+  pod 'NEKitCoreIM'
+  pod 'NEKitCore'
+  pod 'NEKitContact'
+  pod 'NEKitQChat'
+  
+  pod 'NEKitContactUI', :path => 'NEKitContactUI/NEKitContactUI.podspec'
+  pod 'NEKitQChatUI', :path => 'NEKitQChatUI/NEKitQChatUI.podspec'
   
 end
 

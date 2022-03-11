@@ -411,7 +411,7 @@
 				ENABLE_BITCODE = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = app/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "圈组";
+				INFOPLIST_KEY_CFBundleDisplayName = "圈组Demo";
 				INFOPLIST_KEY_NSCameraUsageDescription = "若不允许，你将无法导入照片上传头像。";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "若不允许，你将无法拍摄照片";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -425,7 +425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.netease.yunxin.app.wisdom.education;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -450,7 +450,7 @@
 				ENABLE_BITCODE = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = app/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "圈组";
+				INFOPLIST_KEY_CFBundleDisplayName = "圈组Demo";
 				INFOPLIST_KEY_NSCameraUsageDescription = "若不允许，你将无法导入照片上传头像。";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "若不允许，你将无法拍摄照片";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -464,7 +464,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.netease.yunxin.app.wisdom.education;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = WisdomEducationUniversalDistribution;
