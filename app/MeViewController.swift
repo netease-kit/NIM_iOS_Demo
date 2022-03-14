@@ -7,10 +7,10 @@
 
 import UIKit
 import YXLogin
-import CoreKit
+import NEKitCore
 import NIMSDK
-import CoreKit_IM
-import QChatKit_UI
+import NEKitCoreIM
+import NEKitQChatUI
 import YXLogin
 
 class MeViewController: UIViewController {

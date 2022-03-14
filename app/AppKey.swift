@@ -8,5 +8,7 @@
 import Foundation
 public struct AppKey {
     public static let appKey = "Your app key"
+    
+    
 
 }

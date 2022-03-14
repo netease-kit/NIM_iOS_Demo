@@ -6,12 +6,12 @@
 //
 
 import UIKit
-import ContactKit_UI
+import NEKitContactUI
 import YXLogin
-import CoreKit
+import NEKitCore
 import NIMSDK
-import QChatKit_UI
-import CoreKit_IM
+import NEKitQChatUI
+import NEKitCoreIM
 import IQKeyboardManagerSwift
 
 
@@ -19,10 +19,17 @@ import IQKeyboardManagerSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     public var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        appkeyTips()
+        
         window?.backgroundColor = .white
         setupInit()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshRoot), name: Notification.Name("logout"), object: nil)
         return true
+    }
+    
+    func appkeyTips() {
+//      website: https://doc.yunxin.163.com/docs/TM5MzM5Njk/Tc0MjYwNDg?platformId=60278
+        assert(AppKey.appKey != "Your app key" , "Please request your app key from website")
     }
         
     func setupInit(){
@@ -40,8 +47,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         config.type = .phone
         #if DEBUG
         config.isOnline = false
+        print("debug")
         #else
         config.isOnline = true
+        print("release")
         #endif
         AuthorManager.shareInstance()?.initAuthor(with: config)
         IQKeyboardManager.shared.enable = true
@@ -87,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             weak var weakSelf = self
             CoreKitEngine.instance.login(account, token) { error in
                 if let err = error {
-                    print("corekit login error : ", err)
+                    print("NEKitCore login error : ", err)
                 }else {
                     let param = QChatLoginParam(account,token)
                     CoreKitIMEngine.instance.loginQchat(param) { error, response in
@@ -121,6 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let meVC = MeViewController()
         meVC.view.backgroundColor = UIColor.white
         meVC.tabBarItem = UITabBarItem(title: "我", image: UIImage(named: "person"), selectedImage: UIImage(named: "personSelect")?.withRenderingMode(.alwaysOriginal))
+//        meVC.title = "我"
         let meNav = QChatNavigationController.init(rootViewController: meVC)
 
         // tabbar
@@ -138,5 +148,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
 }
 
