@@ -122,13 +122,11 @@ extension QChatViewController:UITableViewDataSource,UITableViewDelegate {
             cell.delegate = self
             return cell
         }
-
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let messageFrame = viewmodel?.messages[indexPath.row]
         return messageFrame?.cellHeight ?? 0
-        
     }
 }
 
@@ -140,6 +138,20 @@ extension QChatViewController {
         self.addLeftAction(UIImage.ne_imageNamed(name: "server_menu"), #selector(enterServerVC), self)
         self.addRightAction(UIImage.ne_imageNamed(name: "channel_member"), #selector(enterChannelMemberVC), self)
         
+        self.view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor,constant: kNavigationHeight + KStatusBarHeight),
+            tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,constant: -130)
+        ])
+
+        tableView.register(QChatBaseTableViewCell.self, forCellReuseIdentifier: "\(QChatBaseTableViewCell.self)")
+        tableView.register(QChatTextTableViewCell.self, forCellReuseIdentifier: "\(QChatTextTableViewCell.self)")
+        tableView.register(QChatImageTableViewCell.self, forCellReuseIdentifier: "\(QChatImageTableViewCell.self)")
+        tableView.register(QChatTimeTableViewCell.self, forCellReuseIdentifier: "\(QChatTimeTableViewCell.self)")
+        
+//        IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 60
         let inputView = QChatInputView()
         var tip = localizable("send_to")
@@ -151,10 +163,9 @@ extension QChatViewController {
         inputView.translatesAutoresizingMaskIntoConstraints = false
         inputView.delegate = self
         self.view.addSubview(inputView)
-
         if #available(iOS 11.0, *) {
-            self.inputViewBottomConstraint = inputView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
-            self.inputViewBottomConstraint?.isActive = true
+            self.inputViewBottomConstraint = inputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+//            self.inputViewBottomConstraint = inputView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
             NSLayoutConstraint.activate([
                 inputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
                 inputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
@@ -171,18 +182,6 @@ extension QChatViewController {
         }
         self.inputViewBottomConstraint?.isActive = true
         
-        self.view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: self.view.topAnchor,constant: kNavigationHeight + KStatusBarHeight),
-            tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,constant: -130)
-        ])
-
-        tableView.register(QChatBaseTableViewCell.self, forCellReuseIdentifier: "\(QChatBaseTableViewCell.self)")
-        tableView.register(QChatTextTableViewCell.self, forCellReuseIdentifier: "\(QChatTextTableViewCell.self)")
-        tableView.register(QChatImageTableViewCell.self, forCellReuseIdentifier: "\(QChatImageTableViewCell.self)")
-        tableView.register(QChatTimeTableViewCell.self, forCellReuseIdentifier: "\(QChatTimeTableViewCell.self)")
 
         weak var weakSelf = self
         QChatDetectNetworkTool.shareInstance.netWorkReachability() { status in
@@ -206,7 +205,6 @@ extension QChatViewController {
     }
     
     func loadData() {
-        
         weak var weakSelf = self
         viewmodel?.getMessageHistory({ error, messages in
 
@@ -236,6 +234,15 @@ extension QChatViewController {
     func addObseve() {
         NotificationCenter.default.addObserver(self, selector: #selector(onUpdateChannel), name:NotificationName.updateChannel, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onDeleteChannel), name:NotificationName.deleteChannel, object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(keyBoardWillShow(_ :)),
+//                                               name: UIResponder.keyboardWillShowNotification,
+//                                               object: nil)
+//
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(keyBoardWillHide(_ :)),
+//                                               name: UIResponder.keyboardWillHideNotification,
+//                                               object: nil)
     }
     
     @objc func onUpdateChannel(noti: Notification) {
@@ -250,6 +257,24 @@ extension QChatViewController {
     @objc func onDeleteChannel(noti: Notification) {
         self.navigationController?.popToRootViewController(animated: true)
     }
+    
+    
+    //MARK:键盘通知相关操作
+//    @objc func keyBoardWillShow(_ notification:Notification) {
+//        let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+//        self.inputViewBottomConstraint?.constant = -keyboardRect.size.height
+//        UIView.animate(withDuration: 0.25, animations: {
+//            self.view.layoutIfNeeded()
+//        })
+//    }
+//
+//    @objc func keyBoardWillHide(_ notification:Notification) {
+//        self.inputViewBottomConstraint?.constant = 0
+//        UIView.animate(withDuration: 0.25, animations: {
+//            self.view.layoutIfNeeded()
+//        })
+//    }
+
     
 //    MARK:QChatInputViewDelegate
     func sendText(text: String?) {

@@ -26,9 +26,17 @@ public class QChatTableViewController: NEBaseViewController,UITableViewDelegate,
             self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
         ])
         
-        self.topConstraint = self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor)
+        if #available(iOS 11.0, *) {
+            self.topConstraint = self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0)
+            self.bottomConstraint = self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+
+        } else {
+            // Fallback on earlier versions
+            self.topConstraint = self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor)
+            self.bottomConstraint = self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+
+        }
         self.topConstraint?.isActive = true
-        self.bottomConstraint = self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         self.bottomConstraint?.isActive = true
         
         self.tableView.sectionHeaderHeight = 38
