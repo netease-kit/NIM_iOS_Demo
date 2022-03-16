@@ -52,12 +52,22 @@ class MeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(header)
-        NSLayoutConstraint.activate([
-            header.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            header.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            header.widthAnchor.constraint(equalToConstant: 60),
-            header.heightAnchor.constraint(equalToConstant: 60)
-        ])
+        if #available(iOS 11.0, *) {
+            NSLayoutConstraint.activate([
+                header.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+                header.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                header.widthAnchor.constraint(equalToConstant: 60),
+                header.heightAnchor.constraint(equalToConstant: 60)
+            ])
+        } else {
+            // Fallback on earlier versions
+            NSLayoutConstraint.activate([
+                header.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+                header.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
+                header.widthAnchor.constraint(equalToConstant: 60),
+                header.heightAnchor.constraint(equalToConstant: 60)
+            ])
+        }
         header.clipsToBounds = true
         header.layer.cornerRadius = 30
 
@@ -82,8 +92,6 @@ class MeViewController: UIViewController {
         let color = UIColor.colorWithString(string: CoreKitEngine.instance.imAccid)
         header.backgroundColor = color
         
-
-        
         let divider = UIView()
         view.addSubview(divider)
         divider.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +114,7 @@ class MeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.setNavigationBarHidden(true, animated: false)
         super.viewWillAppear(animated)
     }
     
