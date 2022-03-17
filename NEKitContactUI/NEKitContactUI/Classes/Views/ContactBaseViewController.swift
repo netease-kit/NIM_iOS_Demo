@@ -20,7 +20,7 @@ public class ContactBaseViewController: UIViewController {
     
     private func setupBackUI(){
         self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.isTranslucent = false
+//        self.navigationController?.navigationBar.isTranslucent = false
         let backItem = UIBarButtonItem(image: UIImage.ne_imageNamed(name: "backArrow"), style: .plain, target: self, action: #selector(backToPrevious))
         backItem.tintColor = UIColor(hexString: "333333")
         self.navigationItem.leftBarButtonItem = backItem

@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     public var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         appkeyTips()
-        
         window?.backgroundColor = .white
         setupInit()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshRoot), name: Notification.Name("logout"), object: nil)

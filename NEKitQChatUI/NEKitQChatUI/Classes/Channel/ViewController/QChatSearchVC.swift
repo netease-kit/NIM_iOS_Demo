@@ -50,7 +50,7 @@ class QChatSearchVC: NEBaseViewController, UITableViewDelegate, UITableViewDataS
                 self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
                 self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
                 self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-                self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+                self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             ])
         }else {
             NSLayoutConstraint.activate([
