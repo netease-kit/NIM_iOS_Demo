@@ -53,10 +53,6 @@
                                     selectedImage:[UIImage imageNamed:@"btn_bk_media_video_chat_pressed"]
                                             title:@"视频聊天".ntes_localized];
     
-    NIMMediaItem *teamMeeting =  [NIMMediaItem item:@"onTapMediaItemTeamMeeting:"
-                                      normalImage:[UIImage imageNamed:@"btn_media_telphone_message_normal"]
-                                    selectedImage:[UIImage imageNamed:@"btn_media_telphone_message_pressed"]
-                                            title:@"视频通话".ntes_localized];
     
     NIMMediaItem *snapChat =   [NIMMediaItem item:@"onTapMediaItemSnapChat:"
                                       normalImage:[UIImage imageNamed:@"bk_media_snap_normal"]
@@ -91,7 +87,7 @@
     }
     else if(_session.sessionType == NIMSessionTypeTeam || _session.sessionType == NIMSessionTypeSuperTeam)
     {
-        items = @[janKenPon,teamMeeting,fileTrans,tip,teamReceipt];
+        items = @[janKenPon,fileTrans,tip,teamReceipt];
     }
     else
     {
